@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/ButtonStyle"
+        android:text="@string/hard"
+        android:textAppearance="@style/Label.Medium"
+        app:shapeAppearanceOverlay="@style/ButtonCorner"
+        android:backgroundTint="@color/difficulty_button_color"
+        app:strokeWidth="0.5dp"
+        app:strokeColor="@color/shade_quad"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
