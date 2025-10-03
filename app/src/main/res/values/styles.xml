@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ChipCorner">
+        <item name="cornerFamilyTopLeft">cut</item>
+        <item name="cornerFamilyBottomRight">cut</item>
+        <item name="cornerSizeTopLeft">7dp</item>
+        <item name="cornerSizeBottomRight">7dp</item>
+        <item name="cornerSizeTopRight">2dp</item>
+        <item name="cornerSizeBottomLeft">2dp</item>
+    </style>
+
+    <style name="ChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/difficulty_button_color</item>
+        <item name="textAllCaps">false</item>
+        <item name="shapeAppearanceOverlay">@style/ChipCorner</item>
+        <item name="android:textAppearance">@style/Label.Medium</item>
+        <item name="chipStrokeWidth">0.5dp</item>
+        <item name="chipStrokeColor">@color/shade_quad</item>
+        <item name="android:textColor">@color/difficulty_button_text_color</item>
+        <item name="chipMinHeight">37dp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+</resources>
