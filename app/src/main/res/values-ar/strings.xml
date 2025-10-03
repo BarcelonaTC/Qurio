@@ -4,7 +4,7 @@
     <string name="hard">صعب</string>
     <string name="medium">متوسط</string>
     <string name="easy">سهل</string>
-    <string name="welcome_qurio_explorer">Welcome Qurio explorer</string>
+    <string name="welcome_qurio_explorer">مرحبًا أيها المستكشف في Qurio</string>
+    <string name="games">الألعاب</string>
     <string name="rika">Rika</string>
-    <string name="games">Games</string>
 </resources>
