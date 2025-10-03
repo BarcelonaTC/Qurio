@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Qurio</string>
     <string name="hard">صعب</string>
     <string name="medium">متوسط</string>
     <string name="easy">سهل</string>
+    <string name="welcome_qurio_explorer">Welcome Qurio explorer</string>
+    <string name="rika">Rika</string>
+    <string name="games">Games</string>
 </resources>
