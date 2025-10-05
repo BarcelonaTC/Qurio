@@ -11,11 +11,10 @@ import androidx.fragment.app.Fragment
 
 abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
     abstract val layoutIdFragment: Int
-
-
     private lateinit var _binding: B
     protected val binding: B
         get() = _binding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -23,9 +22,13 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
     ): View? {
         _binding = DataBindingUtil.inflate(inflater, layoutIdFragment, container, false)
         _binding.apply {
-            lifecycleOwner = viewLifecycleOwner
             return root
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding.unbind()
     }
 
     protected fun setTitle(visibility: Boolean, title: String? = null) {
@@ -38,10 +41,4 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
             (activity as AppCompatActivity).supportActionBar?.hide()
         }
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding.unbind()
-    }
-
 }
