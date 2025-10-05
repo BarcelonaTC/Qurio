@@ -7,4 +7,13 @@
     <string name="welcome_qurio_explorer">مرحبًا أيها المستكشف في Qurio</string>
     <string name="games">الألعاب</string>
     <string name="rika">Rika</string>
+    <string name="reward">مكافأة</string>
+    <string name="coin_stack_icon">رمز كومة العملات</string>
+    <string name="correct">صحيح</string>
+    <string name="incorrect">غير صحيح</string>
+    <string name="skipped">تم التخطي</string>
+    <string name="blur_background">خلفية ضبابية</string>
+    <string name="ribbon_image">صورة شريطية</string>
+    <string name="great_job">عمل رائع</string>
+    <string name="star_icon">رمز نجمة</string>
 </resources>
