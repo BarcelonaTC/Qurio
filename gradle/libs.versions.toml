@@ -24,8 +24,6 @@ kotlin-serialization="2.2.20"
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 dagger = { module = "com.google.dagger:dagger", version.ref = "daggerAndroid" }
-dagger-android = { module = "com.google.dagger:dagger-android", version.ref = "daggerAndroid" }
-dagger-android-support = { module = "com.google.dagger:dagger-android-support", version.ref = "daggerAndroid" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "daggerAndroid" }
 
 junit = { group = "junit", name = "junit", version.ref = "junit" }
