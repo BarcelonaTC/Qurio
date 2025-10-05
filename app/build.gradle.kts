@@ -1,7 +1,3 @@
-import org.gradle.kotlin.dsl.implementation
-import java.util.Properties
-import kotlin.apply
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -39,7 +35,7 @@ android {
     buildFeatures {
         dataBinding = true
         buildConfig = true
-
+        viewBinding = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
