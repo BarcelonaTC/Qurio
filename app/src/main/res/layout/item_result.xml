@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="reward"
+            type="String" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="328dp"
+            android:layout_height="227dp"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="133dp"
+            android:background="@drawable/result_card_bg">
+
+            <TextView
+                android:id="@+id/reward_tv"
+                style="@style/Title.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="49dp"
+                android:text="@string/reward"
+                android:textColor="@color/shade_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="@id/reward_tv"
+                app:layout_constraintStart_toStartOf="@id/reward_tv"
+                app:layout_constraintTop_toBottomOf="@id/reward_tv">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:contentDescription="@string/coin_stack_icon"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/coinstack" />
+
+                <TextView
+                    style="@style/Title.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/shade_primary"
+                    tools:text="500" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/correct_card"
+                android:layout_width="96dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/count_result_answer_bg"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/incorrect_card"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    style="@style/Body.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/correct"
+                    android:textColor="@color/shade_secondary" />
+
+                <TextView
+                    style="@style/Label.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/shade_primary"
+                    tools:text="10" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/incorrect_card"
+                android:layout_width="96dp"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/count_result_answer_bg"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/skipped_card"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/correct_card"
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    style="@style/Body.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/incorrect"
+                    android:textColor="@color/shade_secondary" />
+
+                <TextView
+                    style="@style/Label.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/shade_primary"
+                    tools:text="2" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/skipped_card"
+                android:layout_width="96dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/count_result_answer_bg"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/incorrect_card"
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    style="@style/Body.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/skipped"
+                    android:textColor="@color/shade_secondary" />
+
+                <TextView
+                    style="@style/Label.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/shade_primary"
+                    tools:text="0" />
+
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="154.54dp"
+            android:layout_marginHorizontal="14dp"
+            android:contentDescription="@string/blur_background"
+            android:scaleType="fitCenter"
+            android:src="@drawable/blur_background" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="109.76dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/ribbon_image"
+                android:src="@drawable/ribbon" />
+
+            <com.barcelona.qurio.customView.OutlineTextView
+                style="@style/HeadLine.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|top"
+                android:layout_marginTop="11.24dp"
+                android:text="@string/great_job"
+                app:outlineWidth="3dp"
+                app:outlineColor="#1980B2"
+                android:textColor="#1980B2" />
+
+
+            <com.barcelona.qurio.customView.OutlineTextView
+                style="@style/HeadLine.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|top"
+                android:layout_marginTop="8.24dp"
+                android:text="@string/great_job"
+                app:outlineColor="#1980B2"
+                app:outlineWidth="3dp"
+                android:textColor="@color/on_primary"
+                />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="73dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="0dp"
+                android:contentDescription="@string/star_icon"
+                android:src="@drawable/star"
+                android:visibility="visible" />
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="8dp"
+                android:contentDescription="@string/star_icon"
+                android:src="@drawable/star"
+                android:visibility="visible" />
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/star_icon"
+                android:src="@drawable/star" />
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+</layout>

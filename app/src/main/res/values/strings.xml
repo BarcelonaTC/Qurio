@@ -6,4 +6,13 @@
     <string name="hard">Hard</string>
     <string name="medium">Medium</string>
     <string name="easy">Easy</string>
+    <string name="reward">reward</string>
+    <string name="coin_stack_icon">Coin Stack Icon</string>
+    <string name="correct">Correct</string>
+    <string name="incorrect">Incorrect</string>
+    <string name="skipped">Skipped</string>
+    <string name="blur_background">blur background</string>
+    <string name="ribbon_image">ribbon image</string>
+    <string name="great_job">Great Job</string>
+    <string name="star_icon">star icon</string>
 </resources>
