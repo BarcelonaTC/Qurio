@@ -1,6 +1,17 @@
+import org.gradle.kotlin.dsl.implementation
+import java.util.Properties
+import kotlin.apply
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias (libs.plugins.kotlin.serialization)
+
+}
+
+val properties = Properties().apply {
+    load(rootProject.file("local.properties").inputStream())
 }
 
 android {
@@ -15,6 +26,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "BASE_URL","\"${properties["BASE_URL"]}\"")
     }
 
     buildTypes {
@@ -28,6 +41,8 @@ android {
     }
     buildFeatures {
         dataBinding = true
+        buildConfig = true
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -48,4 +63,16 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(libs.retrofit)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
+    implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.dagger)
+    kapt(libs.dagger.compiler)
+
+
+
 }
