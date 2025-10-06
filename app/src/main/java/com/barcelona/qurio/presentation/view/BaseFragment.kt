@@ -1,4 +1,4 @@
-package com.barcelona.qurio.view
+package com.barcelona.qurio.presentation.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
