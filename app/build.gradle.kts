@@ -10,9 +10,7 @@ plugins {
 
 }
 
-val properties = Properties().apply {
-    load(rootProject.file("local.properties").inputStream())
-}
+val BASE_URL: String by project
 
 android {
     namespace = "com.barcelona.qurio"
@@ -27,7 +25,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "BASE_URL","\"${properties["BASE_URL"]}\"")
+        buildConfigField("String", "BASE_URL","\"${BASE_URL}\"")
     }
 
     buildTypes {
