@@ -7,7 +7,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
     alias (libs.plugins.kotlin.serialization)
-
 }
 
 val BASE_URL: String by project
@@ -70,7 +69,5 @@ dependencies {
 
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
-
-
-
+    api(libs.carbon)
 }
