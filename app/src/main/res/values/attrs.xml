@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="StatisticsCustomCardView">
+        <!-- Fill color -->
+        <attr name="fillColor" format="color" />
+        <!-- Stroke (border) color -->
+        <attr name="strokeColor" format="color" />
+        <!-- Stroke width -->
+        <attr name="strokeWidth" format="dimension" />
+        <!-- SVG path resource (string resource name) -->
+        <attr name="pathData" format="string|reference" />
+    </declare-styleable>
+</resources>

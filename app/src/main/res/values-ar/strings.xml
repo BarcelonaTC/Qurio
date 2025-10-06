@@ -7,4 +7,6 @@
     <string name="welcome_qurio_explorer">مرحبًا أيها المستكشف في Qurio</string>
     <string name="games">الألعاب</string>
     <string name="rika">Rika</string>
+    <string name="lives">حياة</string>
+
 </resources>
