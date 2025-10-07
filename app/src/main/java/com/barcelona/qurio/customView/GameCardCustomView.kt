@@ -1,7 +1,13 @@
 package com.barcelona.qurio.customView
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.BitmapShader
+import android.graphics.Canvas
+import android.graphics.Matrix
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.Shader
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
@@ -26,10 +32,10 @@ class GameCardCustomView(
 
     private val matrix = Matrix()
 
-    fun setCardBorderWidth(dp: Float) {
+    fun setCardBorderWidth(px: Float) {
         val strokeWidth = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
-            dp,
+            px,
             resources.displayMetrics
         )
         strokePaint.strokeWidth = strokeWidth
@@ -37,11 +43,9 @@ class GameCardCustomView(
     }
 
     fun setCardSrc(imageResId: Int) {
-        if (imageResId != 0) {
-            setImageDrawable(imageResId)
-            setupShader()
-            invalidate()
-        }
+        setImageDrawable(imageResId)
+        setupShader()
+        invalidate()
     }
 
     fun setCardBottomGradientDrawable(drawable: Drawable?) {
