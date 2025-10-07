@@ -8,5 +8,6 @@
     <string name="games">الألعاب</string>
     <string name="rika">Rika</string>
     <string name="lives">حياة</string>
-
+    <string name="points">نقاط</string>
+    <string name="awards">جوائز</string>
 </resources>

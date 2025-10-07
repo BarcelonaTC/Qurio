@@ -8,4 +8,5 @@
     <string name="easy">Easy</string>
     <string name="lives">lives</string>
     <string name="points">points</string>
+    <string name="awards">awards</string>
 </resources>
