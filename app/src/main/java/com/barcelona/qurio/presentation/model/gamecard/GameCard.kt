@@ -1,4 +1,4 @@
-package com.barcelona.qurio.domain.entity
+package com.barcelona.qurio.presentation.model.gamecard
 
 data class GameCard(
     val cardImage:Int,

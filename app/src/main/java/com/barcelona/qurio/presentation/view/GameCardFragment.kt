@@ -6,6 +6,7 @@ import android.view.View
 import com.barcelona.qurio.R
 import com.barcelona.qurio.data.dto.GameCardList
 import com.barcelona.qurio.databinding.FragmentGameCardBinding
+import com.barcelona.qurio.presentation.adapter.gamecardAdapter.GameCardAdapter
 
 class GameCardFragment() : BaseFragment<FragmentGameCardBinding>() {
 

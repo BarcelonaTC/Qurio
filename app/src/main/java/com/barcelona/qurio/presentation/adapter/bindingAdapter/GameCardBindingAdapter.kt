@@ -3,7 +3,7 @@ package com.barcelona.qurio.view
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.barcelona.qurio.customView.GameCardCustomView
-import com.barcelona.qurio.domain.entity.GameCard
+import com.barcelona.qurio.presentation.model.gamecard.GameCard
 
 @BindingAdapter("app:bindCardData")
 fun bindGameCardData(view: GameCardCustomView, data: GameCard) {

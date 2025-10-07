@@ -5,7 +5,7 @@
     <data>
         <variable
             name="gameCardData"
-            type="com.barcelona.qurio.domain.entity.GameCard" />
+            type="com.barcelona.qurio.presentation.model.gamecard.GameCard" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

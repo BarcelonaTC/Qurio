@@ -1,7 +1,7 @@
 package com.barcelona.qurio.data.dto
 
 import com.barcelona.qurio.R
-import com.barcelona.qurio.domain.entity.GameCard
+import com.barcelona.qurio.presentation.model.gamecard.GameCard
 
 val GameCardList = listOf(
     GameCard(

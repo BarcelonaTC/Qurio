@@ -1,10 +1,10 @@
-package com.barcelona.qurio.view
+package com.barcelona.qurio.presentation.adapter.gamecardAdapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.barcelona.qurio.databinding.GameCardItemBinding
-import com.barcelona.qurio.domain.entity.GameCard
+import com.barcelona.qurio.presentation.model.gamecard.GameCard
 
 class GameCardAdapter(private val gameCard: List<GameCard>): RecyclerView.Adapter<GameCardAdapter.GameCardViewHolder>(){
 
