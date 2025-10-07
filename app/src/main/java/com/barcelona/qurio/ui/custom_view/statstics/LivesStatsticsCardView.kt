@@ -63,8 +63,8 @@ class StatisticsCustomCardView @JvmOverloads constructor(
         strokePaint.color = strokeColor
         strokePaint.strokeWidth = strokeWidthPx
 
-        if (!pathData.isNullOrEmpty()) {
-            svgPath = PathParser.createPathFromPathData(pathData)
+        pathData?.takeIf { it.isNotEmpty() }?.let { data ->
+            svgPath = PathParser.createPathFromPathData(data)
         }
     }
 
