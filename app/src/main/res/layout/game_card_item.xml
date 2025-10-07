@@ -24,15 +24,15 @@
             <com.barcelona.qurio.customView.GameCardCustomView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cardBorderWidth="5dp"
                 app:bindCardData="@{gameCardData}"
-                app:cardScaleType="centerCrop" />
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{gameCardData.cardTitle}"
                 android:layout_gravity="center|bottom"
+                android:textAlignment="center"
                 android:layout_marginBottom="44dp"
                 style="@style/Title.Small"
                 android:textColor="@color/on_primary" />

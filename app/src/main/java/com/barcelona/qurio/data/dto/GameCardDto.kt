@@ -24,7 +24,7 @@ val GameCardList = listOf(
     ),
     GameCard(
         cardImage = R.drawable.general_knowledge,
-        cardTitle = "General Knowledge",
+        cardTitle = "General \nKnowledge",
         cardBorderColor = R.color.orange,
         cardBottomGradient = R.drawable.general_knowledge_history_culture_gamecard_gradient
     ),

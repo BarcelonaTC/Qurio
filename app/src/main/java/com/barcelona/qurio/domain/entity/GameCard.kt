@@ -5,4 +5,5 @@ data class GameCard(
     val cardTitle: String,
     val cardBorderColor: Int,
     val cardBottomGradient: Int,
+    val cardBorderWidth :Int = 5
 )
