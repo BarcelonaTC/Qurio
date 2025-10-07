@@ -1,13 +1,8 @@
-import org.gradle.kotlin.dsl.implementation
-import java.util.Properties
-import kotlin.apply
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
     alias (libs.plugins.kotlin.serialization)
-
 }
 
 val BASE_URL: String by project
@@ -40,7 +35,7 @@ android {
     buildFeatures {
         dataBinding = true
         buildConfig = true
-
+        viewBinding = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -70,7 +65,5 @@ dependencies {
 
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
-
-
-
+    api(libs.carbon)
 }

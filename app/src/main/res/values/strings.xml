@@ -15,4 +15,8 @@
     <string name="ribbon_image">ribbon image</string>
     <string name="great_job">Great Job</string>
     <string name="star_icon">star icon</string>
+    <string name="streak_icon">Streak Icon</string>
+    <string name="every_day_count">Every day count!</string>
+    <string name="_0_day_streak_start_make_a_series">0 day streak, start make a series</string>
+    <string name="blur_image">blur image</string>
 </resources>
