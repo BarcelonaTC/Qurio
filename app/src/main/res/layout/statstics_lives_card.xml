@@ -13,12 +13,12 @@
         android:layout_height="match_parent"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="-3dp"
-        app:fillColor="@color/statics_card_color"
+        app:fillColor="@color/surface_high"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:pathData="@string/statics_lives_card_path"
-        app:strokeColor="@color/shade_primary"
+        app:strokeColor="@color/shade_quad"
         app:strokeWidth="1dp" />
 
     <ImageView
