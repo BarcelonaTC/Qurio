@@ -24,7 +24,7 @@
             <com.barcelona.qurio.customView.GameCardCustomView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cardBorderWidth="3dp"
+                app:cardBorderWidth="5dp"
                 app:bindCardData="@{gameCardData}"
                 app:cardScaleType="centerCrop" />
 
