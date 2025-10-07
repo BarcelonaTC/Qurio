@@ -16,4 +16,8 @@
     <string name="ribbon_image">صورة شريطية</string>
     <string name="great_job">عمل رائع</string>
     <string name="star_icon">رمز نجمة</string>
+    <string name="streak_icon">ايكون الستريك</string>
+    <string name="every_day_count">كل يوم يتم حسابة</string>
+    <string name="_0_day_streak_start_make_a_series">الستريك الخاصة بك 0، هيا بنا لنبدء بسلسله إنجازات</string>
+    <string name="blur_image">ظل مشوش</string>
 </resources>
