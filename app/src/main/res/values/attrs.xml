@@ -4,4 +4,8 @@
         <attr name="outlineColor" format="color" />
         <attr name="outlineWidth" format="dimension" />
     </declare-styleable>
+    <declare-styleable name="CustomTimeComponent">
+        <attr name="progress" format="float" />
+        <attr name="centerText" format="string" />
+    </declare-styleable>
 </resources>
