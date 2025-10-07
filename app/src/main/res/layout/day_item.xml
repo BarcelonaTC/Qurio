@@ -1,0 +1,50 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="day"
+            type="com.barcelona.qurio.presentation.model.streak.DayStreak" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingHorizontal="2dp">
+
+        <carbon.widget.FrameLayout
+            android:id="@+id/dayCircle"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginBottom="2dp"
+            android:layout_gravity="center"
+            android:background="@color/surface"
+            app:achieved="@{day.achieved}"
+            app:carbon_cornerRadius="500dp">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/streak_icon"
+                android:src="@drawable/img_streak"
+                android:visibility="@{day.achieved ? View.VISIBLE : View.GONE}" />
+        </carbon.widget.FrameLayout>
+
+
+        <TextView
+            style="@style/Label.XSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{day.label}"
+            android:textColor="@color/shade_tertiary"
+            android:textSize="12sp"
+            tools:text="S" />
+    </LinearLayout>
+</layout>
