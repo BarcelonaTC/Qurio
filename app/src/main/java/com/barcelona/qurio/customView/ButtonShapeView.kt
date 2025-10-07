@@ -11,7 +11,7 @@ import android.util.AttributeSet
 import android.view.View
 import com.barcelona.qurio.R
 
-class PlayButtonView @JvmOverloads constructor(
+class ButtonShapeView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyle: Int = 0
 ) : View(context, attrs, defStyle) {
 
