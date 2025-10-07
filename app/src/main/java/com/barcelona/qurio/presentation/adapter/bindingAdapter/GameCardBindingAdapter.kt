@@ -1,4 +1,4 @@
-package com.barcelona.qurio.view
+package com.barcelona.qurio.presentation.adapter.bindingAdapter
 
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter

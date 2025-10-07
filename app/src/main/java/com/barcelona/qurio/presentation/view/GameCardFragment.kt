@@ -1,7 +1,6 @@
-package com.barcelona.qurio.view
+package com.barcelona.qurio.presentation.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.barcelona.qurio.R
 import com.barcelona.qurio.data.dto.GameCardList
