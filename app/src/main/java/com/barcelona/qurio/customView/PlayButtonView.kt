@@ -11,9 +11,6 @@ import android.util.AttributeSet
 import android.view.View
 import com.barcelona.qurio.R
 
-
-
-
 class PlayButtonView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyle: Int = 0
 ) : View(context, attrs, defStyle) {
@@ -42,13 +39,10 @@ class PlayButtonView @JvmOverloads constructor(
     }
 
     private fun buildPath(w: Int, h: Int) {
-        val rectWidthRatio = 106f / 168f
-        val triangleWidthRatio = 31f / 168f
 
         val totalWidth = w.toFloat()
         val rectWidth = totalWidth * rectWidthRatio
         val triWidth = totalWidth * triangleWidthRatio
-
         val leftRectStart = triWidth
         val rightRectEnd = leftRectStart + rectWidth
 
@@ -89,6 +83,14 @@ class PlayButtonView @JvmOverloads constructor(
         super.onDraw(canvas)
         canvas.drawPath(bgPath, fillPaint)
         canvas.drawPath(bgPath, mainGradientPaint)
+
+        drawLeftTriangle(canvas)
+        drawRightTriangle(canvas)
+
+        canvas.drawPath(bgPath, borderPaint)
+    }
+
+    private fun drawLeftTriangle(canvas: Canvas) {
         val leftTriangle = Path().apply {
             moveTo(0f, height / 2f)
             lineTo(width * (31f / 168f), 0f)
@@ -96,6 +98,9 @@ class PlayButtonView @JvmOverloads constructor(
             close()
         }
         canvas.drawPath(leftTriangle, leftTriangleGradient)
+    }
+
+    private fun drawRightTriangle(canvas: Canvas) {
         val rightTriangle = Path().apply {
             moveTo(width.toFloat(), height / 2f)
             lineTo(width * (137f / 168f), 0f)
@@ -103,6 +108,10 @@ class PlayButtonView @JvmOverloads constructor(
             close()
         }
         canvas.drawPath(rightTriangle, rightTriangleGradient)
-        canvas.drawPath(bgPath, borderPaint)
+    }
+
+    private companion object {
+        const val rectWidthRatio = 0.631f
+        const val triangleWidthRatio = 0.185f
     }
 }
