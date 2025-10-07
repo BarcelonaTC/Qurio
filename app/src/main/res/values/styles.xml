@@ -21,4 +21,9 @@
         <item name="android:textAlignment">center</item>
     </style>
 
+    <style name="TextButton">
+        <item name="android:textAppearance">@style/Label.Medium</item>
+        <item name="android:textColor">@color/text_button_color</item>
+    </style>
+
 </resources>
