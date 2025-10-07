@@ -1,5 +1,6 @@
 [versions]
 agp = "8.11.2"
+carbon = "0.17.0"
 coreSplashscreen = "1.0.0"
 daggerAndroid = "2.57.2"
 kotlin = "2.2.20"
@@ -23,6 +24,7 @@ kotlin-serialization="2.2.20"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
+carbon = { module = "tk.zielony:carbon", version.ref = "carbon" }
 dagger = { module = "com.google.dagger:dagger", version.ref = "daggerAndroid" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "daggerAndroid" }
 
