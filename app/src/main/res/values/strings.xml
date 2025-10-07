@@ -7,4 +7,5 @@
     <string name="medium">Medium</string>
     <string name="easy">Easy</string>
     <string name="lives">lives</string>
+    <string name="points">points</string>
 </resources>

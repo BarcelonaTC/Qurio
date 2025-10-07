@@ -2,14 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="99dp"
-    android:layout_height="50dp"
+    android:layout_width="144dp"
+    android:layout_height="66dp"
     android:layoutDirection="ltr"
     >
 
     <com.barcelona.qurio.ui.custom_view.statstics.StatisticsCustomCardView
         android:id="@+id/statisticsCustomCardView"
-        android:layout_width="96dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="-3dp"
@@ -17,19 +17,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:pathData="@string/statics_lives_card_path"
+        app:pathData="@string/statstics_point_card_path"
         app:strokeColor="@color/shade_primary"
         app:strokeWidth="1dp" />
-
-    <ImageView
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_marginStart="-3dp"
-        android:layout_marginTop="2dp"
-        android:src="@drawable/statstics_add_btn"
-        app:layout_constraintStart_toStartOf="@+id/statisticsCustomCardView"
-        app:layout_constraintTop_toTopOf="@+id/statisticsCustomCardView" />
-
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -43,14 +33,14 @@
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/statstics_heart"
+            android:src="@drawable/coins"
             android:layout_marginEnd="4dp"
             />
         <TextView
             android:id="@+id/lives_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4"
+            android:text="5,400"
             android:textSize="14sp"
             android:fontFamily="@font/fredoka_one_regular"
             android:textColor="@color/shade_primary"
@@ -62,10 +52,10 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="37dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="17dp"
         android:fontFamily="@font/fredoka_regular"
-        android:text="@string/lives"
+        android:text="@string/points"
         android:textColor="@color/shade_tertiary"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
