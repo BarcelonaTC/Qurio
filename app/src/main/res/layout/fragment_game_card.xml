@@ -7,24 +7,30 @@
 
     </data>
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/game_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/surface"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true"
         tools:context=".presentation.view.GameCardFragment">
+
+        <include android:id="@+id/app_bar"
+            layout="@layout/general_top_bar" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:spanCount="2"
-            android:layout_marginTop="16dp"
+            android:paddingTop="24dp"
+            android:clipToPadding="false"
             android:layout_marginHorizontal="16dp"
             android:layout_gravity="center"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             tools:listitem="@layout/game_card_item" />
 
-    </FrameLayout>
+    </LinearLayout>
 </layout>
