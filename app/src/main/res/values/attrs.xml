@@ -13,4 +13,8 @@
     <declare-styleable name="PrimaryButton">
         <attr name="primaryButtonEnabled" format="boolean" />
     </declare-styleable>
+    <declare-styleable name="CustomTimeComponent">
+        <attr name="progress" format="float" />
+        <attr name="centerText" format="string" />
+    </declare-styleable>
 </resources>
