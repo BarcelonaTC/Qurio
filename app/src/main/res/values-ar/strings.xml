@@ -20,4 +20,6 @@
     <string name="every_day_count">كل يوم يتم حسابة</string>
     <string name="_0_day_streak_start_make_a_series">الستريك الخاصة بك 0، هيا بنا لنبدء بسلسله إنجازات</string>
     <string name="blur_image">ظل مشوش</string>
+    <string name="play_now">العب الان</string>
+    <string name="submit">ارسال</string>
 </resources>

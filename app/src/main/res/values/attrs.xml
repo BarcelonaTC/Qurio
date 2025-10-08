@@ -4,6 +4,15 @@
         <attr name="outlineColor" format="color" />
         <attr name="outlineWidth" format="dimension" />
     </declare-styleable>
+    <declare-styleable name="TextButton">
+        <attr name="textButtonEnabled" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="SecondaryButton">
+        <attr name="secondaryButtonEnabled" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="PrimaryButton">
+        <attr name="primaryButtonEnabled" format="boolean" />
+    </declare-styleable>
     <declare-styleable name="CustomTimeComponent">
         <attr name="progress" format="float" />
         <attr name="centerText" format="string" />
