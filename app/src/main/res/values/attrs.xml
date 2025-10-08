@@ -10,4 +10,7 @@
     <declare-styleable name="SecondaryButton">
         <attr name="secondaryButtonEnabled" format="boolean" />
     </declare-styleable>
+    <declare-styleable name="PrimaryButton">
+        <attr name="primaryButtonEnabled" format="boolean" />
+    </declare-styleable>
 </resources>
