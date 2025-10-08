@@ -31,5 +31,6 @@
     <color name="disable">#2A2A2A</color>
     <color name="green">#739E61</color>
     <color name="red">#E12F32</color>
+    <color name="light_gray">#49494980</color>
 
 </resources>
