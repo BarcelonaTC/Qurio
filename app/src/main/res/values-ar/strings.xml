@@ -23,4 +23,6 @@
     <string name="lives">حياة</string>
     <string name="points">نقاط</string>
     <string name="awards">جوائز</string>
+    <string name="play_now">العب الان</string>
+    <string name="submit">ارسال</string>
 </resources>
