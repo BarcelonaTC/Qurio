@@ -25,5 +25,9 @@
         <item name="android:textAppearance">@style/Label.Medium</item>
         <item name="android:textColor">@color/text_button_color</item>
     </style>
+    <style name="PrimaryButtonText">
+        <item name="android:textAppearance">@style/Label.Medium</item>
+        <item name="android:textColor">@color/primary_button_text_color</item>
+    </style>
 
 </resources>
