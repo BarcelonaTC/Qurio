@@ -21,4 +21,7 @@
     <string name="blur_image">blur image</string>
     <string name="play_now">PLAY NOW</string>
     <string name="submit">Submit</string>
+    <string name="lives">lives</string>
+    <string name="points">points</string>
+    <string name="awards">awards</string>
 </resources>
