@@ -6,4 +6,22 @@
     <string name="hard">Hard</string>
     <string name="medium">Medium</string>
     <string name="easy">Easy</string>
+    <string name="reward">reward</string>
+    <string name="coin_stack_icon">Coin Stack Icon</string>
+    <string name="correct">Correct</string>
+    <string name="incorrect">Incorrect</string>
+    <string name="skipped">Skipped</string>
+    <string name="blur_background">blur background</string>
+    <string name="ribbon_image">ribbon image</string>
+    <string name="great_job">Great Job</string>
+    <string name="star_icon">star icon</string>
+    <string name="streak_icon">Streak Icon</string>
+    <string name="every_day_count">Every day count!</string>
+    <string name="_0_day_streak_start_make_a_series">0 day streak, start make a series</string>
+    <string name="blur_image">blur image</string>
+    <string name="play_now">PLAY NOW</string>
+    <string name="submit">Submit</string>
+    <string name="lives">lives</string>
+    <string name="points">points</string>
+    <string name="awards">awards</string>
 </resources>

@@ -1,7 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias (libs.plugins.kotlin.serialization)
 }
+
+val BASE_URL: String by project
 
 android {
     namespace = "com.barcelona.qurio"
@@ -15,8 +19,14 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
 
+        buildConfigField("String", "BASE_URL","\"${BASE_URL}\"")
+    }
+    sourceSets {
+        getByName("main") {
+            res.srcDirs("src/main/res", "src/main/res/components")
+        }
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -28,6 +38,8 @@ android {
     }
     buildFeatures {
         dataBinding = true
+        buildConfig = true
+        viewBinding = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -48,4 +60,14 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(libs.retrofit)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
+    implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.dagger)
+    kapt(libs.dagger.compiler)
+    api(libs.carbon)
 }

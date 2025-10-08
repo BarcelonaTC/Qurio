@@ -21,6 +21,21 @@
         <item name="android:textAlignment">center</item>
     </style>
 
+    <style name="TextButton">
+        <item name="android:textAppearance">@style/Label.Medium</item>
+        <item name="android:textColor">@color/text_button_color</item>
+    </style>
+    <style name="PrimaryButtonText">
+        <item name="android:textAppearance">@style/Label.Medium</item>
+        <item name="android:textColor">@color/primary_button_text_color</item>
+    </style>
+
+    <style name="QuestionCardStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="android:foreground">@drawable/question_card</item>
+        <item name="cardElevation">0dp</item>
+    </style>
     <style name="ShapeAppearance.App.CharacterCard" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopRight">12dp</item>
