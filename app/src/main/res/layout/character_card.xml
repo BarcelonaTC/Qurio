@@ -64,7 +64,7 @@
             android:paddingHorizontal="5dp"
             android:paddingTop="9dp"
             android:scaleType="centerCrop"
-            tools:src="@drawable/rika_card_locked"
+            tools:src="@drawable/sample_card_locked"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
