@@ -27,11 +27,10 @@
         android:layout_marginEnd="8dp"
         android:elevation="1dp"
         android:scaleType="fitCenter"
-        android:src=""
         app:layout_constraintBottom_toBottomOf="@id/card_question_card_back"
         app:layout_constraintEnd_toEndOf="@id/card_question_card_back"
         app:layout_constraintStart_toStartOf="@id/card_question_card_back"
-        app:layout_constraintTop_toTopOf="@id/hexa"
+        app:layout_constraintTop_toTopOf="@id/qes_image"
         tools:src="@drawable/planet_dessert" />
 
     <TextView
@@ -50,7 +49,7 @@
         tools:text="The image caption" />
 
     <ImageView
-        android:id="@+id/hexa"
+        android:id="@+id/qes_image"
         android:layout_width="145dp"
         android:layout_height="40dp"
         android:layout_marginTop="-16dp"
@@ -70,9 +69,9 @@
         android:elevation="1dp"
         android:text=""
         android:textColor="@color/shade_primary"
-        app:layout_constraintEnd_toEndOf="@id/hexa"
-        app:layout_constraintStart_toStartOf="@id/hexa"
-        app:layout_constraintTop_toTopOf="@id/hexa"
+        app:layout_constraintEnd_toEndOf="@id/qes_image"
+        app:layout_constraintStart_toStartOf="@id/qes_image"
+        app:layout_constraintTop_toTopOf="@id/qes_image"
         tools:text="Q 1/12" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

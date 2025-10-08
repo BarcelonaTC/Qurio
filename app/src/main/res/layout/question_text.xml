@@ -38,7 +38,7 @@
         tools:text="Which of the following best explains how a country's physical geography can influence its level of economic development?" />
 
     <ImageView
-        android:id="@+id/hexa"
+        android:id="@+id/qes_image"
         android:layout_width="145dp"
         android:layout_height="40dp"
         android:layout_marginTop="-16dp"
@@ -57,9 +57,9 @@
         android:elevation="1dp"
         android:text=""
         android:textColor="@color/shade_primary"
-        app:layout_constraintEnd_toEndOf="@id/hexa"
-        app:layout_constraintStart_toStartOf="@id/hexa"
-        app:layout_constraintTop_toTopOf="@id/hexa"
+        app:layout_constraintEnd_toEndOf="@id/qes_image"
+        app:layout_constraintStart_toStartOf="@id/qes_image"
+        app:layout_constraintTop_toTopOf="@id/qes_image"
         tools:text="Q 1/12" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
