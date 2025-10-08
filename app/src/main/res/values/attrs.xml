@@ -4,4 +4,10 @@
         <attr name="outlineColor" format="color" />
         <attr name="outlineWidth" format="dimension" />
     </declare-styleable>
+    <declare-styleable name="TextButton">
+        <attr name="textButtonEnabled" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="SecondaryButton">
+        <attr name="secondaryButtonEnabled" format="boolean" />
+    </declare-styleable>
 </resources>
