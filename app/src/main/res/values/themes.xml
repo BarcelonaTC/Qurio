@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.Qurio" parent="carbon_Theme.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -13,4 +13,10 @@
         <item name="postSplashScreenTheme">@style/Theme.Qurio</item>
     </style>
 
+    <style name="QuestionCardStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="android:foreground">@drawable/question_card</item>
+        <item name="cardElevation">0dp</item>
+    </style>
 </resources>
