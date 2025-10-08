@@ -47,9 +47,7 @@
         app:layout_constraintBottom_toBottomOf="@id/card_question_card_back"
         app:layout_constraintEnd_toEndOf="@id/question_image"
         app:layout_constraintStart_toStartOf="@id/question_image"
-        tools:text="The image caption"
-
-        />
+        tools:text="The image caption" />
 
     <ImageView
         android:id="@+id/hexa"
