@@ -5,7 +5,7 @@
     <data>
         <variable
             name="gameCardData"
-            type="com.barcelona.qurio.presentation.model.gamecard.GameCard" />
+            type="com.barcelona.qurio.presentation.model.gamecard.GameCardModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,7 @@
             android:layout_height="225dp"
             >
 
-            <com.barcelona.qurio.customView.GameCardCustomView
+            <com.barcelona.qurio.customView.GameCard
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:bindCardData="@{gameCardData}"
@@ -30,7 +30,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{gameCardData.cardTitle}"
+                android:text="@{gameCardData.title}"
                 android:layout_gravity="center|bottom"
                 android:textAlignment="center"
                 android:layout_marginBottom="44dp"

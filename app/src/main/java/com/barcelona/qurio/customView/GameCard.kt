@@ -17,7 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.createBitmap
 import kotlin.math.max
 
-class GameCardCustomView(
+class GameCard(
     context: Context,
     attrs: AttributeSet
 ) : View(context, attrs) {

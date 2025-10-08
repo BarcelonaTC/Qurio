@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.barcelona.qurio.databinding.GameCardItemBinding
-import com.barcelona.qurio.presentation.model.gamecard.GameCard
+import com.barcelona.qurio.presentation.model.gamecard.GameCardModel
 
-class GameCardAdapter(private val gameCard: List<GameCard>): RecyclerView.Adapter<GameCardAdapter.GameCardViewHolder>(){
+class GameCardsAdapter(private val gameCard: List<GameCardModel>): RecyclerView.Adapter<GameCardsAdapter.GameCardViewHolder>(){
 
     class GameCardViewHolder(val view: GameCardItemBinding): RecyclerView.ViewHolder(view.root) {
-        fun bind(gameCard: GameCard){
+        fun bind(gameCard: GameCardModel){
             view.gameCardData = gameCard
             view.executePendingBindings()
         }
