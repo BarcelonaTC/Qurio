@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+ <!--
+  change the visibilities for controlling in character locking
+  the visibility components :
+  1 - open_character
+  2 - image_locked_character_container
+  3 - lock_icon
+  4 - character_salary
+ -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/open_character"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="visible"
+        >
+
+        <ImageView
+            android:id="@+id/image_character"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:contentDescription="character image"
+            tools:src="@drawable/rika"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/icon_correct"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="2dp"
+            android:contentDescription="correct icon"
+            android:src="@drawable/ic_correct"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/image_character" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/image_locked_character_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="visible"
+        >
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_locked_character"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:paddingHorizontal="5dp"
+            android:paddingTop="9dp"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/rika_card_locked"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CharacterCard" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="34dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/light_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CharacterCard" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/lock_icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginHorizontal="5dp"
+        android:contentDescription="locked icon"
+        android:src="@drawable/ic_lock"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="visible"
+        />
+
+    <LinearLayout
+        android:id="@+id/character_salary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="visible"
+        >
+
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:contentDescription="coin icon"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_coin_stack"
+            android:layout_gravity="center"
+        />
+        <TextView
+            style="@style/Label.Small"
+            tools:text="300"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/shade_primary"
+            />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
