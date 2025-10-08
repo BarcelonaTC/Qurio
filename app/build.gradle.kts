@@ -22,7 +22,11 @@ android {
 
         buildConfigField("String", "BASE_URL","\"${BASE_URL}\"")
     }
-
+    sourceSets {
+        getByName("main") {
+            res.srcDirs("src/main/res", "src/main/res/components")
+        }
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
