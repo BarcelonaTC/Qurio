@@ -25,7 +25,7 @@ class OnboardingAdapter(private val pages: List<OnboardingPage>) :
         holder.bind(pages[position])
     }
 
-    class OnboardingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class OnboardingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val image = view.findViewById<ImageView>(R.id.onboarding_image)
         private val title = view.findViewById<TextView>(R.id.onboarding_title)
         private val description = view.findViewById<TextView>(R.id.onboarding_description)

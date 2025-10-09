@@ -32,4 +32,8 @@
     <string name="check_your_internet">Oops! It looks like you’re offline. Please\ncheck your internet connection to continue\nplaying</string>
     <string name="retry">Retry</string>
     <string name="loading_game">Loading Game</string>
+    <string name="challenge_and_win">Challenge and win</string>
+    <string name="answer_quickly_earn_points_and_share_with_your_friends">Answer quickly, earn points, and share with your friends! Each trivia category is a new experience.</string>
+    <string name="collect_them_all">Collect them all!</string>
+    <string name="unlock_characters_earn_badges_and_climb_the_leaderboards_qurio_is_fascinating_but_you_can_handle_it">Unlock characters, earn badges, and climb the leaderboards. Qurio is merciless, but you can handle it.</string>
 </resources>

@@ -23,6 +23,7 @@ class OnBoardingFragment() : BaseFragment<FragmentOnboardingBinding>() {
         setupSwipeUpGesture(binding.swipeImage) {
             binding.viewPager.currentItem = binding.viewPager.currentItem + 1
         }
+        binding.viewPager.isUserInputEnabled = false
         binding.viewPager.adapter = adapter
     }
 }
