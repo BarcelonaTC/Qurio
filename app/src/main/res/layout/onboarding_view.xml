@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/onboarding_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/surface"
+    android:fitsSystemWindows="true">
+
+
+    <com.barcelona.qurio.customView.OutlineTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-20dp"
+        android:fontFamily="@font/fredoka_one_regular"
+        android:gravity="center"
+        android:scaleX="1.1"
+        android:text="@string/welcome_to_qurio"
+        android:textColor="@color/transparent"
+        android:textSize="44sp"
+        app:layout_constraintBottom_toTopOf="@id/welcome_section"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:outlineColor="#1AFFFFFF"
+        app:outlineWidth="1dp" />
+
+    <LinearLayout
+        android:id="@+id/welcome_section"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="35dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        app:layout_constraintBottom_toTopOf="@id/image_in_middle"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            style="@style/Title.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_to_qurio"
+            android:textColor="@color/shade_primary" />
+
+        <TextView
+            style="@style/Body.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/welcome_to_the_world_of_qurio_where_questions_spark_curiosity_and_prizes_await_the_smartest_ready_to_begin_the_challenge"
+            android:textAlignment="center"
+            android:textColor="@color/shade_secondary" />
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/image_in_middle"
+        android:layout_width="150dp"
+        android:layout_height="204dp"
+        android:contentDescription="@string/brain_image"
+        android:src="@drawable/brain_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/onboarding_forward"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_arrow_left" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/onboarding_backward"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_arrow_right" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="56dp"
+        android:layout_height="132dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/swipe_up_shape"
+        app:layout_constraintBottom_toTopOf="@id/swipe_up_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/arrow1"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_arrow_up" />
+
+            <ImageView
+                android:id="@+id/arrow2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_arrow_up" />
+
+            <ImageView
+                android:id="@+id/arrow3"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_arrow_up" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/swipe_image"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="bottom|center"
+            android:src="@drawable/swipe_up_image" />
+    </FrameLayout>
+
+    <com.barcelona.qurio.customView.OutlineTextView
+        android:id="@+id/swipe_up_hint"
+        style="@style/Label.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:shadowColor="#1FFFFFFF"
+        android:shadowDy="8"
+        android:text="@string/swipe_up_to_play"
+        app:gradientEndColor="#30ABE8"
+        app:gradientStartColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

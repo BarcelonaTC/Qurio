@@ -19,4 +19,8 @@
     <string name="every_day_count">Every day count!</string>
     <string name="_0_day_streak_start_make_a_series">0 day streak, start make a series</string>
     <string name="blur_image">blur image</string>
+    <string name="welcome_to_the_world_of_qurio_where_questions_spark_curiosity_and_prizes_await_the_smartest_ready_to_begin_the_challenge">Welcome to the world of Qurio, where questions spark curiosity and prizes await the smartest. Ready to begin the challenge?</string>
+    <string name="welcome_to_qurio">Welcome to Qurio</string>
+    <string name="brain_image">Brain Image</string>
+    <string name="swipe_up_to_play">Swipe up to PLAY!</string>
 </resources>

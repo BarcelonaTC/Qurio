@@ -1,11 +1,18 @@
 package com.barcelona.qurio
 
+import android.graphics.LinearGradient
+import android.graphics.Shader
 import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.toColorInt
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
+import com.barcelona.qurio.presentation.animation.setupSwipeUpGesture
+import com.barcelona.qurio.presentation.animation.swipeUpAnimation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -16,7 +23,12 @@ class MainActivity : AppCompatActivity() {
         val splashScreen = installSplashScreen()
         splashScreen.setKeepOnScreenCondition { keepSplash }
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.onboarding_view)
+        swipeUpAnimation(findViewById(R.id.onboarding_view))
+        setupSwipeUpGesture(findViewById(R.id.onboarding_view)){
+            finish()
+        }
+
         splashAnimation(splashScreen)
         lifecycleScope.launch {
             delay(2000)
