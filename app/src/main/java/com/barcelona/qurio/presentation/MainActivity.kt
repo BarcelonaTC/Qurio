@@ -1,4 +1,4 @@
-package com.barcelona.qurio
+package com.barcelona.qurio.presentation
 
 import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
