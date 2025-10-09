@@ -1,4 +1,4 @@
-package com.barcelona.qurio.data.dto
+package com.barcelona.qurio.model.dto
 
 import com.barcelona.qurio.R
 import com.barcelona.qurio.presentation.model.gamecard.GameCardModel

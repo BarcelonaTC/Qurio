@@ -6,8 +6,7 @@
     android:layout_height="66dp"
     android:layoutDirection="ltr"
     >
-
-    <com.barcelona.qurio.customView.StatisticsCustomCardView
+    <com.barcelona.qurio.presentation.custom_view.StatisticsCustomCardView
         android:id="@+id/statisticsCustomCardView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

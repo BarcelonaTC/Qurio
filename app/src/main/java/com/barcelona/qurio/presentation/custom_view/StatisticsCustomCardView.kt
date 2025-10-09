@@ -1,6 +1,7 @@
-package com.barcelona.qurio.customView
+package com.barcelona.qurio.presentation.custom_view
 
 import android.content.Context
+import android.content.res.TypedArray
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
@@ -38,7 +39,7 @@ class StatisticsCustomCardView @JvmOverloads constructor(
         }
     }
 
-    private fun resolvePathData(context: Context, resId: Int, typedArray: android.content.res.TypedArray) =
+    private fun resolvePathData(context: Context, resId: Int, typedArray: TypedArray) =
         if (resId != 0) context.getString(resId)
         else typedArray.getString(R.styleable.StatisticsCustomCardView_pathData)
 

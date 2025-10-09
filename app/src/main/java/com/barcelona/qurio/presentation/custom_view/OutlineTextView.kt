@@ -1,4 +1,4 @@
-package com.barcelona.qurio.customView
+package com.barcelona.qurio.presentation.custom_view
 
 import android.annotation.SuppressLint
 import android.content.Context

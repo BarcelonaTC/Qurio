@@ -43,7 +43,7 @@
             android:text="@string/check_your_internet"
             android:textColor="@color/shade_secondary" />
 
-        <com.barcelona.qurio.customView.PrimaryButton
+        <com.barcelona.qurio.presentation.custom_view.PrimaryButton
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
