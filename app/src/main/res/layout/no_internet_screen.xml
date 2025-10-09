@@ -45,8 +45,8 @@
 
         <com.barcelona.qurio.customView.PrimaryButton
             android:layout_width="200dp"
-            android:text="@string/retry"
+            android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:layout_height="wrap_content" />
+            android:text="@string/retry" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
