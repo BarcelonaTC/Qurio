@@ -47,6 +47,6 @@
 
     <color name="statics_card_color">#0B0F14</color>
     <color name="statics_card_stroke_color">#0AFFFFFF</color>
-    <color name="light_gray">#49494980</color>
+    <color name="light_gray">#80494949</color>
 
 </resources>
