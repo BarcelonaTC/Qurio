@@ -1,7 +1,7 @@
 package com.barcelona.qurio.di
 
 import com.barcelona.qurio.BuildConfig
-import com.barcelona.qurio.data.api.TriviaApiService
+import com.barcelona.qurio.model.api.TriviaApiService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
