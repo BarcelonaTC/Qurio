@@ -3,7 +3,7 @@ package com.barcelona.qurio.presentation.fragment
 import android.os.Bundle
 import android.view.View
 import com.barcelona.qurio.R
-import com.barcelona.qurio.TriviaApp
+import com.barcelona.qurio.QurioApp
 import com.barcelona.qurio.base.BaseFragment
 import com.barcelona.qurio.databinding.FragmentStartPlayBinding
 import com.barcelona.qurio.model.dto.TriviaQuestionDto
@@ -19,7 +19,7 @@ class StartPlayFragment() : BaseFragment<FragmentStartPlayBinding>(), StartPlayV
     lateinit var startPlayPresenter: StartPlayPresenter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        (requireActivity().application as TriviaApp).appComponent.inject(this)
+        (requireActivity().application as QurioApp).appComponent.inject(this)
         super.onViewCreated(view, savedInstanceState)
         startPlayPresenter.attachView(this)
         startPlayPresenter.getQuestions()
