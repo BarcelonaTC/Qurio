@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.Qurio" parent="carbon_Theme.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -12,5 +12,4 @@
         <item name="android:windowBackground">@color/surface</item>
         <item name="postSplashScreenTheme">@style/Theme.Qurio</item>
     </style>
-
 </resources>

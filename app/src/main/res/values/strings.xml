@@ -23,4 +23,13 @@
     <string name="welcome_to_qurio">Welcome to Qurio</string>
     <string name="brain_image">Brain Image</string>
     <string name="swipe_up_to_play">Swipe up to PLAY!</string>
+    <string name="play_now">PLAY NOW</string>
+    <string name="submit">Submit</string>
+    <string name="lives">lives</string>
+    <string name="points">points</string>
+    <string name="awards">awards</string>
+    <string name="no_connection">No Connection</string>
+    <string name="check_your_internet">Oops! It looks like you’re offline. Please\ncheck your internet connection to continue\nplaying</string>
+    <string name="retry">Retry</string>
+    <string name="loading_game">Loading Game</string>
 </resources>

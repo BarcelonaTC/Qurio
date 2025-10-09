@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="144dp"
+    android:layout_height="66dp"
+    android:layoutDirection="ltr"
+    >
+
+    <com.barcelona.qurio.customView.StatisticsCustomCardView
+        android:id="@+id/statisticsCustomCardView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="-3dp"
+        app:fillColor="@color/surface_high"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:pathData="@string/statstics_point_card_path"
+        app:strokeColor="@color/shade_quad"
+        app:strokeWidth="1dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/statisticsCustomCardView">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/coins"
+            android:layout_marginEnd="4dp"
+            />
+        <TextView
+            android:id="@+id/points_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5,400"
+            android:textSize="14sp"
+            android:fontFamily="@font/fredoka_one_regular"
+            android:textColor="@color/shade_primary"
+            />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="17dp"
+        android:fontFamily="@font/fredoka_regular"
+        android:text="@string/points"
+        android:textColor="@color/shade_tertiary"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/statisticsCustomCardView" />
+
+    <View
+        android:layout_width="48dp"
+        android:layout_height="2dp"
+        android:background="@drawable/base_statstics_bar"
+        app:layout_constraintBottom_toBottomOf="@+id/statisticsCustomCardView"
+        app:layout_constraintEnd_toEndOf="@+id/statisticsCustomCardView"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

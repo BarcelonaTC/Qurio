@@ -12,4 +12,28 @@
         <attr name="shadowDx" format="dimension" />
         <attr name="shadowDy" format="dimension" />
     </declare-styleable>
+    <declare-styleable name="TextButton">
+        <attr name="textButtonEnabled" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="SecondaryButton">
+        <attr name="secondaryButtonEnabled" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="PrimaryButton">
+        <attr name="primaryButtonEnabled" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="CustomTimeComponent">
+        <attr name="progress" format="float" />
+        <attr name="centerText" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="StatisticsCustomCardView">
+        <!-- Fill color -->
+        <attr name="fillColor" format="color" />
+        <!-- Stroke (border) color -->
+        <attr name="strokeColor" format="color" />
+        <!-- Stroke width -->
+        <attr name="strokeWidth" format="dimension" />
+        <!-- SVG path resource (string resource name) -->
+        <attr name="pathData" format="string|reference" />
+    </declare-styleable>
 </resources>

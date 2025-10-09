@@ -35,4 +35,17 @@
 
     <color name="transparent">#00FFFFFF</color>
 
+    <!-- gradient color -->
+    <color name="orange0">#00DB6842</color>
+    <color name="orange80">#CCDB6842</color>
+    <color name="primary0">#0031ABE8</color>
+    <color name="primary80">#CC31ABE8 </color>
+    <color name="green0">#009E6100</color>
+    <color name="green80">#CC739E60</color>
+    <color name="secondary0">#00993297</color>
+    <color name="secondary80">#CC993297</color>
+
+    <color name="statics_card_color">#0B0F14</color>
+    <color name="statics_card_stroke_color">#0AFFFFFF</color>
+
 </resources>

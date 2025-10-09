@@ -22,7 +22,11 @@ android {
 
         buildConfigField("String", "BASE_URL","\"${BASE_URL}\"")
     }
-
+    sourceSets {
+        getByName("main") {
+            res.srcDirs("src/main/res", "src/main/res/components")
+        }
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -56,7 +60,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
+    implementation(libs.lottie)
     implementation(libs.retrofit)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
