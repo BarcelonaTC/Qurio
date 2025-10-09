@@ -1,9 +1,10 @@
-package com.barcelona.qurio.presentation.view
+package com.barcelona.qurio.presentation.fragment
 
 import android.os.Bundle
 import android.view.View
 import com.barcelona.qurio.R
-import com.barcelona.qurio.data.dto.GameCardList
+import com.barcelona.qurio.base.BaseFragment
+import com.barcelona.qurio.model.dto.GameCardList
 import com.barcelona.qurio.databinding.FragmentGameBinding
 import com.barcelona.qurio.presentation.adapter.gamecardAdapter.GameCardsAdapter
 

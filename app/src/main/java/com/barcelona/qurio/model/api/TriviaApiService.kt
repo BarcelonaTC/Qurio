@@ -1,6 +1,6 @@
-package com.barcelona.qurio.data.api
+package com.barcelona.qurio.model.api
 
-import com.barcelona.qurio.data.dto.TriviaResponse
+import com.barcelona.qurio.model.dto.TriviaResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

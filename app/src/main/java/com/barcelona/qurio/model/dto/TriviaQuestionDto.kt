@@ -1,4 +1,4 @@
-package com.barcelona.qurio.data.dto
+package com.barcelona.qurio.model.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
