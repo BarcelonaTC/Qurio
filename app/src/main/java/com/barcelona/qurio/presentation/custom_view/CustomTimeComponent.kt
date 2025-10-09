@@ -1,4 +1,4 @@
-package com.barcelona.qurio.customView
+package com.barcelona.qurio.presentation.custom_view
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -31,7 +31,7 @@ class CustomTimeComponent @JvmOverloads constructor(
         color = Color.WHITE
         textAlign = Paint.Align.CENTER
         textSize = 36f
-        typeface = ResourcesCompat.getFont(context, R.font.fredoka_one_regular)
+       typeface = ResourcesCompat.getFont(context, R.font.fredoka_one_regular)
     }
 
     private var progress = 0.6f

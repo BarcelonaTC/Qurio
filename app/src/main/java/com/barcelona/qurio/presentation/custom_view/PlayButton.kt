@@ -1,4 +1,4 @@
-package com.barcelona.qurio.customView
+package com.barcelona.qurio.presentation.custom_view
 
 import android.content.Context
 import android.util.AttributeSet

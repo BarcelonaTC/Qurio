@@ -1,10 +1,10 @@
-package com.barcelona.qurio.data.dto
+package com.barcelona.qurio.model.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class GameDto(
+data class TriviaQuestionDto(
 
 	@SerialName("difficulty")
 	val difficulty: String? = null,

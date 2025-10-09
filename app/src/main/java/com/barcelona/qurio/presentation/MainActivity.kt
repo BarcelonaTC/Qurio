@@ -1,4 +1,4 @@
-package com.barcelona.qurio
+package com.barcelona.qurio.presentation
 
 import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
+import com.barcelona.qurio.R
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

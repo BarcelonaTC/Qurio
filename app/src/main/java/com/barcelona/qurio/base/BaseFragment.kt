@@ -1,4 +1,4 @@
-package com.barcelona.qurio.presentation.view
+package com.barcelona.qurio.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,9 +21,7 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = DataBindingUtil.inflate(inflater, layoutIdFragment, container, false)
-        _binding.apply {
-            return root
-        }
+        return _binding.root
     }
 
     override fun onDestroy() {

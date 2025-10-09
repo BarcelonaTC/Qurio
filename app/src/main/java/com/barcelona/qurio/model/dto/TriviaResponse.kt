@@ -1,14 +1,14 @@
-package com.barcelona.qurio.data.dto
+package com.barcelona.qurio.model.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class GameResponse(
+data class TriviaResponse(
 
     @SerialName("response_code")
     val responseCode: Int? = null,
 
     @SerialName("results")
-    val results: List<GameDto?>? = null
+    val results: List<TriviaQuestionDto?>? = null
 )

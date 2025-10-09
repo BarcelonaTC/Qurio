@@ -2,7 +2,7 @@ package com.barcelona.qurio.presentation.adapter.bindingAdapter
 
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import com.barcelona.qurio.customView.GameCard
+import com.barcelona.qurio.presentation.custom_view.GameCard
 import com.barcelona.qurio.presentation.model.gamecard.GameCardModel
 
 @BindingAdapter("app:bindCardData")
