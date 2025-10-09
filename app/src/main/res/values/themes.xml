@@ -1,14 +1,16 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.Qurio" parent="carbon_Theme.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.Qurio" parent="carbon_Theme.Light.NoActionBar">
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowBackground">@color/surface</item>
     </style>
 
     <style name="Theme.Qurio" parent="Base.Theme.Qurio" />
+
     <style name="Theme.Qurio.Starter" parent="Theme.SplashScreen">
         <item name="windowSplashScreenAnimatedIcon">@drawable/logo_inset</item>
         <item name="windowSplashScreenBackground">@color/surface</item>
+        <item name="android:statusBarColor">@color/surface</item>
         <item name="android:windowBackground">@color/surface</item>
         <item name="postSplashScreenTheme">@style/Theme.Qurio</item>
     </style>
