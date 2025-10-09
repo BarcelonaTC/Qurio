@@ -2,8 +2,8 @@ package com.barcelona.qurio.presentation.fragment
 
 import android.os.Bundle
 import android.view.View
-import com.barcelona.qurio.R
 import com.barcelona.qurio.QurioApp
+import com.barcelona.qurio.R
 import com.barcelona.qurio.base.BaseFragment
 import com.barcelona.qurio.databinding.FragmentStartPlayBinding
 import com.barcelona.qurio.model.dto.TriviaQuestionDto
@@ -54,6 +54,6 @@ class StartPlayFragment() : BaseFragment<FragmentStartPlayBinding>(), StartPlayV
     }
 
     override fun getQuestions(questions: List<TriviaQuestionDto?>) {
-        binding.text.text = questions.get(0)?.question
+        //  binding.text.text = questions.get(0)?.question
     }
 }
