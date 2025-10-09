@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
- <!--
-  change the visibilities for controlling in character locking
-  the visibility components :
-  1 - open_character
-  2 - image_locked_character_container
-  3 - lock_icon
-  4 - character_salary
- -->
+    android:layout_height="wrap_content"
+    android:background="@color/surface_high"
+    >
+    <!--
+     change the visibilities for controlling in character locking
+     the visibility components :
+     1 - open_character
+     2 - image_locked_character_container
+     3 - lock_icon
+     4 - character_salary
+    -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/open_character"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="visible"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/image_character"
             android:layout_width="44dp"
             android:layout_height="44dp"
-            android:contentDescription="character image"
-            tools:src="@drawable/rika"
+            android:contentDescription="@string/character_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/character_kaiyo_open" />
 
         <ImageView
             android:id="@+id/icon_correct"
             android:layout_width="12dp"
             android:layout_height="12dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="2dp"
-            android:contentDescription="correct icon"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="3dp"
+            android:contentDescription="@string/correct_icon"
             android:src="@drawable/ic_correct"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,11 +51,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="3dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="visible"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image_locked_character"
@@ -64,16 +63,16 @@
             android:paddingHorizontal="5dp"
             android:paddingTop="9dp"
             android:scaleType="centerCrop"
-            tools:src="@drawable/sample_card_locked"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CharacterCard" />
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CharacterCard"
+            tools:src="@drawable/character_kaiyo_closed" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:layout_width="34dp"
             android:layout_height="35dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="9dp"
             android:background="@color/light_gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -87,42 +86,55 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginHorizontal="5dp"
-        android:contentDescription="locked icon"
+        android:contentDescription="@string/locked_icon"
         android:src="@drawable/ic_lock"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="visible"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/character_salary"
-        android:layout_width="match_parent"
+
+    <ImageView
+        android:id="@+id/coin"
+        android:layout_width="11dp"
+        android:layout_height="12dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="6dp"
+        android:layout_marginBottom="4dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/coin_icon"
+        android:src="@drawable/ic_coin_stack"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/character_name"
+        app:layout_constraintEnd_toStartOf="@id/money"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/money"
+        style="@style/Label.Small"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="4dp"
+        android:textColor="@color/shade_primary"
+        app:layout_constraintBottom_toTopOf="@id/character_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/coin"
         android:visibility="visible"
-        >
+        tools:text="300" />
 
-        <ImageView
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:contentDescription="coin icon"
-            android:adjustViewBounds="true"
-            android:src="@drawable/ic_coin_stack"
-            android:layout_gravity="center"
+    <TextView
+        android:id="@+id/character_name"
+        style="@style/Label.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@id/open_character"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="Kaiyo"
+        tools:textColor="@color/shade_secondary"
+        android:paddingBottom="5dp"
         />
-        <TextView
-            style="@style/Label.Small"
-            tools:text="300"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/shade_primary"
-            />
-    </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
