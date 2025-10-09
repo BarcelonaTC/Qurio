@@ -14,7 +14,7 @@
         android:background="@color/surface"
         android:orientation="vertical"
         android:fitsSystemWindows="true"
-        tools:context=".presentation.view.GameFragment">
+        tools:context=".presentation.fragment.GameFragment">
 
         <include android:id="@+id/app_bar"
             layout="@layout/general_top_bar" />

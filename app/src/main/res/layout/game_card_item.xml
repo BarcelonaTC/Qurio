@@ -21,7 +21,7 @@
             android:layout_height="225dp"
             >
 
-            <com.barcelona.qurio.customView.GameCard
+            <com.barcelona.qurio.presentation.custom_view.GameCard
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:bindCardData="@{gameCardData}"
