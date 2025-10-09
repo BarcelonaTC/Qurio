@@ -33,7 +33,9 @@
     <string name="retry">Retry</string>
     <string name="loading_game">Loading Game</string>
     <string name="challenge_and_win">Challenge and win</string>
-    <string name="answer_quickly_earn_points_and_share_with_your_friends">Answer quickly, earn points, and share with your friends! Each trivia category is a new experience.</string>
+    <string name="answer_quickly_earn_points_and_share_with_your_friends">Answer quickly, earn points, and share with your\n friends!\n Each trivia category is a new experience.</string>
     <string name="collect_them_all">Collect them all!</string>
+    <string name="choose_your_character">Choose your character</string>
     <string name="unlock_characters_earn_badges_and_climb_the_leaderboards_qurio_is_fascinating_but_you_can_handle_it">Unlock characters, earn badges, and climb the leaderboards. Qurio is merciless, but you can handle it.</string>
+    <string name="each_hero_has_their_own_unique_style_choose_from_unique_characters_and_start_your_adventure_in_your_own_style">Each hero has their own unique style! Choose from unique characters and start your adventure in your own style.</string>
 </resources>

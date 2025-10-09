@@ -2,6 +2,7 @@ package com.barcelona.qurio.presentation.view
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import com.barcelona.qurio.R
 import com.barcelona.qurio.databinding.FragmentOnboardingBinding
 import com.barcelona.qurio.presentation.adapter.onBoardingAdapter.OnboardingAdapter

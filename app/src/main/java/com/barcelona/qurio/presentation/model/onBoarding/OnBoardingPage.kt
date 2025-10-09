@@ -16,6 +16,11 @@ data class OnboardingPage(
                     description = R.string.welcome_to_the_world_of_qurio_where_questions_spark_curiosity_and_prizes_await_the_smartest_ready_to_begin_the_challenge
                 ),
                 OnboardingPage(
+                    imageRes = R.drawable.characters,
+                    title = R.string.choose_your_character,
+                    description = R.string.each_hero_has_their_own_unique_style_choose_from_unique_characters_and_start_your_adventure_in_your_own_style
+                ),
+                OnboardingPage(
                     imageRes = R.drawable.crown_image,
                     title = R.string.challenge_and_win,
                     description = R.string.answer_quickly_earn_points_and_share_with_your_friends
