@@ -25,4 +25,8 @@
     <string name="awards">جوائز</string>
     <string name="play_now">العب الان</string>
     <string name="submit">ارسال</string>
+    <string name="no_connection">لا يوجد اتصال</string>
+    <string name="check_your_internet">عذرًا! يبدو أنك غير متصل بالإنترنت. يرجى\nالتحقق من اتصالك بالإنترنت للمتابعة في\nاللعب</string>
+    <string name="retry">إعادة المحاولة</string>
+    <string name="loading_game">جارٍ تحميل اللعبة</string>
 </resources>
