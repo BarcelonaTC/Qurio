@@ -60,13 +60,14 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
+    implementation(libs.lottie)
     implementation(libs.retrofit)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
     implementation(libs.retrofit2.kotlinx.serialization.converter)
     implementation(libs.kotlinx.serialization.json)
-
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
     api(libs.carbon)
