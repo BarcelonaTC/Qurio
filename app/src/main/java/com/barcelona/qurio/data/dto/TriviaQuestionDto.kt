@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class GameDto(
+data class TriviaQuestionDto(
 
 	@SerialName("difficulty")
 	val difficulty: String? = null,
