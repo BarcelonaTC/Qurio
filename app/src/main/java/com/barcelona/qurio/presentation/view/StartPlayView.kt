@@ -5,4 +5,7 @@ import com.barcelona.qurio.model.dto.TriviaQuestionDto
 
 interface StartPlayView : BaseView {
     fun getQuestions(questions: List<TriviaQuestionDto?>)
+    fun showLoading()
+    fun hideLoading()
+    fun showError(error: Throwable)
 }
