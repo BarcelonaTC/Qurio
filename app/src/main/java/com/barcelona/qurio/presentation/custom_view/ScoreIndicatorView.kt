@@ -28,36 +28,45 @@ class ScoreIndicatorView @JvmOverloads constructor(
     }
 
     private fun addFloatingScore(isCorrect: Boolean) {
+        val itemView = createScoreItem(isCorrect) ?: return
+        positionItemRandomly(itemView)
+        addView(itemView)
+        animateItem(itemView)
+    }
+
+    private fun createScoreItem(isCorrect: Boolean): View? {
         val itemView =
             LayoutInflater.from(context).inflate(R.layout.view_score_indicator, this, false)
         val rootLayout = itemView.findViewById<LinearLayout>(R.id.scoreIndicatorRoot)
         val text = itemView.findViewById<TextView>(R.id.scoreText)
 
         text.text = if (isCorrect) "+1" else "-1"
-
         rootLayout.setBackgroundResource(R.drawable.circle_shape)
         rootLayout.background?.setTint(
             if (isCorrect) context.getColor(R.color.green)
             else context.getColor(R.color.red)
         )
+
+        return itemView
+    }
+
+    private fun positionItemRandomly(itemView: View) {
         val maxX = width - itemView.measuredWidth
         val maxY = height - itemView.measuredHeight
         if (maxX <= 0 || maxY <= 0) return
-
         val startX = Random.nextInt(0, maxX)
         val startY = Random.nextInt(0, maxY)
         itemView.translationX = startX.toFloat()
         itemView.translationY = startY.toFloat()
         itemView.alpha = 0f
+    }
 
-        addView(itemView)
-
+    private fun animateItem(itemView: View) {
+        val startY = itemView.translationY
         val endY = startY + Random.nextInt(-80, -30)
-
         val fadeIn = ObjectAnimator.ofFloat(itemView, View.ALPHA, 0f, 1f)
         val fadeOut = ObjectAnimator.ofFloat(itemView, View.ALPHA, 1f, 0f)
-        val move =
-            ObjectAnimator.ofFloat(itemView, View.TRANSLATION_Y, startY.toFloat(), endY.toFloat())
+        val move = ObjectAnimator.ofFloat(itemView, View.TRANSLATION_Y, startY, endY)
         val scaleX = ObjectAnimator.ofFloat(itemView, View.SCALE_X, 1f, 1f)
         val scaleY = ObjectAnimator.ofFloat(itemView, View.SCALE_Y, 1f, 1f)
 
@@ -76,4 +85,5 @@ class ScoreIndicatorView @JvmOverloads constructor(
 
         postDelayed({ removeView(itemView) }, animSet.duration + fadeOutSet.duration)
     }
+
 }
