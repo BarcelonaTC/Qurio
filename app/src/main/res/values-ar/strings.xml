@@ -6,7 +6,7 @@
     <string name="easy">سهل</string>
     <string name="welcome_qurio_explorer">مرحبًا أيها المستكشف في Qurio</string>
     <string name="games">الألعاب</string>
-    <string name="rika">Rika</string>
+    <string name="rika">ريكا</string>
     <string name="reward">مكافأة</string>
     <string name="coin_stack_icon">رمز كومة العملات</string>
     <string name="correct">صحيح</string>
@@ -29,4 +29,8 @@
     <string name="check_your_internet">عذرًا! يبدو أنك غير متصل بالإنترنت. يرجى\nالتحقق من اتصالك بالإنترنت للمتابعة في\nاللعب</string>
     <string name="retry">إعادة المحاولة</string>
     <string name="loading_game">جارٍ تحميل اللعبة</string>
+    <string name="locked_icon">مغلق او غير متاح</string>
+    <string name="coin_icon">فلوس</string>
+    <string name="correct_icon">علامة صح</string>
+    <string name="character_image">البطل</string>
 </resources>

@@ -28,4 +28,8 @@
     <string name="check_your_internet">Oops! It looks like you’re offline. Please\ncheck your internet connection to continue\nplaying</string>
     <string name="retry">Retry</string>
     <string name="loading_game">Loading Game</string>
+    <string name="locked_icon">locked icon</string>
+    <string name="coin_icon">coin icon</string>
+    <string name="correct_icon">correct icon</string>
+    <string name="character_image">character image</string>
 </resources>
