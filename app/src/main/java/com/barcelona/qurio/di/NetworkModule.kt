@@ -1,5 +1,9 @@
 package com.barcelona.qurio.di
 
+import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import androidx.datastore.preferences.core.Preferences
 import com.barcelona.qurio.BuildConfig
 import com.barcelona.qurio.model.api.TriviaApiService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory

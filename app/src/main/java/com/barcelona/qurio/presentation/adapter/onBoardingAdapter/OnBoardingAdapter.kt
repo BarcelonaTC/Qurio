@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.barcelona.qurio.R
-import com.barcelona.qurio.customView.OutlineTextView
+import com.barcelona.qurio.presentation.custom_view.OutlineTextView
 import com.barcelona.qurio.presentation.model.onBoarding.OnboardingPage
 
 class OnboardingAdapter(private val pages: List<OnboardingPage>) :

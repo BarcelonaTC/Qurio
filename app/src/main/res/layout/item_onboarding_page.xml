@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center">
 
-    <com.barcelona.qurio.customView.OutlineTextView
+    <com.barcelona.qurio.presentation.custom_view.OutlineTextView
         android:id="@+id/outline_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:background="@color/surface"
         android:fitsSystemWindows="true"
-        tools:context=".presentation.view.OnBoardingFragment">
+        tools:context=".presentation.fragment.OnBoardingFragment">
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
@@ -25,11 +25,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <FrameLayout
+            android:id="@+id/left_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/onboarding_forward"
+            android:background="@drawable/onboarding_backward"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
@@ -40,11 +41,12 @@
         </FrameLayout>
 
         <FrameLayout
+            android:id="@+id/right_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/onboarding_backward"
+            android:background="@drawable/onboarding_forward"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
@@ -97,7 +99,7 @@
                 android:src="@drawable/swipe_up_image" />
         </FrameLayout>
 
-        <com.barcelona.qurio.customView.OutlineTextView
+        <com.barcelona.qurio.presentation.custom_view.OutlineTextView
             android:id="@+id/swipe_up_hint"
             style="@style/Label.Medium"
             android:layout_width="wrap_content"

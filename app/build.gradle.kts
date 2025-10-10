@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
-    alias (libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 val BASE_URL: String by project
@@ -20,7 +20,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "BASE_URL","\"${BASE_URL}\"")
+        buildConfigField("String", "BASE_URL", "\"${BASE_URL}\"")
     }
     sourceSets {
         getByName("main") {
@@ -51,6 +51,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.kotlinx.coroutines.core)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
