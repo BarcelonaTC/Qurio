@@ -29,6 +29,16 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+        handleInitialNavigation()
+
+        splashAnimation(splashScreen)
+        lifecycleScope.launch {
+            delay(2000)
+            keepSplash = false
+        }
+    }
+
+    private fun handleInitialNavigation() {
         lifecycleScope.launch {
             userPreferences.isFirstLaunch.collect {
                 if (it) {
@@ -37,12 +47,6 @@ class MainActivity : AppCompatActivity() {
                     findNavController(R.id.nav_host_fragment).navigate(R.id.startPlayFragment)
                 }
             }
-        }
-
-        splashAnimation(splashScreen)
-        lifecycleScope.launch {
-            delay(2000)
-            keepSplash = false
         }
     }
 
