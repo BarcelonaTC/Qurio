@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="ChipCorner">
         <item name="cornerFamilyTopLeft">cut</item>
         <item name="cornerFamilyBottomRight">cut</item>
@@ -25,6 +26,7 @@
         <item name="android:textAppearance">@style/Label.Medium</item>
         <item name="android:textColor">@color/text_button_color</item>
     </style>
+
     <style name="PrimaryButtonText">
         <item name="android:textAppearance">@style/Label.Medium</item>
         <item name="android:textColor">@color/primary_button_text_color</item>
@@ -35,5 +37,11 @@
         <item name="android:backgroundTint">@android:color/transparent</item>
         <item name="android:foreground">@drawable/question_card</item>
         <item name="cardElevation">0dp</item>
+    </style>
+
+    <style name="AnswerStyle">
+        <item name="cornerRadius">12dp</item>
+        <item name="borderWidth">1dp</item>
+        <item name="cardBorderColor">@color/shade_quad</item>
     </style>
 </resources>
