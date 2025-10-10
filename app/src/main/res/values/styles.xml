@@ -44,4 +44,12 @@
         <item name="borderWidth">1dp</item>
         <item name="cardBorderColor">@color/shade_quad</item>
     </style>
+
+    <style name="ShapeAppearance.App.CharacterCard" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">12dp</item>
+        <item name="cornerSizeBottomRight">12dp</item>
+        <item name="cornerSizeBottomLeft">12dp</item>
+        <item name="cornerSizeTopLeft">2dp</item>
+    </style>
 </resources>
