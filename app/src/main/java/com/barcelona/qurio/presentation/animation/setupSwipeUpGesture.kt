@@ -23,6 +23,7 @@ fun setupSwipeUpGesture(view: View, onSwipeComplete: () -> Unit) {
                 dY = v.y - event.rawY
                 true
             }
+
             MotionEvent.ACTION_MOVE -> {
                 val newY = event.rawY + dY
 
@@ -31,36 +32,55 @@ fun setupSwipeUpGesture(view: View, onSwipeComplete: () -> Unit) {
                 }
                 true
             }
+
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                 val currentY = v.y
                 val reachedTop = currentY <= threshold
 
                 if (reachedTop) {
-                    v.animate()
-                        .y(0f)
-                        .setDuration(150)
-                        .setInterpolator(DecelerateInterpolator())
-                        .withEndAction {
-                            onSwipeComplete()
-                            v.postDelayed({
-                                v.animate()
-                                    .y(initialY)
-                                    .setDuration(300)
-                                    .setInterpolator(OvershootInterpolator())
-                                    .start()
-                            }, 200)
-                        }
-                        .start()
+                    animateToTop(
+                        v,
+                        initialY,
+                        onSwipeComplete
+                    )
                 } else {
-                    v.animate()
-                        .y(initialY)
-                        .setDuration(250)
-                        .setInterpolator(OvershootInterpolator())
-                        .start()
+                    animateToStartPosition(
+                        v,
+                        initialY,
+                    )
                 }
                 true
             }
+
             else -> false
         }
     }
+}
+
+private fun animateToTop(view: View, initialY: Float, onSwipeComplete: () -> Unit) {
+    view.animate()
+        .y(0f)
+        .setDuration(150)
+        .setInterpolator(DecelerateInterpolator())
+        .withEndAction {
+            onSwipeComplete()
+            view.postDelayed({
+                view.animate()
+                    .y(initialY)
+                    .setDuration(300)
+                    .setInterpolator(OvershootInterpolator())
+                    .start()
+            }, 200)
+        }
+        .start()
+}
+
+private fun animateToStartPosition(
+    view: View, initialY: Float,
+) {
+    view.animate()
+        .y(initialY)
+        .setDuration(250)
+        .setInterpolator(OvershootInterpolator())
+        .start()
 }
