@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.barcelona.qurio.QurioApp
 import com.barcelona.qurio.R
-import com.barcelona.qurio.presenter.UserPreferences
+import com.barcelona.qurio.service.UserPreferences
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject

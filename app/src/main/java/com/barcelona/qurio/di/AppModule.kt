@@ -7,8 +7,8 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.barcelona.qurio.model.api.TriviaApiService
 import com.barcelona.qurio.presenter.OnBoardingPresenter
 import com.barcelona.qurio.presenter.StartPlayPresenter
-import com.barcelona.qurio.presenter.UserPreferences
-import com.barcelona.qurio.presenter.UserPreferencesImpl
+import com.barcelona.qurio.service.UserPreferences
+import com.barcelona.qurio.service.UserPreferencesImpl
 import dagger.Module
 import dagger.Provides
 

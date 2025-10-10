@@ -68,6 +68,7 @@ class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding>(), OnBoarding
 
         if (pager.currentItem < lastIndex) {
             pager.currentItem++
+            return
         }
 
         if (pager.currentItem == lastIndex) {
