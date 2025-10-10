@@ -1,16 +1,26 @@
 package com.barcelona.qurio.presentation.adapter.gamecardAdapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.barcelona.qurio.databinding.GameCardItemBinding
 import com.barcelona.qurio.presentation.model.gamecard.GameCardModel
 
-class GameCardsAdapter(private val gameCard: List<GameCardModel>): RecyclerView.Adapter<GameCardsAdapter.GameCardViewHolder>(){
+class GameCardsAdapter(
+    private val gameCard: List<GameCardModel>,
+    private val onPlayClick: (GameCardModel) -> Unit
+) : RecyclerView.Adapter<GameCardsAdapter.GameCardViewHolder>() {
 
-    class GameCardViewHolder(val view: GameCardItemBinding): RecyclerView.ViewHolder(view.root) {
-        fun bind(gameCard: GameCardModel){
+    class GameCardViewHolder(
+        val view: GameCardItemBinding,
+        val onPlayClick: (GameCardModel) -> Unit
+    ) : RecyclerView.ViewHolder(view.root) {
+        fun bind(gameCard: GameCardModel) {
             view.gameCardData = gameCard
+            view.playButton.containerPlayButton.setOnClickListener {
+                Log.d("clicked", "clicked")
+                onPlayClick(gameCard) }
             view.executePendingBindings()
         }
     }
@@ -19,8 +29,9 @@ class GameCardsAdapter(private val gameCard: List<GameCardModel>): RecyclerView.
         parent: ViewGroup,
         viewType: Int
     ): GameCardViewHolder {
-        val viewBinding = GameCardItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return GameCardViewHolder(viewBinding)
+        val viewBinding =
+            GameCardItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return GameCardViewHolder(viewBinding, onPlayClick)
     }
 
     override fun onBindViewHolder(
@@ -29,6 +40,7 @@ class GameCardsAdapter(private val gameCard: List<GameCardModel>): RecyclerView.
     ) {
         val gameCard = gameCard[position]
         holder.bind(gameCard)
+
     }
 
     override fun getItemCount(): Int {
