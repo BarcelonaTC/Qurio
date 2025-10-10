@@ -19,6 +19,10 @@
     <string name="every_day_count">Every day count!</string>
     <string name="_0_day_streak_start_make_a_series">0 day streak, start make a series</string>
     <string name="blur_image">blur image</string>
+    <string name="welcome_to_the_world_of_qurio_where_questions_spark_curiosity_and_prizes_await_the_smartest_ready_to_begin_the_challenge">Welcome to the world of Qurio, where questions spark curiosity and prizes await the smartest. Ready to begin the challenge?</string>
+    <string name="welcome_to_qurio">Welcome to Qurio</string>
+    <string name="brain_image">Brain Image</string>
+    <string name="swipe_up_to_play">Swipe up to PLAY!</string>
     <string name="play_now">PLAY NOW</string>
     <string name="submit">Submit</string>
     <string name="lives">lives</string>
@@ -28,6 +32,12 @@
     <string name="check_your_internet">Oops! It looks like you’re offline. Please\ncheck your internet connection to continue\nplaying</string>
     <string name="retry">Retry</string>
     <string name="loading_game">Loading Game</string>
+    <string name="challenge_and_win">Challenge and win</string>
+    <string name="answer_quickly_earn_points_and_share_with_your_friends">Answer quickly, earn points, and share with your\n friends!\n Each trivia category is a new experience.</string>
+    <string name="collect_them_all">Collect them all!</string>
+    <string name="choose_your_character">Choose your character</string>
+    <string name="unlock_characters_earn_badges_and_climb_the_leaderboards_qurio_is_fascinating_but_you_can_handle_it">Unlock characters, earn badges, and climb the leaderboards. Qurio is merciless, but you can handle it.</string>
+    <string name="each_hero_has_their_own_unique_style_choose_from_unique_characters_and_start_your_adventure_in_your_own_style">Each hero has their own unique style! Choose from unique characters and start your adventure in your own style.</string>
     <string name="locked_icon">locked icon</string>
     <string name="coin_icon">coin icon</string>
     <string name="correct_icon">correct icon</string>

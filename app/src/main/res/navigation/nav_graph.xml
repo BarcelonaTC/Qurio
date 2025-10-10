@@ -10,4 +10,11 @@
         android:name="com.barcelona.qurio.presentation.fragment.StartPlayFragment"
         android:label="StartPlayFragment"
         tools:layout="@layout/fragment_start_play" />
+
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="com.barcelona.qurio.presentation.fragment.OnBoardingFragment"
+        android:label="OnBoardingFragment"
+        tools:layout="@layout/fragment_onboarding"
+        />
 </navigation>
