@@ -6,6 +6,8 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.barcelona.qurio.model.api.TriviaApiService
 import com.barcelona.qurio.presenter.OnBoardingPresenter
+import com.barcelona.qurio.model.repository.TriviaGameRepository
+import com.barcelona.qurio.model.repository.TriviaGameRepositoryImpl
 import com.barcelona.qurio.presenter.StartPlayPresenter
 import com.barcelona.qurio.service.UserPreferences
 import com.barcelona.qurio.service.UserPreferencesImpl
@@ -24,8 +26,13 @@ object AppModule {
     }
 
     @Provides
-    fun provideStartPlayPresenter(api: TriviaApiService): StartPlayPresenter {
-        return StartPlayPresenter(api)
+    fun provideStartPlayPresenter(triviaGameRepository: TriviaGameRepository): StartPlayPresenter {
+        return StartPlayPresenter(triviaGameRepository)
+    }
+
+    @Provides
+    fun provideTriviaGameRepository(apiService: TriviaApiService): TriviaGameRepository {
+        return TriviaGameRepositoryImpl(apiService)
     }
 
     @Provides
