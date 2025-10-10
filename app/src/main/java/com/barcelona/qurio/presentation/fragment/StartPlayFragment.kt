@@ -3,6 +3,7 @@ package com.barcelona.qurio.presentation.fragment
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.barcelona.qurio.QurioApp
 import com.barcelona.qurio.R
 import com.barcelona.qurio.base.BaseFragment
@@ -95,7 +96,8 @@ class StartPlayFragment : BaseFragment<FragmentStartPlayBinding>(), StartPlayVie
     }
 
     override fun showEndOfQuestions() {
-        showToastMessage("End of Questions")
+        binding.checkButton.visibility = View.GONE
+        findNavController().navigate(R.id.action_startPlayFragment_to_resultPlayFragment)
     }
 
     private fun showToastMessage(message: String, duration: Int = Toast.LENGTH_SHORT) {
@@ -118,5 +120,9 @@ class StartPlayFragment : BaseFragment<FragmentStartPlayBinding>(), StartPlayVie
         binding.errorLayout.visibility = View.VISIBLE
         binding.gameLayout.visibility = View.GONE
         binding.loadingLayout.visibility = View.GONE
+    }
+
+    override fun toggleSkipButton(visible: Boolean) {
+        binding.skipButton.visibility = if (visible) View.VISIBLE else View.GONE
     }
 }

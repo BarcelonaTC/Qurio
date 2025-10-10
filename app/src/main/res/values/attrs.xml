@@ -30,6 +30,12 @@
         <attr name="questionNumber" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="ResultCardView">
+        <attr name="resultText" format="string" />
+        <attr name="blurVisible" format="boolean" />
+        <attr name="starsVisible" format="boolean" />
+    </declare-styleable>
+
     <declare-styleable name="StatisticsCustomCardView">
         <!-- Fill color -->
         <attr name="fillColor" format="color" />

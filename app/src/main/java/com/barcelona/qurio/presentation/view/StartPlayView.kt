@@ -16,4 +16,5 @@ interface StartPlayView : BaseView {
     fun showLoading()
     fun hideLoading()
     fun showError(error: Throwable)
+    fun toggleSkipButton(visible: Boolean)
 }

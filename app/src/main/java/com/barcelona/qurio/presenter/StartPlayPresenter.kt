@@ -57,6 +57,9 @@ class StartPlayPresenter @Inject constructor(
         view?.showQuestion(q, "Q ${currentIndex + 1}/${questions.size}")
         view?.showAnswers(currentAnswers)
         view?.resetAnswers()
+        val isLast = currentIndex == questions.size - 1
+        view?.toggleSkipButton(!isLast)
+
         startTimer()
     }
 
@@ -89,7 +92,11 @@ class StartPlayPresenter @Inject constructor(
             questionChecked = true
             countDownTimer?.cancel()
         } else {
-            nextQuestion()
+            if (currentIndex == questions.size - 1) {
+                view?.showEndOfQuestions()
+            } else {
+                nextQuestion()
+            }
         }
     }
 
