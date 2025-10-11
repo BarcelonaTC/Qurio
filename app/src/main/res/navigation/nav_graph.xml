@@ -9,12 +9,27 @@
         android:id="@+id/startPlayFragment"
         android:name="com.barcelona.qurio.presentation.fragment.StartPlayFragment"
         android:label="StartPlayFragment"
-        tools:layout="@layout/fragment_start_play" />
+        tools:layout="@layout/fragment_start_play">
+        <action
+            android:id="@+id/action_startPlayFragment_to_resultPlayFragment"
+            app:destination="@id/resultPlayFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/onBoardingFragment"
         android:name="com.barcelona.qurio.presentation.fragment.OnBoardingFragment"
         android:label="OnBoardingFragment"
-        tools:layout="@layout/fragment_onboarding"
-        />
+        tools:layout="@layout/fragment_onboarding" />
+    <fragment
+        android:id="@+id/resultPlayFragment"
+        android:name="com.barcelona.qurio.presentation.fragment.ResultPlayFragment"
+        android:label="ResultPlayFragment"
+        tools:layout="@layout/fragment_result_play">
+        <argument
+            android:name="session"
+            app:argType="com.barcelona.qurio.presentation.model.TriviaGameSession" />
+        <action
+            android:id="@+id/action_resultPlayFragment_to_startPlayFragment"
+            app:destination="@id/startPlayFragment" />
+    </fragment>
 </navigation>

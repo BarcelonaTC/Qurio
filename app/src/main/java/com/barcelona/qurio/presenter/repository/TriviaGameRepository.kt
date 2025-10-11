@@ -1,4 +1,4 @@
-package com.barcelona.qurio.model.repository
+package com.barcelona.qurio.presenter.repository
 
 import com.barcelona.qurio.presentation.model.Question
 
