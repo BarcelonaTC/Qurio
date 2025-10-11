@@ -2,6 +2,7 @@ package com.barcelona.qurio.presentation.view
 
 import com.barcelona.qurio.base.BaseView
 import com.barcelona.qurio.presentation.model.Question
+import com.barcelona.qurio.presentation.model.TriviaGameSession
 
 interface StartPlayView : BaseView {
     fun showQuestions(questions: List<Question>)
@@ -17,4 +18,5 @@ interface StartPlayView : BaseView {
     fun hideLoading()
     fun showError(error: Throwable)
     fun toggleSkipButton(visible: Boolean)
+    fun onGameSessionSaved(session: TriviaGameSession)
 }

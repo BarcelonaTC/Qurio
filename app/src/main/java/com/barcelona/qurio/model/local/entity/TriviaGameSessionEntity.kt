@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "game_session")
-data class TriviaGameSession(
+data class TriviaGameSessionEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0L,
     val correctAnswers: Int,

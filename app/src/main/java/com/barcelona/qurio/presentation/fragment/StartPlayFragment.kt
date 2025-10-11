@@ -10,6 +10,7 @@ import com.barcelona.qurio.base.BaseFragment
 import com.barcelona.qurio.databinding.FragmentStartPlayBinding
 import com.barcelona.qurio.presentation.adapter.QuestionAdapter
 import com.barcelona.qurio.presentation.model.Question
+import com.barcelona.qurio.presentation.model.TriviaGameSession
 import com.barcelona.qurio.presentation.view.StartPlayView
 import com.barcelona.qurio.presenter.StartPlayPresenter
 import javax.inject.Inject
@@ -97,9 +98,12 @@ class StartPlayFragment : BaseFragment<FragmentStartPlayBinding>(), StartPlayVie
 
     override fun showEndOfQuestions() {
         binding.checkButton.visibility = View.GONE
-        findNavController().navigate(R.id.action_startPlayFragment_to_resultPlayFragment)
     }
-
+    override fun onGameSessionSaved(session: TriviaGameSession) {
+        val action = StartPlayFragmentDirections
+            .actionStartPlayFragmentToResultPlayFragment(session)
+        findNavController().navigate(action)
+    }
     private fun showToastMessage(message: String, duration: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(requireContext(), message, duration).show()
     }

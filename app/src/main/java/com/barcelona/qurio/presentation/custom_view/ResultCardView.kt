@@ -1,6 +1,7 @@
 package com.barcelona.qurio.presentation.custom_view
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -22,13 +23,46 @@ class ResultCardView @JvmOverloads constructor(
                 val resultText = getString(R.styleable.ResultCardView_resultText)
                 val blurVisible = getBoolean(R.styleable.ResultCardView_blurVisible, true)
                 val starsVisible = getBoolean(R.styleable.ResultCardView_starsVisible, true)
-
                 setResultText(resultText ?: "")
                 showBlur(blurVisible)
                 showStars(starsVisible)
             } finally {
                 recycle()
             }
+        }
+    }
+
+    fun updateResult(correctAnswers: Int, totalQuestions: Int) {
+        if (totalQuestions == 0) return
+
+        val ratio = correctAnswers.toFloat() / totalQuestions
+        val stars = when {
+            ratio >= 1f -> 3
+            ratio >= 0.66f -> 2
+            ratio >= 0.33f -> 1
+            else -> 0
+        }
+
+
+        if (stars >= 1) {
+            setResultText("Great job")
+        } else {
+            setResultText("You lose")
+        }
+
+        val starViews = listOf(binding.star1, binding.star2, binding.star3)
+        starViews.forEachIndexed { index, star ->
+            star.isVisible = index < stars
+        }
+        if (stars > 0) {
+            animateStars()
+            binding.txtResult.setOutlineColor(Color.parseColor("#1980B2"))
+            binding.blurBackground.setImageResource(R.drawable.blur_background)
+            binding.ribbon.setImageResource(R.drawable.ribbon)
+        } else {
+            binding.txtResult.setOutlineColor(Color.parseColor("#E6311F"))
+            binding.blurBackground.setImageResource(R.drawable.blur_bg_red)
+            binding.ribbon.setImageResource(R.drawable.ribbon_red)
         }
     }
 
@@ -42,6 +76,24 @@ class ResultCardView @JvmOverloads constructor(
 
     fun setBlurBackground(resId: Int) {
         binding.blurBackground.setImageResource(resId)
+    }
+
+    fun animateStars() {
+        val stars = listOf(binding.star1, binding.star2, binding.star3)
+
+        stars.forEachIndexed { index, star ->
+            star.scaleX = 0f
+            star.scaleY = 0f
+            star.alpha = 0f
+
+            star.animate()
+                .scaleX(1f)
+                .scaleY(1f)
+                .alpha(1f)
+                .setStartDelay((index * 200).toLong())
+                .setDuration(400)
+                .start()
+        }
     }
 
     fun showStars(show: Boolean) {

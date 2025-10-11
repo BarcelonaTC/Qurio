@@ -45,10 +45,13 @@ class OutlineTextView @JvmOverloads constructor(
                 outlineColor = getColor(R.styleable.OutlineTextView_outlineColor, Color.TRANSPARENT)
                 outlineWidth = getDimension(R.styleable.OutlineTextView_outlineWidth, 0f)
 
-                gradientStartColor = getColor(R.styleable.OutlineTextView_gradientStartColor, Color.TRANSPARENT)
-                gradientEndColor = getColor(R.styleable.OutlineTextView_gradientEndColor, Color.TRANSPARENT)
+                gradientStartColor =
+                    getColor(R.styleable.OutlineTextView_gradientStartColor, Color.TRANSPARENT)
+                gradientEndColor =
+                    getColor(R.styleable.OutlineTextView_gradientEndColor, Color.TRANSPARENT)
                 gradientAngle = getInt(R.styleable.OutlineTextView_gradientAngle, 90)
-                useGradient = gradientStartColor != Color.TRANSPARENT && gradientEndColor != Color.TRANSPARENT
+                useGradient =
+                    gradientStartColor != Color.TRANSPARENT && gradientEndColor != Color.TRANSPARENT
 
                 shadowColor = getColor(R.styleable.OutlineTextView_shadowColor, Color.TRANSPARENT)
                 shadowRadius = getDimension(R.styleable.OutlineTextView_shadowRadius, 0f)
@@ -72,7 +75,8 @@ class OutlineTextView @JvmOverloads constructor(
             shadowPaint.setShadowLayer(shadowRadius, shadowDx, shadowDy, shadowColor)
         }
 
-        val paddingIncrease = (outlineWidth + shadowRadius + Math.max(Math.abs(shadowDx), Math.abs(shadowDy))).toInt()
+        val paddingIncrease =
+            (outlineWidth + shadowRadius + Math.max(Math.abs(shadowDx), Math.abs(shadowDy))).toInt()
         setPadding(
             paddingLeft + paddingIncrease,
             paddingTop + paddingIncrease,
@@ -102,16 +106,19 @@ class OutlineTextView @JvmOverloads constructor(
                     gradientStartColor, gradientEndColor,
                     Shader.TileMode.CLAMP
                 )
+
                 90 -> LinearGradient(
                     0f, 0f, 0f, height.toFloat(),
                     gradientStartColor, gradientEndColor,
                     Shader.TileMode.CLAMP
                 )
+
                 45 -> LinearGradient(
                     0f, 0f, width.toFloat(), height.toFloat(),
                     gradientStartColor, gradientEndColor,
                     Shader.TileMode.CLAMP
                 )
+
                 else -> LinearGradient(
                     0f, 0f, 0f, height.toFloat(),
                     gradientStartColor, gradientEndColor,
@@ -130,5 +137,30 @@ class OutlineTextView @JvmOverloads constructor(
         super.onDraw(canvas)
 
         paint.shader = null
+    }
+
+    fun setOutlineColor(color: Int) {
+        outlineColor = color
+        outlinePaint.color = color
+        invalidate()
+    }
+
+    fun setTextColorDynamic(color: Int) {
+        setTextColor(color)
+        invalidate()
+    }
+
+    fun setGradientColors(startColor: Int, endColor: Int, angle: Int = 90) {
+        gradientStartColor = startColor
+        gradientEndColor = endColor
+        gradientAngle = angle
+        useGradient = true
+        invalidate()
+    }
+
+    fun clearGradient() {
+        useGradient = false
+        paint.shader = null
+        invalidate()
     }
 }

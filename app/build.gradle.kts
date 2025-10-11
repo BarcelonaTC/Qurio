@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.serialization)
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 val BASE_URL: String by project
@@ -92,5 +93,7 @@ dependencies {
     // Dagger
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
+
+    // Carbon Blur
     api(libs.carbon)
 }
