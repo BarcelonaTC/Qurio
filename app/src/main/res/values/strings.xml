@@ -42,4 +42,5 @@
     <string name="coin_icon">coin icon</string>
     <string name="correct_icon">correct icon</string>
     <string name="character_image">character image</string>
+    <string name="last_games">Last Games</string>
 </resources>
