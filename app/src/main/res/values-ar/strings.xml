@@ -33,4 +33,8 @@
     <string name="coin_icon">فلوس</string>
     <string name="correct_icon">علامة صح</string>
     <string name="character_image">البطل</string>
+    <string name="buy" />
+    <string name="buy_life" />
+    <string name="cancel">Cancel</string>
+
 </resources>
