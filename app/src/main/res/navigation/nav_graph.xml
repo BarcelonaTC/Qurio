@@ -17,4 +17,9 @@
         android:label="OnBoardingFragment"
         tools:layout="@layout/fragment_onboarding"
         />
+    <fragment
+        android:id="@+id/characterSelectionFragment"
+        android:name="com.barcelona.qurio.presentation.fragment.CharacterSelectionFragment"
+        android:label="CharacterSelectionFragment"
+        tools:layout="@layout/characters_selection" />
 </navigation>

@@ -33,4 +33,5 @@
     <string name="coin_icon">فلوس</string>
     <string name="correct_icon">علامة صح</string>
     <string name="character_image">البطل</string>
+    <string name="select_character" />
 </resources>
