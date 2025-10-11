@@ -51,9 +51,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.datastore.preferences)
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -62,14 +59,37 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // DataStore
+    implementation(libs.androidx.datastore.preferences)
+
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.core)
+
+    // SplashScreen
+    implementation(libs.androidx.core.splashscreen)
+    // Lottie Animations
     implementation(libs.lottie)
+
+    // Retrofit & Okhttp
     implementation(libs.retrofit)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
     implementation(libs.retrofit2.kotlinx.serialization.converter)
+
+    // Serialization
     implementation(libs.kotlinx.serialization.json)
+
+    // Navigation
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+
+    // Room Database
+    implementation(libs.androidx.room.runtime)
+    kapt(libs.androidx.room.compiler)
+    implementation(libs.room.ktx)
+
+    // Dagger
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
     api(libs.carbon)
