@@ -53,8 +53,8 @@ class TitleCard @JvmOverloads constructor(
 
         addView(titleTextView)
 
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.DifficultyCardView)
-        val title = typedArray.getString(R.styleable.DifficultyCardView_cardTitle)
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TitleCard)
+        val title = typedArray.getString(R.styleable.TitleCard_cardTitle)
         typedArray.recycle()
 
         title?.let { titleTextView.text = it }

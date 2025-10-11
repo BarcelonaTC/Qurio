@@ -46,7 +46,7 @@
         <attr name="pathData" format="string|reference" />
     </declare-styleable>
 
-    <declare-styleable name="DifficultyCardView">
+    <declare-styleable name="TitleCard">
         <attr name="cardTitle" format="string" />
     </declare-styleable>
 
