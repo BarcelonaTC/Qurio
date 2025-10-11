@@ -1,16 +1,17 @@
-// CharacterSelectionFragment.kt
 package com.barcelona.qurio.presentation.fragment
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.barcelona.qurio.R
 import com.barcelona.qurio.base.BaseFragment
 import com.barcelona.qurio.databinding.CharactersSelectionBinding
 import com.barcelona.qurio.presentation.adapter.characterAdapter.CharacterAdapter
 import com.barcelona.qurio.presentation.model.CharacterGame
-
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 class CharacterSelectionFragment : BaseFragment<CharactersSelectionBinding>() {
 
     override val layoutIdFragment: Int = R.layout.characters_selection
@@ -41,11 +42,11 @@ class CharacterSelectionFragment : BaseFragment<CharactersSelectionBinding>() {
         }
 
         binding.charactersRecyclerView.apply {
-            layoutManager = LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
+            layoutManager = FlexboxLayoutManager(context).apply {
+                flexDirection = FlexDirection.ROW
+                justifyContent = JustifyContent.FLEX_START
+                flexWrap = FlexWrap.WRAP
+            }
             adapter = characterAdapter
         }
     }

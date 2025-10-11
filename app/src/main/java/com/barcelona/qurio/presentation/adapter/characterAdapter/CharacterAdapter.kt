@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.barcelona.qurio.presentation.custom_view.CharacterCardView
 import com.barcelona.qurio.presentation.model.CharacterGame
+import com.google.android.flexbox.FlexboxLayoutManager
 
 class CharacterAdapter(
     private val characters: List<CharacterGame>,
@@ -12,12 +13,10 @@ class CharacterAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val cardView = CharacterCardView(parent.context)
-        cardView.layoutParams = ViewGroup.MarginLayoutParams(
+        cardView.layoutParams = FlexboxLayoutManager.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
-        ).apply {
-            setMargins(4, 0, 4, 0)
-        }
+        )
         return CharacterViewHolder(cardView)
     }
 

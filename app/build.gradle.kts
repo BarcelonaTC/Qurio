@@ -70,6 +70,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.flexbox)
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
     api(libs.carbon)

@@ -4,6 +4,7 @@ carbon = "0.17.0"
 coreSplashscreen = "1.0.0"
 daggerAndroid = "2.57.2"
 datastorePreferencesCore = "1.1.7"
+flexbox = "3.0.0"
 kotlin = "2.2.20"
 coreKtx = "1.17.0"
 junit = "4.13.2"
@@ -36,6 +37,7 @@ carbon = { module = "tk.zielony:carbon", version.ref = "carbon" }
 dagger = { module = "com.google.dagger:dagger", version.ref = "daggerAndroid" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "daggerAndroid" }
 
+flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexbox" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

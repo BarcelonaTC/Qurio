@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -11,12 +10,9 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/characters_recycler_view"
-            android:layout_width="0dp"
-            tools:listitem="@layout/character_card"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="90dp"
+            android:layout_marginTop="16dp"
             android:clipToPadding="false"
             android:paddingHorizontal="8dp"
             app:layout_constraintEnd_toEndOf="parent"
