@@ -56,4 +56,7 @@
         <attr name="cardTitle" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="Dialog">
+        <attr name="dialogTitle" format="string" />
+    </declare-styleable>
 </resources>
