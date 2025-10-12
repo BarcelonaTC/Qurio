@@ -3,6 +3,7 @@ package com.barcelona.qurio.model.repository
 import com.barcelona.qurio.model.api.TriviaApiService
 import com.barcelona.qurio.model.dto.toDomain
 import com.barcelona.qurio.presentation.model.Question
+import com.barcelona.qurio.presenter.repository.TriviaGameRepository
 import javax.inject.Inject
 
 class TriviaGameRepositoryImpl @Inject constructor(

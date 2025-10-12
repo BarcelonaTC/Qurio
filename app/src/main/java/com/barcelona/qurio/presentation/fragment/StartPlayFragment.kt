@@ -3,12 +3,14 @@ package com.barcelona.qurio.presentation.fragment
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.barcelona.qurio.QurioApp
 import com.barcelona.qurio.R
 import com.barcelona.qurio.base.BaseFragment
 import com.barcelona.qurio.databinding.FragmentStartPlayBinding
 import com.barcelona.qurio.presentation.adapter.QuestionAdapter
 import com.barcelona.qurio.presentation.model.Question
+import com.barcelona.qurio.presentation.model.TriviaGameSession
 import com.barcelona.qurio.presentation.view.StartPlayView
 import com.barcelona.qurio.presenter.StartPlayPresenter
 import javax.inject.Inject
@@ -95,9 +97,13 @@ class StartPlayFragment : BaseFragment<FragmentStartPlayBinding>(), StartPlayVie
     }
 
     override fun showEndOfQuestions() {
-        showToastMessage("End of Questions")
+        binding.checkButton.visibility = View.GONE
     }
-
+    override fun onGameSessionSaved(session: TriviaGameSession) {
+        val action = StartPlayFragmentDirections
+            .actionStartPlayFragmentToResultPlayFragment(session)
+        findNavController().navigate(action)
+    }
     private fun showToastMessage(message: String, duration: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(requireContext(), message, duration).show()
     }
@@ -118,5 +124,9 @@ class StartPlayFragment : BaseFragment<FragmentStartPlayBinding>(), StartPlayVie
         binding.errorLayout.visibility = View.VISIBLE
         binding.gameLayout.visibility = View.GONE
         binding.loadingLayout.visibility = View.GONE
+    }
+
+    override fun toggleSkipButton(visible: Boolean) {
+        binding.skipButton.visibility = if (visible) View.VISIBLE else View.GONE
     }
 }

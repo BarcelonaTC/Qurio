@@ -19,7 +19,7 @@ class ScoreIndicatorView @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyle) {
 
     fun showScore(isCorrect: Boolean) {
-        val count = Random.nextInt(8, 15)
+        val count = Random.nextInt(6, 10)
         repeat(count) {
             postDelayed({
                 addFloatingScore(isCorrect)
