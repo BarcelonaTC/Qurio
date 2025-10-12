@@ -44,6 +44,9 @@ class StartPlayFragment : BaseFragment<FragmentStartPlayBinding>(), StartPlayVie
         binding.skipButton.setOnClickListener {
             startPlayPresenter.nextQuestion()
         }
+        binding.back.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     override fun onDestroyView() {

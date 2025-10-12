@@ -21,11 +21,18 @@ class GameFragment() : BaseFragment<FragmentGameBinding>() {
         val recyclerView = binding.recyclerView
         val adapter = GameCardsAdapter(gameCards, onPlayClick = ::onPlayNowClicked)
         recyclerView.adapter = adapter
+        setUpClickListeners()
     }
 
     fun onPlayNowClicked(gameCard: GameCardModel) {
         findNavController().navigate(
             GameFragmentDirections.actionGameFragmentToStartPlayFragment(gameCard.categoryId)
         )
+    }
+
+    private fun setUpClickListeners(){
+        binding.appBar.back.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 }
