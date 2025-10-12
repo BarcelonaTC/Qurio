@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.serialization)
     id("androidx.navigation.safeargs.kotlin")
+    alias(libs.plugins.ksp)
 }
 
 val BASE_URL: String by project
@@ -85,13 +86,13 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
-    // Room Database
-    implementation(libs.androidx.room.runtime)
-    kapt(libs.androidx.room.compiler)
-    implementation(libs.room.ktx)
-
     // Dagger
     implementation(libs.dagger)
+
+    // Room Database
+    implementation(libs.bundles.room)
+    ksp(libs.androidx.room.compiler)
+
     kapt(libs.dagger.compiler)
 
     // Carbon Blur

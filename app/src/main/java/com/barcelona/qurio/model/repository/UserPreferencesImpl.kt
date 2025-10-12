@@ -1,9 +1,10 @@
-package com.barcelona.qurio.service
+package com.barcelona.qurio.model.repository
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import com.barcelona.qurio.presenter.repository.UserPreferences
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

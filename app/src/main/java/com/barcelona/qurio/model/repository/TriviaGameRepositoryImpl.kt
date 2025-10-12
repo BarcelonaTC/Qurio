@@ -12,13 +12,15 @@ class TriviaGameRepositoryImpl @Inject constructor(
     override suspend fun fetchQuestions(
         amount: Int,
         difficulty: String,
-        type: String
+        type: String,
+        category: Int
     ): List<Question> {
         return try {
             triviaApiService.getQuestions(
                 amount = amount,
                 difficulty = difficulty,
-                type = type
+                type = type,
+                category = category
             ).results
                 ?.mapNotNull { it?.toDomain() }
                 .orEmpty()

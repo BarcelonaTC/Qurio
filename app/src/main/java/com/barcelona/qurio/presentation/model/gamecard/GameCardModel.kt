@@ -5,5 +5,6 @@ data class GameCardModel(
     val title: String,
     val borderColor: Int,
     val bottomGradient: Int,
-    val borderWidth :Int = 5
+    val borderWidth :Int = 5,
+    val categoryId: Int
 )

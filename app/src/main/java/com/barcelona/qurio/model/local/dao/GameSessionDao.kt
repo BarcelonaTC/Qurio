@@ -12,4 +12,8 @@ interface GameSessionDao {
 
     @Query("SELECT * FROM game_session ORDER BY date ASC")
     suspend fun getAllSessions(): List<TriviaGameSessionEntity>
+
+    @Query("SELECT SUM(earnedCoins) FROM game_session")
+    suspend fun getTotalPointsOfAllSessions(): Int
+
 }

@@ -2,7 +2,7 @@ package com.barcelona.qurio.presenter
 
 import com.barcelona.qurio.base.BasePresenter
 import com.barcelona.qurio.presentation.view.OnBoardingView
-import com.barcelona.qurio.service.UserPreferences
+import com.barcelona.qurio.presenter.repository.UserPreferences
 import jakarta.inject.Inject
 
 

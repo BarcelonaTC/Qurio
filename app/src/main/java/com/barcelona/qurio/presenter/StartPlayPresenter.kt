@@ -26,9 +26,9 @@ class StartPlayPresenter @Inject constructor(
     private var totalTimeSeconds = 0L
     private var timerStartTime = 0L
 
-    fun getQuestions() {
+    fun getQuestions(categoryId: Int) {
         tryToCall(
-            block = { triviaGameRepository.fetchQuestions(12, "easy", "multiple") },
+            block = { triviaGameRepository.fetchQuestions(12, "easy", "multiple", categoryId) },
             onStart = { view?.showLoading() },
             onSuccess = ::onQuestionsSuccess,
             onError = { view?.showError(it) },
