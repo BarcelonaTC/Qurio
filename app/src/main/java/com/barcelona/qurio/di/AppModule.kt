@@ -4,15 +4,19 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.room.Room
 import com.barcelona.qurio.model.api.TriviaApiService
 import com.barcelona.qurio.presenter.OnBoardingPresenter
 import com.barcelona.qurio.model.repository.TriviaGameRepository
 import com.barcelona.qurio.model.repository.TriviaGameRepositoryImpl
 import com.barcelona.qurio.presenter.StartPlayPresenter
+import com.barcelona.qurio.service.AppDatabase
 import com.barcelona.qurio.service.UserPreferences
 import com.barcelona.qurio.service.UserPreferencesImpl
+import com.barcelona.qurio.service.UserStreakDao
 import dagger.Module
 import dagger.Provides
+import jakarta.inject.Singleton
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
@@ -48,5 +52,18 @@ object AppModule {
     @Provides
     fun provideDataStore(): DataStore<Preferences> {
         return appContext.dataStore
+    }
+    @Provides
+    fun provideDatabase(): AppDatabase {
+        return Room.databaseBuilder(
+            appContext,
+            AppDatabase::class.java,
+            "qurio_db"
+        ).build()
+    }
+
+    @Provides
+    fun provideUserStreakDao(database: AppDatabase): UserStreakDao {
+        return database.userStreakDao()
     }
 }

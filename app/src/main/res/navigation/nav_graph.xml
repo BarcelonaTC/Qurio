@@ -21,4 +21,10 @@
         android:name="com.barcelona.qurio.presentation.fragment.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.barcelona.qurio.presentation.fragment.GameFragment"
+        android:label="GameFragment"
+        tools:layout="@layout/fragment_game" />
 </navigation>

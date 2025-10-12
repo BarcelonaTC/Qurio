@@ -2,6 +2,7 @@ package com.barcelona.qurio.di
 
 
 import com.barcelona.qurio.presentation.MainActivity
+import com.barcelona.qurio.presentation.fragment.HomeFragment
 import com.barcelona.qurio.presentation.fragment.OnBoardingFragment
 import com.barcelona.qurio.presentation.fragment.StartPlayFragment
 import dagger.Component
@@ -13,4 +14,5 @@ interface AppComponent {
     fun inject(fragment: StartPlayFragment)
     fun inject(fragment: OnBoardingFragment)
     fun inject(mainActivity: MainActivity)
+    fun inject(fragment: HomeFragment)
 }

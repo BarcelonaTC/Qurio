@@ -1,4 +1,8 @@
 package com.barcelona.qurio.presentation.view
 
-interface HomeView {
+import com.barcelona.qurio.base.BaseView
+import com.barcelona.qurio.presentation.model.streak.StreakModel
+
+interface HomeView : BaseView{
+    fun showStreak(streak: StreakModel)
 }

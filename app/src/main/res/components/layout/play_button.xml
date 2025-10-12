@@ -10,8 +10,8 @@
 
     <com.barcelona.qurio.presentation.custom_view.ButtonShapeView
         android:id="@+id/play_shape"
-        android:layout_width="166dp"
-        android:layout_height="44dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@android:color/transparent"
         android:backgroundTint="@color/primary"
         app:layout_constraintBottom_toBottomOf="parent"

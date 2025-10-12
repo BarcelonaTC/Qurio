@@ -18,7 +18,7 @@ class GameFragment() : BaseFragment<FragmentGameBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerView = binding.recyclerView
-        val adapter = GameCardsAdapter(GameCardList, ::onPlayNowClicked)
+        val adapter = GameCardsAdapter(GameCardList, onPlayClick = ::onPlayNowClicked, )
 
         recyclerView.adapter = adapter
     }
