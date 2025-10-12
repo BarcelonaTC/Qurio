@@ -7,7 +7,6 @@ import android.os.Looper
 import androidx.annotation.RawRes
 
 class CoinSoundPlayer(private val context: Context?) {
-
     private var soundPool: SoundPool? = null
     private var coinSoundId: Int = 0
 

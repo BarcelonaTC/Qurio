@@ -104,10 +104,10 @@ class HomeFragment(
                     binding.statisticsComponent.pointsCard.pointsAmount.text = formattedValue
                 },
                 onEnd = {
-                    soundPlayer.play()
                     soundPlayer.release()
                 }
             )
+            soundPlayer.play()
         }
     }
 }
