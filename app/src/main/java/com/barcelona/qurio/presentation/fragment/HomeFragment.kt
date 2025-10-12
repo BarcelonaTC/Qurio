@@ -14,6 +14,8 @@ import com.barcelona.qurio.databinding.FragmentHomeBinding
 import com.barcelona.qurio.model.dto.gameCards
 import com.barcelona.qurio.presentation.adapter.gamecardAdapter.GameCardsAdapter
 import com.barcelona.qurio.presentation.adapter.streakAdapter.StreakDayAdapter
+import com.barcelona.qurio.presentation.sounds.CoinSoundPlayer
+import com.barcelona.qurio.presentation.animation.animatePoints
 import com.barcelona.qurio.presentation.animation.createGameCardTransformer
 import com.barcelona.qurio.presentation.model.gamecard.GameCardModel
 import com.barcelona.qurio.presentation.model.streak.StreakModel
@@ -91,7 +93,21 @@ class HomeFragment(
     }
 
     override fun showTotalPoints(totalPoints: Int) {
-        val formattedPoints = NumberFormat.getNumberInstance(Locale.US).format(totalPoints)
-        binding.statisticsComponent.pointsCard.pointsAmount.text = formattedPoints
+        val soundPlayer = CoinSoundPlayer(context)
+
+        soundPlayer.loadSound(R.raw.coins_sound) {
+            animatePoints(
+                endValue = totalPoints,
+                onUpdate = { animatedValue ->
+                    val formattedValue =
+                        NumberFormat.getNumberInstance(Locale.US).format(animatedValue)
+                    binding.statisticsComponent.pointsCard.pointsAmount.text = formattedValue
+                },
+                onEnd = {
+                    soundPlayer.play()
+                    soundPlayer.release()
+                }
+            )
+        }
     }
 }

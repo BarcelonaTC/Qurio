@@ -10,7 +10,6 @@ import androidx.navigation.findNavController
 import com.barcelona.qurio.QurioApp
 import com.barcelona.qurio.R
 import com.barcelona.qurio.presenter.repository.UserPreferences
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -33,7 +32,6 @@ class MainActivity : AppCompatActivity() {
 
         splashAnimation(splashScreen)
         lifecycleScope.launch {
-            delay(2000)
             keepSplash = false
         }
     }
