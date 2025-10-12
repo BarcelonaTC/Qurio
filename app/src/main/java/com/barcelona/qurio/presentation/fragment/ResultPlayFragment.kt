@@ -26,10 +26,14 @@ class ResultPlayFragment : BaseFragment<FragmentResultPlayBinding>() {
 
     private fun setupListeners() {
         binding.btnBack.setOnClickListener {
-            findNavController().navigate(R.id.action_resultPlayFragment_to_startPlayFragment)
+            findNavController().navigate(R.id.homeFragment)
         }
         binding.btnPlayAgain.setOnClickListener {
-            findNavController().navigate(R.id.action_resultPlayFragment_to_startPlayFragment)
+            findNavController().navigate(
+                ResultPlayFragmentDirections.actionResultPlayFragmentToStartPlayFragment(
+                    args.categoryId
+                )
+            )
         }
         val result = args.session
         val session = args.session

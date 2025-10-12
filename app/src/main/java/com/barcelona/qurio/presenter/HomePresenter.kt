@@ -2,21 +2,31 @@ package com.barcelona.qurio.presenter
 
 import com.barcelona.qurio.base.BasePresenter
 import com.barcelona.qurio.presentation.view.HomeView
-import com.barcelona.qurio.service.UserStreakService
+import com.barcelona.qurio.presenter.repository.TriviaGameSessionRepository
+import com.barcelona.qurio.presenter.repository.UserStreakRepository
 import jakarta.inject.Inject
 
 class HomePresenter @Inject constructor(
-    private val userStreakService: UserStreakService
+    private val userStreakRepository: UserStreakRepository,
+    private val triviaGameSessionRepository: TriviaGameSessionRepository
 ) : BasePresenter<HomeView>() {
     fun getStreak() {
         tryToCall(
-            block = { userStreakService.getStreakInfo() },
+            block = { userStreakRepository.getStreakInfo() },
             onSuccess = { view?.showStreak(it) },
         )
     }
-    fun updateStreak(){
+
+    fun updateStreak() {
         tryToCall(
-            block = { userStreakService.updateStreak() },
+            block = { userStreakRepository.updateStreak() },
+        )
+    }
+
+    fun getTotalPoints() {
+        tryToCall(
+            block = { triviaGameSessionRepository.getTotalPointsOfAllSessions() },
+            onSuccess = { view?.showTotalPoints(it) },
         )
     }
 }

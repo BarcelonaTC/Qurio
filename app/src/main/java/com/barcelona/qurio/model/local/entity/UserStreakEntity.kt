@@ -1,11 +1,10 @@
-package com.barcelona.qurio.service
+package com.barcelona.qurio.model.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-
 @Entity(tableName = "user_streak")
-data class UserStreak(
+data class UserStreakEntity(
     @PrimaryKey
     val id: Int = 1,
     val currentStreak: Int = 0,

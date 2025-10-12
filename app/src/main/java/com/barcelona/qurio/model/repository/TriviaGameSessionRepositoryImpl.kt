@@ -14,4 +14,8 @@ class TriviaGameSessionRepositoryImpl (private val gameSessionDao: GameSessionDa
     override suspend fun getAllSessions(): List<TriviaGameSession> {
         return gameSessionDao.getAllSessions().map { it.toModel() }
     }
+
+    override suspend fun getTotalPointsOfAllSessions(): Int {
+        return gameSessionDao.getTotalPointsOfAllSessions()
+    }
 }

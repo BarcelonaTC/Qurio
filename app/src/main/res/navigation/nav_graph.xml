@@ -3,13 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/startPlayFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/startPlayFragment"
         android:name="com.barcelona.qurio.presentation.fragment.StartPlayFragment"
         android:label="StartPlayFragment"
         tools:layout="@layout/fragment_start_play">
+        <argument
+            android:name="categoryId"
+            app:argType="integer" />
         <action
             android:id="@+id/action_startPlayFragment_to_resultPlayFragment"
             app:destination="@id/resultPlayFragment" />
@@ -24,14 +27,21 @@
         android:id="@+id/homeFragment"
         android:name="com.barcelona.qurio.presentation.fragment.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_startPlayFragment"
+            app:destination="@id/startPlayFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/gameFragment"
         android:name="com.barcelona.qurio.presentation.fragment.GameFragment"
         android:label="GameFragment"
-        tools:layout="@layout/fragment_game" />
-        tools:layout="@layout/fragment_onboarding" />
+        tools:layout="@layout/fragment_game">
+        <action
+            android:id="@+id/action_gameFragment_to_startPlayFragment"
+            app:destination="@id/startPlayFragment" />
+    </fragment>
     <fragment
         android:id="@+id/resultPlayFragment"
         android:name="com.barcelona.qurio.presentation.fragment.ResultPlayFragment"
@@ -40,6 +50,9 @@
         <argument
             android:name="session"
             app:argType="com.barcelona.qurio.presentation.model.TriviaGameSession" />
+        <argument
+            android:name="categoryId"
+            app:argType="integer" />
         <action
             android:id="@+id/action_resultPlayFragment_to_startPlayFragment"
             app:destination="@id/startPlayFragment" />

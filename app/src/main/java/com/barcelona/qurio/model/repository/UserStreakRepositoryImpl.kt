@@ -1,20 +1,23 @@
-package com.barcelona.qurio.service
+package com.barcelona.qurio.model.repository
 
+import com.barcelona.qurio.model.local.dao.UserStreakDao
+import com.barcelona.qurio.model.local.entity.UserStreakEntity
 import com.barcelona.qurio.presentation.model.streak.DayStreak
 import com.barcelona.qurio.presentation.model.streak.StreakModel
+import com.barcelona.qurio.presenter.repository.UserStreakRepository
 import jakarta.inject.Inject
 import java.util.Calendar
 
-class UserStreakService @Inject constructor(private val dao: UserStreakDao) {
-
-    suspend fun updateStreak() {
+class UserStreakRepositoryImpl @Inject constructor(private val dao: UserStreakDao) :
+    UserStreakRepository {
+    override suspend fun updateStreak() {
         val now = System.currentTimeMillis()
         val today = getDayOfWeek(now)
 
         var streak = dao.getStreak()
 
         if (streak == null) {
-            streak = UserStreak(
+            streak = UserStreakEntity(
                 id = 1,
                 currentStreak = 1,
                 longestStreak = 1,
@@ -63,7 +66,7 @@ class UserStreakService @Inject constructor(private val dao: UserStreakDao) {
         dao.updateStreak(updatedStreak)
     }
 
-    suspend fun getStreakInfo(): StreakModel {
+    override suspend fun getStreakInfo(): StreakModel {
         val streak = dao.getStreak() ?: return StreakModel(
             title = "0 day streak, start make a series",
             subtitle = "Every day count!",
@@ -149,7 +152,7 @@ class UserStreakService @Inject constructor(private val dao: UserStreakDao) {
         return weekStartDate < currentWeekStart
     }
 
-    private fun UserStreak.setDayActive(day: DayOfWeek, active: Boolean): UserStreak {
+    private fun UserStreakEntity.setDayActive(day: DayOfWeek, active: Boolean): UserStreakEntity {
         return when (day) {
             DayOfWeek.MONDAY -> copy(monday = active)
             DayOfWeek.TUESDAY -> copy(tuesday = active)

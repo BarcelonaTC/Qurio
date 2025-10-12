@@ -2,7 +2,6 @@ package com.barcelona.qurio.presentation.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +11,7 @@ import com.barcelona.qurio.QurioApp
 import com.barcelona.qurio.R
 import com.barcelona.qurio.base.BaseFragment
 import com.barcelona.qurio.databinding.FragmentHomeBinding
-import com.barcelona.qurio.model.dto.GameCardList
+import com.barcelona.qurio.model.dto.gameCards
 import com.barcelona.qurio.presentation.adapter.gamecardAdapter.GameCardsAdapter
 import com.barcelona.qurio.presentation.adapter.streakAdapter.StreakDayAdapter
 import com.barcelona.qurio.presentation.animation.createGameCardTransformer
@@ -21,6 +20,8 @@ import com.barcelona.qurio.presentation.model.streak.StreakModel
 import com.barcelona.qurio.presentation.view.HomeView
 import com.barcelona.qurio.presenter.HomePresenter
 import jakarta.inject.Inject
+import java.text.NumberFormat
+import java.util.Locale
 
 class HomeFragment(
 ) : BaseFragment<FragmentHomeBinding>(), HomeView {
@@ -37,6 +38,7 @@ class HomeFragment(
         setInteractionListener()
         presenter.updateStreak()
         presenter.getStreak()
+        presenter.getTotalPoints()
 
     }
 
@@ -56,7 +58,7 @@ class HomeFragment(
     }
 
     private fun setupGameCardPager() {
-        val adapter = GameCardsAdapter(GameCardList, onPlayClick = ::onPlayNowClicked, true)
+        val adapter = GameCardsAdapter(gameCards, onPlayClick = ::onPlayNowClicked, true)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         binding.recyclerView.offscreenPageLimit = 3
@@ -68,7 +70,9 @@ class HomeFragment(
     }
 
     fun onPlayNowClicked(gameCard: GameCardModel) {
-        findNavController().navigate(R.id.startPlayFragment)
+        findNavController().navigate(
+            HomeFragmentDirections.actionHomeFragmentToStartPlayFragment(gameCard.categoryId)
+        )
     }
 
     private fun setInteractionListener() {
@@ -82,8 +86,12 @@ class HomeFragment(
     }
 
     override fun showStreak(streak: StreakModel) {
-       Log.d("TAG", "showSteak: $streak")
         binding.streakComponent.streak = streak
         binding.streakComponent.daysRecyclerView.adapter = StreakDayAdapter(streak.days)
+    }
+
+    override fun showTotalPoints(totalPoints: Int) {
+        val formattedPoints = NumberFormat.getNumberInstance(Locale.US).format(totalPoints)
+        binding.statisticsComponent.pointsCard.pointsAmount.text = formattedPoints
     }
 }
