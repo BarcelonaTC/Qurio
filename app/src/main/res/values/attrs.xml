@@ -19,10 +19,12 @@
 
     <declare-styleable name="SecondaryButton">
         <attr name="secondaryButtonEnabled" format="boolean" />
+        <attr name="secondaryText" format="string" />
     </declare-styleable>
 
     <declare-styleable name="PrimaryButton">
         <attr name="primaryButtonEnabled" format="boolean" />
+        <attr name="primaryText" format="string" />
     </declare-styleable>
 
     <declare-styleable name="CustomTimeComponent">
