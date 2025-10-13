@@ -1,5 +1,6 @@
 package com.barcelona.qurio.presentation.adapter.characterAdapter
 
+import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.barcelona.qurio.presentation.custom_view.CharacterCardView
@@ -7,16 +8,18 @@ import com.barcelona.qurio.presentation.model.CharacterGame
 import com.google.android.flexbox.FlexboxLayoutManager
 
 class CharacterAdapter(
-    private val characters: List<CharacterGame>,
+    private var characters: List<CharacterGame>,
     private val onCharacterClick: (CharacterGame) -> Unit = {}
 ) : RecyclerView.Adapter<CharacterViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val cardView = CharacterCardView(parent.context)
-        cardView.layoutParams = FlexboxLayoutManager.LayoutParams(
+        val layoutParams = FlexboxLayoutManager.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
+        cardView.layoutParams = layoutParams
+
         return CharacterViewHolder(cardView)
     }
 
@@ -25,4 +28,10 @@ class CharacterAdapter(
     }
 
     override fun getItemCount(): Int = characters.size
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateCharacters(newList: List<CharacterGame>) {
+        this.characters = newList
+        notifyDataSetChanged()
+    }
 }

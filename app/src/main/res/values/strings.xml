@@ -44,4 +44,7 @@
     <string name="character_image">character image</string>
     <string name="last_games">Last Games</string>
     <string name="select_character" />
+    <string name="character">Character</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
 </resources>

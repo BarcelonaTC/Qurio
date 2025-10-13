@@ -5,14 +5,17 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.barcelona.qurio.model.api.TriviaApiService
+import com.barcelona.qurio.model.local.dao.CharacterGameDao
 import com.barcelona.qurio.model.local.dao.GameSessionDao
 import com.barcelona.qurio.model.local.dao.UserStreakDao
+import com.barcelona.qurio.model.repository.CharacterRepository
 import com.barcelona.qurio.model.repository.TriviaGameRepositoryImpl
 import com.barcelona.qurio.model.repository.TriviaGameSessionRepositoryImpl
 import com.barcelona.qurio.model.repository.UserPreferencesImpl
 import com.barcelona.qurio.model.repository.UserStreakRepositoryImpl
 import com.barcelona.qurio.presenter.OnBoardingPresenter
 import com.barcelona.qurio.presenter.StartPlayPresenter
+import com.barcelona.qurio.presenter.characterSelection.CharacterSelectionPresenter
 import com.barcelona.qurio.presenter.repository.TriviaGameRepository
 import com.barcelona.qurio.presenter.repository.TriviaGameSessionRepository
 import com.barcelona.qurio.presenter.repository.UserPreferences
@@ -72,4 +75,17 @@ object AppModule {
         return UserStreakRepositoryImpl(dao)
     }
 
+
+    @Provides
+    fun provideCharacterRepository(
+        dao: CharacterGameDao
+    ): CharacterRepository = CharacterRepository(dao)
+
+
+    @Provides
+    fun provideCharacterSelectionPresenter(
+        characterRepository: CharacterRepository
+    ): CharacterSelectionPresenter {
+        return CharacterSelectionPresenter(characterRepository)
+    }
 }

@@ -59,7 +59,6 @@ class CharacterCardView @JvmOverloads constructor(
         Log.d("test", "setCharacterName: $name")
         characterName.text = name
         Log.d("test", "setCharacterNameAfter: ${characterName.text}")
-
     }
 
     fun setCharacterImage(image: Int) {
@@ -70,8 +69,11 @@ class CharacterCardView @JvmOverloads constructor(
     fun setLocked(isSelected: Boolean, isLocked: Boolean) {
         if (isSelected) {
             openCharacterContainer.visibility = VISIBLE
+            iconCorrect.visibility = VISIBLE
             lockedCharacterContainer.visibility = INVISIBLE
             lockIcon.visibility = INVISIBLE
+            coinIcon.visibility = INVISIBLE
+            moneyText.visibility = INVISIBLE
             characterName.setTextColor(ContextCompat.getColor(context, R.color.primary))
         } else if (isLocked) {
             openCharacterContainer.visibility = INVISIBLE
