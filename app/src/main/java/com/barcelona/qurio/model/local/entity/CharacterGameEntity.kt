@@ -10,5 +10,7 @@ data class CharacterGameEntity(
     val imageRes: Int,
     val isLocked: Boolean,
     val price: Int,
-    val isSelected: Boolean
+    val isSelected: Boolean,
+    val description: String,
+    val age: String,
 )

@@ -6,4 +6,10 @@ import com.barcelona.qurio.presentation.model.CharacterGame
 interface CharacterSelectionView : BaseView {
     fun showCharacters(characters: List<CharacterGame>)
     fun showMessage(message: String)
+
+    fun onClickOnCancelClick()
+
+    fun onConfirmButtonClick()
+
+    fun onCharacterClick(character: CharacterGame)
 }

@@ -33,6 +33,7 @@
                 android:layout_gravity="bottom">
 
                 <com.barcelona.qurio.presentation.custom_view.PrimaryButton
+                    android:id="@+id/confirm_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/confirm"
@@ -40,6 +41,7 @@
                     android:layout_marginEnd="8dp" />
 
                 <com.barcelona.qurio.presentation.custom_view.SecondaryButton
+                    android:id="@+id/cancel_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/cancel"
@@ -47,8 +49,6 @@
                     android:layout_marginStart="8dp" />
 
             </LinearLayout>
-
-
         </com.barcelona.qurio.presentation.custom_view.Dialog>
 
 

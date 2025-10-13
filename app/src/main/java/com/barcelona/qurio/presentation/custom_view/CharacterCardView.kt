@@ -3,11 +3,13 @@ package com.barcelona.qurio.presentation.custom_view
 import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
+import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.barcelona.qurio.R
+import com.barcelona.qurio.databinding.CharacterCardBinding
 
 class CharacterCardView @JvmOverloads constructor(
     context: Context,
@@ -24,19 +26,18 @@ class CharacterCardView @JvmOverloads constructor(
     private val coinIcon: ImageView
     private val moneyText: TextView
     private val characterName: TextView
+    private val binding = CharacterCardBinding.inflate(LayoutInflater.from(context), this, true)
 
     init {
-        inflate(context, R.layout.character_card, this)
-
-        openCharacterContainer = findViewById(R.id.open_character)
-        imageCharacter = findViewById(R.id.image_character)
-        iconCorrect = findViewById(R.id.icon_correct)
-        lockedCharacterContainer = findViewById(R.id.image_locked_character_container)
-        imageLockedCharacter = findViewById(R.id.image_locked_character)
-        lockIcon = findViewById(R.id.lock_icon)
-        coinIcon = findViewById(R.id.coin)
-        moneyText = findViewById(R.id.money)
-        characterName = findViewById(R.id.character_name)
+        openCharacterContainer = binding.openCharacter
+        imageCharacter = binding.imageCharacter
+        iconCorrect = binding.iconCorrect
+        lockedCharacterContainer = binding.imageLockedCharacterContainer
+        imageLockedCharacter = binding.imageLockedCharacter
+        lockIcon = binding.lockIcon
+        coinIcon = binding.coin
+        moneyText = binding.money
+        characterName = binding.characterName
 
         attrs?.let {
             val typedArray = context.obtainStyledAttributes(it, R.styleable.CharacterCardView)

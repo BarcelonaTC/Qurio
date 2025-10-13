@@ -7,31 +7,42 @@ import com.barcelona.qurio.presentation.custom_view.CharacterCardView
 import com.barcelona.qurio.presentation.model.CharacterGame
 import com.google.android.flexbox.FlexboxLayoutManager
 
+@SuppressLint("NotifyDataSetChanged")
+
 class CharacterAdapter(
     private var characters: List<CharacterGame>,
-    private val onCharacterClick: (CharacterGame) -> Unit = {}
+    private val onCharacterClick: (CharacterGame) -> Unit
 ) : RecyclerView.Adapter<CharacterViewHolder>() {
+
+    private var selectedCharacterId: Int? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val cardView = CharacterCardView(parent.context)
-        val layoutParams = FlexboxLayoutManager.LayoutParams(
+        val params = FlexboxLayoutManager.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        cardView.layoutParams = layoutParams
-
+        cardView.layoutParams = params
         return CharacterViewHolder(cardView)
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
-        holder.bind(characters[position], onCharacterClick)
+        val character = characters[position]
+        val isSelected = character.id == selectedCharacterId
+
+        holder.bind(character, isSelected, onCharacterClick)
     }
 
     override fun getItemCount(): Int = characters.size
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun updateCharacters(newList: List<CharacterGame>) {
-        this.characters = newList
+    fun updateCharacters(newCharacters: List<CharacterGame>) {
+        characters = newCharacters
+        selectedCharacterId = newCharacters.find { it.isSelected }?.id
+        notifyDataSetChanged()
+    }
+
+    fun setSelectedCharacter(characterId: Int) {
+        selectedCharacterId = characterId
         notifyDataSetChanged()
     }
 }

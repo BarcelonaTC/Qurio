@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="character"
+            type="com.barcelona.qurio.presentation.model.CharacterGame" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/carbon_white">
+
+        <com.barcelona.qurio.presentation.custom_view.Dialog
+            android:layout_width="match_parent"
+            android:layout_height="314dp"
+            android:layout_marginHorizontal="16dp"
+            app:dialogTitle="@string/character"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/content_container"
+                android:layout_width="match_parent"
+                android:clipToPadding="false"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="24dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:background="@drawable/character_info_bacground"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:paddingHorizontal="12dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/character_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/shade_primary"
+                            style="@style/Title.Medium"
+                            android:text="@{character.name}"
+                            tools:text="Rika" />
+
+                        <TextView
+                            android:id="@+id/character_age"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:textColor="@color/shade_secondary"
+                            style="@style/Body.Small"
+                            android:text="@{character.age}"
+                            tools:text="Age: 12 Sunblooms" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/character_image"
+                        android:layout_width="47dp"
+                        android:layout_height="64dp"
+                        android:layout_marginEnd="4dp"
+                        tools:src="@drawable/mika_without_background"
+                        android:src="@{character.imageRes}"
+                        android:contentDescription="@string/character" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/character_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="3"
+                    android:layout_marginTop="12dp"
+                    android:textColor="@color/shade_secondary"
+                    style="@style/Body.Medium"
+                    tools:text="Nature’s little explorer! Rika talks to mushrooms and swears squirrels give her battle advice. Always ready for an adventure."
+                    android:lineSpacingExtra="4dp"
+                    android:text="@{character.description}" />
+            </LinearLayout>
+
+            <com.barcelona.qurio.presentation.custom_view.SecondaryButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="36dp"
+                android:layout_marginHorizontal="12dp"
+                android:text="@string/ok" />
+
+        </com.barcelona.qurio.presentation.custom_view.Dialog>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

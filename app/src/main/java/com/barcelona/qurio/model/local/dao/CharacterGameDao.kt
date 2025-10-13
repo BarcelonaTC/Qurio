@@ -18,6 +18,9 @@ interface CharacterGameDao {
     @Query("UPDATE characters_game SET isLocked = :isLocked WHERE id = :id")
     suspend fun updateCharacterLock(id: Int, isLocked: Boolean)
 
+    @Query("SELECT * FROM characters_game WHERE id = :id")
+    suspend fun getCharacterById(id: Int): CharacterGameEntity
+
     @Query("SELECT * FROM characters_game")
     suspend fun getAllCharacters(): List<CharacterGameEntity>
 

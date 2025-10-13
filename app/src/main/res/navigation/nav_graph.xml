@@ -62,4 +62,27 @@
         android:name="com.barcelona.qurio.presentation.fragment.CharacterSelectionFragment"
         android:label="CharacterSelectionFragment"
         tools:layout="@layout/characters_selection" />
+    <action
+        android:id="@+id/action_characterSelectionFragment_to_characterDetailFragment"
+        app:destination="@+id/characterDetailFragment" />
+
+    <fragment
+        android:id="@+id/characterDetailFragment"
+        android:name="com.barcelona.qurio.presentation.fragment.CharacterDetailFragment"
+        android:label="CharacterDetailFragment"
+        tools:layout="@layout/character_info_dialog">
+        <argument
+            android:name="characterId"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/characterDetailFragment"
+        android:name="com.barcelona.qurio.presentation.fragment.CharacterDetailFragment"
+        android:label="CharacterDetailFragment"
+        tools:layout="@layout/character_info_dialog">
+        <argument
+            android:name="characterId"
+            app:argType="integer" />
+    </fragment
 </navigation>

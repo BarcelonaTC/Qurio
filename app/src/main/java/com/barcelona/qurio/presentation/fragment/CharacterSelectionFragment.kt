@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.barcelona.qurio.QurioApp
 import com.barcelona.qurio.R
 import com.barcelona.qurio.base.BaseFragment
@@ -24,6 +25,7 @@ class CharacterSelectionFragment : BaseFragment<CharactersSelectionBinding>(),
     override val layoutIdFragment: Int = R.layout.characters_selection
 
     private lateinit var characterAdapter: CharacterAdapter
+    private var currentCharacter: CharacterGame? = null
 
     @Inject
     lateinit var presenter: CharacterSelectionPresenter
@@ -39,12 +41,14 @@ class CharacterSelectionFragment : BaseFragment<CharactersSelectionBinding>(),
         presenter.attachView(this)
         setupRecyclerView()
         presenter.loadCharacters()
-
+        binding.confirmButton.setOnClickListener {
+            onConfirmButtonClick()
+        }
     }
-    private fun setupRecyclerView() {
 
+    private fun setupRecyclerView() {
         characterAdapter = CharacterAdapter(emptyList()) { character ->
-            presenter.onCharacterClicked(character)
+            onCharacterClick(character)
         }
 
         binding.charactersRecyclerView.apply {
@@ -57,11 +61,39 @@ class CharacterSelectionFragment : BaseFragment<CharactersSelectionBinding>(),
         }
     }
 
+
     override fun showCharacters(characters: List<CharacterGame>) {
         characterAdapter.updateCharacters(characters)
     }
 
     override fun showMessage(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onClickOnCancelClick() {
+
+    }
+
+    override fun onConfirmButtonClick() {
+        currentCharacter?.let { character ->
+            val bundle = Bundle().apply { putInt("characterId", character.id) }
+            findNavController().navigate(
+                R.id.action_characterSelectionFragment_to_characterDetailFragment,
+                bundle
+            )
+        } ?: showMessage("Please select a character")
+    }
+
+
+    override fun onCharacterClick(character: CharacterGame) {
+        if (character.isLocked) {
+            showMessage("Character is locked")
+            return
+        }
+
+        currentCharacter = character
+        presenter.onCharacterClicked(character)
+
+        characterAdapter.setSelectedCharacter(character.id)
     }
 }

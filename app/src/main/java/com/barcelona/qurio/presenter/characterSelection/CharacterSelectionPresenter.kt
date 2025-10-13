@@ -1,9 +1,9 @@
 package com.barcelona.qurio.presenter.characterSelection
 
 import com.barcelona.qurio.base.BasePresenter
-import com.barcelona.qurio.model.repository.CharacterRepository
 import com.barcelona.qurio.presentation.model.CharacterGame
 import com.barcelona.qurio.presentation.view.CharacterSelectionView
+import com.barcelona.qurio.presenter.repository.CharacterRepository
 import javax.inject.Inject
 
 class CharacterSelectionPresenter @Inject constructor(
@@ -44,7 +44,6 @@ class CharacterSelectionPresenter @Inject constructor(
             onSuccess = {
                 characters = it
                 view?.showCharacters(it)
-                view?.showMessage("Selected ${character.name}")
             }
         )
     }

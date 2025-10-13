@@ -8,20 +8,17 @@ class CharacterViewHolder(
     private val cardView: CharacterCardView
 ) : RecyclerView.ViewHolder(cardView) {
 
-    fun bind(character: CharacterGame, onCharacterClick: (CharacterGame) -> Unit) {
-
+    fun bind(
+        character: CharacterGame,
+        isSelected: Boolean,
+        onCharacterClick: (CharacterGame) -> Unit
+    ) {
         cardView.apply {
             setCharacterName(character.name)
-
             setCharacterImage(character.imageRes)
-
-            setLocked(character.isSelected, character.isLocked)
-
+            setLocked(isSelected, character.isLocked)
             setSalary(character.price)
-
-            setOnClickListener {
-                onCharacterClick(character)
-            }
+            setOnClickListener { onCharacterClick(character) }
         }
     }
 }
