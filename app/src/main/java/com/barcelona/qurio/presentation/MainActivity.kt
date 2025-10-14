@@ -43,7 +43,6 @@ class MainActivity : AppCompatActivity() {
                     findNavController(R.id.nav_host_fragment).navigate(R.id.onBoardingFragment)
                 } else {
                     findNavController(R.id.nav_host_fragment).navigate(R.id.homeFragment)
-                    findNavController(R.id.nav_host_fragment).navigate(R.id.characterSelectionFragment)
                 }
             }
         }
