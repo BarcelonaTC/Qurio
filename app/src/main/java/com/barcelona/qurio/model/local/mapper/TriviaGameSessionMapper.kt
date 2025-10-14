@@ -1,4 +1,4 @@
-package com.barcelona.qurio.model.local
+package com.barcelona.qurio.model.local.mapper
 
 import com.barcelona.qurio.model.local.entity.TriviaGameSessionEntity
 import com.barcelona.qurio.presentation.model.TriviaGameSession

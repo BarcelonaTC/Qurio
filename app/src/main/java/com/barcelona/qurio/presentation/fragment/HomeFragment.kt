@@ -14,11 +14,11 @@ import com.barcelona.qurio.databinding.FragmentHomeBinding
 import com.barcelona.qurio.model.dto.gameCards
 import com.barcelona.qurio.presentation.adapter.gamecardAdapter.GameCardsAdapter
 import com.barcelona.qurio.presentation.adapter.streakAdapter.StreakDayAdapter
-import com.barcelona.qurio.presentation.sounds.CoinSoundPlayer
 import com.barcelona.qurio.presentation.animation.animatePoints
 import com.barcelona.qurio.presentation.animation.createGameCardTransformer
 import com.barcelona.qurio.presentation.model.gamecard.GameCardModel
 import com.barcelona.qurio.presentation.model.streak.StreakModel
+import com.barcelona.qurio.presentation.sounds.CoinSoundPlayer
 import com.barcelona.qurio.presentation.view.HomeView
 import com.barcelona.qurio.presenter.HomePresenter
 import jakarta.inject.Inject
@@ -83,6 +83,9 @@ class HomeFragment(
                 findNavController().navigate(R.id.gameFragment)
             }
             seeAllLastGames.setOnClickListener {
+            }
+            binding.appBar.profile.setOnClickListener {
+                findNavController().navigate(R.id.characterSelectionFragment)
             }
         }
     }

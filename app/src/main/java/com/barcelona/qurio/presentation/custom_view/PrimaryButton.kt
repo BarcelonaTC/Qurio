@@ -95,6 +95,7 @@ class PrimaryButton @JvmOverloads constructor(
     }
 
     fun setButtonEnabled(enabled: Boolean) {
+        isEnabled = enabled
         isCustomEnabled = enabled
         binding.rootLayout.isEnabled = enabled
         binding.textViewLabel.isEnabled = enabled

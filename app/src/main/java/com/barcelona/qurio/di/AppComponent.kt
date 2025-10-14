@@ -2,6 +2,9 @@ package com.barcelona.qurio.di
 
 
 import com.barcelona.qurio.presentation.MainActivity
+import com.barcelona.qurio.presentation.fragment.BuyCharacterFragment
+import com.barcelona.qurio.presentation.fragment.CharacterDetailFragment
+import com.barcelona.qurio.presentation.fragment.CharacterSelectionFragment
 import com.barcelona.qurio.presentation.fragment.HomeFragment
 import com.barcelona.qurio.presentation.fragment.OnBoardingFragment
 import com.barcelona.qurio.presentation.fragment.ResultPlayFragment
@@ -17,4 +20,7 @@ interface AppComponent {
     fun inject(fragment: ResultPlayFragment)
     fun inject(mainActivity: MainActivity)
     fun inject(fragment: HomeFragment)
+    fun inject(fragment: CharacterSelectionFragment)
+    fun inject(fragment: CharacterDetailFragment)
+    fun inject(fragment: BuyCharacterFragment)
 }

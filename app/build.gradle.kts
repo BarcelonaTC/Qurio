@@ -97,4 +97,7 @@ dependencies {
 
     // Carbon Blur
     api(libs.carbon)
+
+    //flexbox
+    implementation(libs.flexbox)
 }
