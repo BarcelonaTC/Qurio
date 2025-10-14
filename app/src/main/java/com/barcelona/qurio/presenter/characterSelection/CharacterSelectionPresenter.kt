@@ -11,14 +11,11 @@ class CharacterSelectionPresenter @Inject constructor(
 ) : BasePresenter<CharacterSelectionView>() {
 
     private var characters: List<CharacterGame> = emptyList()
+    private lateinit var selectedCharacter: CharacterGame
 
     fun loadCharacters() {
         tryToCall(
-            block = {
-                val storedCharacters = characterRepository.getAllCharacters()
-                val selected = storedCharacters.firstOrNull { it.isSelected }
-                storedCharacters.map { it.copy(isSelected = it.name == selected?.name) }
-            },
+            block = { characterRepository.getAllCharacters() },
             onSuccess = {
                 characters = it
                 view?.showCharacters(it)
@@ -27,23 +24,24 @@ class CharacterSelectionPresenter @Inject constructor(
     }
 
     fun onCharacterClicked(character: CharacterGame) {
-        if (character.isLocked) {
-            view?.showMessage("${character.name} is locked!")
-            return
-        }
-
         tryToCall(
             block = {
-                val all = characterRepository.getAllCharacters()
-                all.forEach {
-                    if (it.isSelected) characterRepository.selectCharacter(it.id)
-                }
                 characterRepository.selectCharacter(character.id)
                 characterRepository.getAllCharacters()
             },
             onSuccess = {
                 characters = it
                 view?.showCharacters(it)
+            }
+        )
+    }
+
+    fun getSelectedCharacter() {
+        tryToCall(
+            block = { characterRepository.getSelectedCharacter() },
+            onSuccess = {
+                selectedCharacter = it
+                view?.showSelectedCharacter(it)
             }
         )
     }

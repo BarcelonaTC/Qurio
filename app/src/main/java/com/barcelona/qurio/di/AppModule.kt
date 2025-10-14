@@ -15,6 +15,7 @@ import com.barcelona.qurio.model.repository.UserPreferencesImpl
 import com.barcelona.qurio.model.repository.UserStreakRepositoryImpl
 import com.barcelona.qurio.presenter.OnBoardingPresenter
 import com.barcelona.qurio.presenter.StartPlayPresenter
+import com.barcelona.qurio.presenter.characterSelection.BuyCharacterPresenter
 import com.barcelona.qurio.presenter.characterSelection.CharacterSelectionPresenter
 import com.barcelona.qurio.presenter.repository.CharacterRepository
 import com.barcelona.qurio.presenter.repository.TriviaGameRepository
@@ -88,5 +89,16 @@ object AppModule {
         characterRepository: CharacterRepository
     ): CharacterSelectionPresenter {
         return CharacterSelectionPresenter(characterRepository)
+    }
+
+    @Provides
+    fun provideBuyCharacterPresenter(
+        characterRepository: CharacterRepository,
+        triviaGameSessionRepository: TriviaGameSessionRepository
+    ): BuyCharacterPresenter {
+        return BuyCharacterPresenter(
+            characterRepository,
+            triviaGameSessionRepository
+        )
     }
 }

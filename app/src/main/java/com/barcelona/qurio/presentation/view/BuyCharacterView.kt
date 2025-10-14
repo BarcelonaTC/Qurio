@@ -5,7 +5,8 @@ import com.barcelona.qurio.presentation.model.CharacterGame
 
 interface BuyCharacterView : BaseView {
     fun showCharacter(character: CharacterGame)
-    fun onBuySuccess()
-    fun onBuyError()
+    fun onBuyClick(characterId: Int)
     fun showMessage(message: String)
+    fun setBuyButtonEnabled(enable: Boolean)
+    fun onCancelClick()
 }

@@ -35,6 +35,9 @@ class CharacterDetailFragment : BaseFragment<CharacterInfoDialogBinding>(),
             presenter.attachView(this)
             presenter.loadCharacter(characterId)
         }
+        binding.okButton.setOnClickListener {
+            onOkClick()
+        }
     }
 
     override fun showCharacter(character: CharacterGame) {
@@ -42,5 +45,9 @@ class CharacterDetailFragment : BaseFragment<CharacterInfoDialogBinding>(),
         binding.characterAge.text = "Age: ${character.age}"
         binding.characterDescription.text = character.description
         binding.characterImage.setImageResource(character.imageRes)
+    }
+
+    override fun onOkClick() {
+        binding.root.visibility = View.GONE
     }
 }

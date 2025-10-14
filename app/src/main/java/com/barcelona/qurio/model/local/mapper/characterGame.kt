@@ -12,6 +12,7 @@ fun CharacterGameEntity.toModel(): CharacterGame {
         price = price,
         isSelected = isSelected,
         description = description,
-        age = age
+        age = age,
+        lockedImage = lockedImage
     )
 }

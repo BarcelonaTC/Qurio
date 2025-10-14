@@ -25,7 +25,7 @@ class CharacterSelectionFragment : BaseFragment<CharactersSelectionBinding>(),
     override val layoutIdFragment: Int = R.layout.characters_selection
 
     private lateinit var characterAdapter: CharacterAdapter
-    private var currentCharacter: CharacterGame? = null
+    private lateinit var currentCharacter: CharacterGame
 
     @Inject
     lateinit var presenter: CharacterSelectionPresenter
@@ -40,9 +40,13 @@ class CharacterSelectionFragment : BaseFragment<CharactersSelectionBinding>(),
         setTitle(false)
         presenter.attachView(this)
         setupRecyclerView()
+        presenter.getSelectedCharacter()
         presenter.loadCharacters()
         binding.confirmButton.setOnClickListener {
             onConfirmButtonClick()
+        }
+        binding.cancelButton.setOnClickListener {
+            onCancelClick()
         }
     }
 
@@ -70,24 +74,29 @@ class CharacterSelectionFragment : BaseFragment<CharactersSelectionBinding>(),
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onClickOnCancelClick() {
-
+    override fun onCancelClick() {
+        binding.root.visibility = View.GONE
     }
-
     override fun onConfirmButtonClick() {
-        currentCharacter?.let { character ->
+        currentCharacter.let { character ->
             val bundle = Bundle().apply { putInt("characterId", character.id) }
             findNavController().navigate(
                 R.id.action_characterSelectionFragment_to_characterDetailFragment,
                 bundle
             )
-        } ?: showMessage("Please select a character")
+        }
+
     }
 
 
     override fun onCharacterClick(character: CharacterGame) {
         if (character.isLocked) {
-            showMessage("Character is locked")
+            val bundle = Bundle().apply { putInt("characterId", character.id) }
+            findNavController().navigate(
+                R.id.action_characterSelection_to_buyCharacterFragment,
+                bundle
+            )
+
             return
         }
 
@@ -96,4 +105,11 @@ class CharacterSelectionFragment : BaseFragment<CharactersSelectionBinding>(),
 
         characterAdapter.setSelectedCharacter(character.id)
     }
+
+    override fun showSelectedCharacter(character: CharacterGame) {
+        currentCharacter = character
+
+        characterAdapter.setSelectedCharacter(character.id)
+    }
+
 }

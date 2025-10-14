@@ -4,7 +4,6 @@
     xmlns:tool="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="character"
             type="com.barcelona.qurio.presentation.model.CharacterGame" />
@@ -17,7 +16,7 @@
 
         <com.barcelona.qurio.presentation.custom_view.Dialog
             android:layout_width="wrap_content"
-            android:layout_height="272dp"
+            android:layout_height="273dp"
             android:layout_marginHorizontal="16dp"
             app:dialogTitle="@string/character"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -26,8 +25,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="237dp"
+                android:layout_height="71dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="24dp"
                 android:gravity="center"
@@ -41,14 +40,14 @@
                         android:id="@+id/character_image"
                         android:layout_width="48dp"
                         android:layout_height="64dp"
-                        android:src="@{character.imageRes}"
                         android:layout_gravity="center"
                         android:layout_marginTop="12dp"
                         android:contentDescription="@string/character_image"
-                        tool:src="@drawable/mika_without_background"
+                        android:src="@{character.lockedImage}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tool:src="@drawable/mika_without_background" />
 
                     <ImageView
                         android:id="@+id/lock_icon"
@@ -73,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@{character.price}"
+                    android:text='@{String.valueOf(character.price)}'
                     android:textColor="@color/on_primary"
                     tool:text="300" />
 
@@ -86,12 +85,12 @@
                     android:textColor="@color/on_primary" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
                     android:contentDescription="@string/coin_icon"
-                    android:src="@drawable/coinstack" />
+                    android:src="@drawable/coin_stack" />
             </LinearLayout>
 
             <LinearLayout
@@ -119,7 +118,6 @@
                     android:text="@string/cancel" />
 
             </LinearLayout>
-
         </com.barcelona.qurio.presentation.custom_view.Dialog>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

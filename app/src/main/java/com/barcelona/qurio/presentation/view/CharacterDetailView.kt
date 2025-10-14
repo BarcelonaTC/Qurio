@@ -5,4 +5,5 @@ import com.barcelona.qurio.presentation.model.CharacterGame
 
 interface CharacterDetailView : BaseView {
     fun showCharacter(character: CharacterGame)
+    fun onOkClick()
 }

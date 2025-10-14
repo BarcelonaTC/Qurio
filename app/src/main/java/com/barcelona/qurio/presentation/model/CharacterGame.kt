@@ -5,6 +5,7 @@ data class CharacterGame(
     val name: String,
     val imageRes: Int,
     val isLocked: Boolean,
+    val lockedImage: Int,
     val price: Int,
     var isSelected: Boolean,
     val description: String,

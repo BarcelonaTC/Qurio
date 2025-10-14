@@ -25,4 +25,8 @@ class CharacterRepositoryImpl @Inject constructor(
     }
 
     override suspend fun unlockCharacter(id: Int) = characterDao.updateCharacterLock(id, false)
+
+    override suspend fun getSelectedCharacter(): CharacterGame {
+        return characterDao.getSelectedCharacter().toModel()
+    }
 }

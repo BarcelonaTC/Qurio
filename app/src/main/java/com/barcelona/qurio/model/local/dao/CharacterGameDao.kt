@@ -26,4 +26,7 @@ interface CharacterGameDao {
 
     @Query("UPDATE characters_game SET isSelected = 0 WHERE isSelected = 1")
     suspend fun unselectAllCharacters()
+
+    @Query("SELECT * FROM characters_game WHERE isSelected = 1")
+    suspend fun getSelectedCharacter(): CharacterGameEntity
 }
