@@ -22,6 +22,5 @@ interface AppComponent {
     fun inject(fragment: HomeFragment)
     fun inject(fragment: CharacterSelectionFragment)
     fun inject(fragment: CharacterDetailFragment)
-
     fun inject(fragment: BuyCharacterFragment)
 }

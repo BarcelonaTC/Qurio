@@ -87,7 +87,6 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
 
     // Dagger
-    implementation(libs.flexbox)
     implementation(libs.dagger)
 
     // Room Database
@@ -98,4 +97,7 @@ dependencies {
 
     // Carbon Blur
     api(libs.carbon)
+
+    //flexbox
+    implementation(libs.flexbox)
 }
