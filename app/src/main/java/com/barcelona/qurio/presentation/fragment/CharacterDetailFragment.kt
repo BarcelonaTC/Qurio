@@ -1,20 +1,21 @@
 package com.barcelona.qurio.presentation.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import com.barcelona.qurio.QurioApp
 import com.barcelona.qurio.R
-import com.barcelona.qurio.base.BaseFragment
+import com.barcelona.qurio.base.BaseDialogFragment
 import com.barcelona.qurio.databinding.CharacterInfoDialogBinding
 import com.barcelona.qurio.presentation.model.CharacterGame
 import com.barcelona.qurio.presentation.view.CharacterDetailView
 import com.barcelona.qurio.presenter.characterSelection.CharacterDetailPresenter
 import javax.inject.Inject
 
-class CharacterDetailFragment : BaseFragment<CharacterInfoDialogBinding>(),
+class CharacterDetailFragment : BaseDialogFragment<CharacterInfoDialogBinding>(),
     CharacterDetailView {
 
-    override val layoutIdFragment: Int
+    override val layoutIdDialog: Int
         get() = R.layout.character_info_dialog
 
     @Inject
@@ -22,7 +23,7 @@ class CharacterDetailFragment : BaseFragment<CharacterInfoDialogBinding>(),
 
     private var characterId: Int = -1
 
-    override fun onAttach(context: android.content.Context) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as QurioApp).appComponent.inject(this)
     }
@@ -35,6 +36,7 @@ class CharacterDetailFragment : BaseFragment<CharacterInfoDialogBinding>(),
             presenter.attachView(this)
             presenter.loadCharacter(characterId)
         }
+
         binding.okButton.setOnClickListener {
             onOkClick()
         }
@@ -48,6 +50,11 @@ class CharacterDetailFragment : BaseFragment<CharacterInfoDialogBinding>(),
     }
 
     override fun onOkClick() {
-        binding.root.visibility = View.GONE
+        dismiss()
+    }
+
+    override fun onDestroyView() {
+        presenter.detachView()
+        super.onDestroyView()
     }
 }

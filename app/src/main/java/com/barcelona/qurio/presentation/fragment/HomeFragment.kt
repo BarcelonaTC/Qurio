@@ -82,10 +82,10 @@ class HomeFragment(
             seeAllGames.setOnClickListener {
                 findNavController().navigate(R.id.gameFragment)
             }
-            seeAllLastGames.setOnClickListener {
-            }
+            seeAllLastGames.setOnClickListener {}
             binding.appBar.profile.setOnClickListener {
-                findNavController().navigate(R.id.characterSelectionFragment)
+                val dialog = CharacterSelectionFragment()
+                dialog.show(parentFragmentManager, "CharacterSelectionDialog")
             }
         }
     }

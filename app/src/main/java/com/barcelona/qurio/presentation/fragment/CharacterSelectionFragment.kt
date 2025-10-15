@@ -4,10 +4,9 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import com.barcelona.qurio.QurioApp
 import com.barcelona.qurio.R
-import com.barcelona.qurio.base.BaseFragment
+import com.barcelona.qurio.base.BaseDialogFragment
 import com.barcelona.qurio.databinding.CharactersSelectionBinding
 import com.barcelona.qurio.presentation.adapter.characterAdapter.CharacterAdapter
 import com.barcelona.qurio.presentation.model.CharacterGame
@@ -19,10 +18,10 @@ import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import javax.inject.Inject
 
-class CharacterSelectionFragment : BaseFragment<CharactersSelectionBinding>(),
+class CharacterSelectionFragment : BaseDialogFragment<CharactersSelectionBinding>(),
     CharacterSelectionView {
 
-    override val layoutIdFragment: Int = R.layout.characters_selection
+    override val layoutIdDialog: Int = R.layout.characters_selection
 
     private lateinit var characterAdapter: CharacterAdapter
     private lateinit var currentCharacter: CharacterGame
@@ -75,41 +74,41 @@ class CharacterSelectionFragment : BaseFragment<CharactersSelectionBinding>(),
     }
 
     override fun onCancelClick() {
-        binding.root.visibility = View.GONE
+        dismiss()
     }
+
     override fun onConfirmButtonClick() {
         currentCharacter.let { character ->
-            val bundle = Bundle().apply { putInt("characterId", character.id) }
-            findNavController().navigate(
-                R.id.action_characterSelectionFragment_to_characterDetailFragment,
-                bundle
-            )
+            val dialog = CharacterDetailFragment().apply {
+                arguments = Bundle().apply {
+                    putInt("characterId", character.id)
+                }
+            }
+            dismiss()
+            dialog.show(parentFragmentManager, "CharacterDetailFragment")
         }
-
     }
 
 
     override fun onCharacterClick(character: CharacterGame) {
         if (character.isLocked) {
-            val bundle = Bundle().apply { putInt("characterId", character.id) }
-            findNavController().navigate(
-                R.id.action_characterSelection_to_buyCharacterFragment,
-                bundle
-            )
-
+            val dialog = BuyCharacterFragment().apply {
+                arguments = Bundle().apply {
+                    putInt("characterId", character.id)
+                }
+            }
+            dismiss()
+            dialog.show(parentFragmentManager, "BuyCharacterDialog")
             return
         }
 
         currentCharacter = character
         presenter.onCharacterClicked(character)
-
         characterAdapter.setSelectedCharacter(character.id)
     }
 
     override fun showSelectedCharacter(character: CharacterGame) {
         currentCharacter = character
-
         characterAdapter.setSelectedCharacter(character.id)
     }
-
 }

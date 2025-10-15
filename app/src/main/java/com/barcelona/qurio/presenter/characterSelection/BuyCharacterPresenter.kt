@@ -1,6 +1,5 @@
 package com.barcelona.qurio.presenter.characterSelection
 
-import android.util.Log
 import com.barcelona.qurio.base.BasePresenter
 import com.barcelona.qurio.presentation.view.BuyCharacterView
 import com.barcelona.qurio.presenter.repository.CharacterRepository
@@ -17,7 +16,6 @@ class BuyCharacterPresenter @Inject constructor(
             block = {
                 val character = characterRepository.getCharacterById(characterId)
                 val totalPoints = triviaGameSessionRepository.getTotalPointsOfAllSessions()
-                Log.d("23423423", "loadCharacter: $totalPoints")
                 character to totalPoints
             },
             onSuccess = { (character, totalPoints) ->
