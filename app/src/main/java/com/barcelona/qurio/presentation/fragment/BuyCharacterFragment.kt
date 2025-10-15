@@ -1,21 +1,19 @@
 package com.barcelona.qurio.presentation.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import com.barcelona.qurio.QurioApp
 import com.barcelona.qurio.R
-import com.barcelona.qurio.base.BaseFragment
+import com.barcelona.qurio.base.BaseDialogFragment
 import com.barcelona.qurio.databinding.BuyCharacterDialogBinding
 import com.barcelona.qurio.presentation.model.CharacterGame
 import com.barcelona.qurio.presentation.view.BuyCharacterView
 import com.barcelona.qurio.presenter.characterSelection.BuyCharacterPresenter
 import javax.inject.Inject
 
-class BuyCharacterFragment : BaseFragment<BuyCharacterDialogBinding>(), BuyCharacterView {
-    override val layoutIdFragment: Int
+class BuyCharacterFragment : BaseDialogFragment<BuyCharacterDialogBinding>(), BuyCharacterView {
+    override val layoutIdDialog: Int
         get() = R.layout.buy_character_dialog
 
     @Inject
@@ -55,18 +53,21 @@ class BuyCharacterFragment : BaseFragment<BuyCharacterDialogBinding>(), BuyChara
     }
 
     override fun onCancelClick() {
-        binding.root.visibility = View.GONE
+        dismiss()
     }
 
     override fun onBuyClick(characterId: Int) {
-        Log.d("testdsaf", "onBuyClick: ${binding.buyConfirmButton.isEnabled}")
         if (binding.buyConfirmButton.isEnabled) {
             presenter.buyCharacter(characterId)
-            findNavController().navigate(
-                R.id.action_buyCharacterFragment_to_characterSelectionFragment,
-            )
+
+            parentFragmentManager.setFragmentResult("character_bought", Bundle().apply {
+                putInt("characterId", characterId)
+            })
+
+            dismiss()
         }
     }
+
 
     override fun showMessage(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()

@@ -48,7 +48,7 @@ object CharacterDataSource {
         CharacterGameEntity(
             name = "Kuro",
             imageRes = R.drawable.kuro_character,
-            isLocked = true,
+            isLocked = false,
             price = 3000,
             isSelected = false,
             description = "A blazing inferno of passion and determination. Kuro fights with every fiber of their being and loves just as fiercely. Impulsive but pure of heart, they inspire others through sheer force of will.",
