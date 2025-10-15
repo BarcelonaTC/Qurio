@@ -1,5 +1,6 @@
 package com.barcelona.qurio.presentation.adapter
 
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -28,7 +29,9 @@ class QuestionAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.answerText.text = answers[position]
+        val decodedText =
+            Html.fromHtml(answers[position], Html.FROM_HTML_MODE_LEGACY).toString()
+        holder.answerText.text = decodedText
 
         holder.answerLayout.setBackgroundResource(
             if (showCorrect && selectedPosition == position) {

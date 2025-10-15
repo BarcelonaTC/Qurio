@@ -19,4 +19,5 @@ interface StartPlayView : BaseView {
     fun showError(error: Throwable)
     fun toggleSkipButton(visible: Boolean)
     fun onGameSessionSaved(session: TriviaGameSession)
+    fun showTotalLives(lives: Int)
 }

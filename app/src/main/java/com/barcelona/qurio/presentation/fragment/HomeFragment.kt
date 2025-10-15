@@ -41,6 +41,7 @@ class HomeFragment(
         presenter.updateStreak()
         presenter.getStreak()
         presenter.getTotalPoints()
+        presenter.getTotalLives()
 
     }
 
@@ -72,9 +73,24 @@ class HomeFragment(
     }
 
     fun onPlayNowClicked(gameCard: GameCardModel) {
-        findNavController().navigate(
-            HomeFragmentDirections.actionHomeFragmentToStartPlayFragment(gameCard.categoryId)
+        presenter.checkLivesBeforePlay(
+            onHasLives = {
+                findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToStartPlayFragment(gameCard.categoryId)
+                )
+            },
+            onNoLives = {
+                showNoLivesDialog()
+            }
         )
+    }
+
+    private fun showNoLivesDialog() {
+        android.app.AlertDialog.Builder(requireContext())
+            .setTitle("لا يوجد محاولات متبقية")
+            .setMessage("انتظر حتى تتجدد الأرواح أو اشتر المزيد.")
+            .setPositiveButton("حسنًا", null)
+            .show()
     }
 
     private fun setInteractionListener() {
@@ -92,12 +108,12 @@ class HomeFragment(
 
     override fun showStreak(streak: StreakModel) {
         binding.streakComponent.streak = streak
+
         binding.streakComponent.daysRecyclerView.adapter = StreakDayAdapter(streak.days)
     }
 
     override fun showTotalPoints(totalPoints: Int) {
         val soundPlayer = CoinSoundPlayer(context)
-
         soundPlayer.loadSound(R.raw.coins_sound) {
             animatePoints(
                 endValue = totalPoints,
@@ -112,5 +128,9 @@ class HomeFragment(
             )
             soundPlayer.play()
         }
+    }
+
+    override fun showTotalLives(totalLives: Int) {
+        binding.statisticsComponent.livesCard.livesAmount.text = totalLives.toString()
     }
 }
