@@ -46,8 +46,8 @@
                         android:id="@+id/back"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:clickable="true"
-                        android:background="@drawable/background_back">
+                        android:background="@drawable/background_back"
+                        android:clickable="true">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -68,11 +68,11 @@
                         app:srcCompat="@drawable/statstics_heart" />
 
                     <TextView
+                        android:id="@+id/totalLives"
                         style="@style/Label.Medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:text="4"
                         android:textColor="@color/on_primary" />
                 </LinearLayout>
 
