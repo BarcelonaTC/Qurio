@@ -101,6 +101,18 @@ class UserStreakRepositoryImpl @Inject constructor(private val dao: UserStreakDa
         )
     }
 
+    override suspend fun getLivesCount(): Int {
+        return dao.getLivesCount()
+    }
+
+    override suspend fun incrementLives() {
+        dao.incrementLives()
+    }
+
+    override suspend fun decrementLives() {
+        dao.decrementLives()
+    }
+
     private fun getDayOfWeek(timestamp: Long): DayOfWeek {
         val calendar = Calendar.getInstance().apply {
             timeInMillis = timestamp

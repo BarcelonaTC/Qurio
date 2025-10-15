@@ -1,7 +1,7 @@
 package com.barcelona.qurio.presentation.fragment
 
 import android.os.Bundle
-import android.util.Log
+import android.text.Html
 import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
@@ -31,8 +31,8 @@ class StartPlayFragment : BaseFragment<FragmentStartPlayBinding>(), StartPlayVie
         (requireActivity().application as QurioApp).appComponent.inject(this)
         super.onViewCreated(view, savedInstanceState)
         startPlayPresenter.attachView(this)
-        Log.d("StartPlayFragment", "categoryId: ${args.categoryId}")
         startPlayPresenter.getQuestions(args.categoryId)
+        startPlayPresenter.getTotalLives()
         setupListeners()
     }
 
@@ -63,7 +63,9 @@ class StartPlayFragment : BaseFragment<FragmentStartPlayBinding>(), StartPlayVie
         question: Question,
         questionNumber: String
     ) {
-        binding.questionsPager.setQuestion(question.question ?: "")
+        val decodedText =
+            Html.fromHtml(question.question, Html.FROM_HTML_MODE_LEGACY).toString()
+        binding.questionsPager.setQuestion(decodedText)
         binding.questionsPager.setQuestionNumber(questionNumber)
     }
 
@@ -111,6 +113,10 @@ class StartPlayFragment : BaseFragment<FragmentStartPlayBinding>(), StartPlayVie
         val action = StartPlayFragmentDirections
             .actionStartPlayFragmentToResultPlayFragment(session, args.categoryId)
         findNavController().navigate(action)
+    }
+
+    override fun showTotalLives(lives: Int) {
+        binding.totalLives.text = lives.toString()
     }
 
     private fun showToastMessage(message: String, duration: Int = Toast.LENGTH_SHORT) {

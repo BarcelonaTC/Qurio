@@ -39,9 +39,14 @@ object AppModule {
     @Provides
     fun provideStartPlayPresenter(
         triviaGameRepository: TriviaGameRepository,
-        triviaGameSessionRepository: TriviaGameSessionRepository
+        triviaGameSessionRepository: TriviaGameSessionRepository,
+        userStreakRepository: UserStreakRepository
     ): StartPlayPresenter {
-        return StartPlayPresenter(triviaGameRepository, triviaGameSessionRepository)
+        return StartPlayPresenter(
+            triviaGameRepository,
+            triviaGameSessionRepository,
+            userStreakRepository
+        )
     }
 
     @Provides
