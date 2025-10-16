@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.serialization)
+    id("androidx.navigation.safeargs.kotlin")
+    alias(libs.plugins.ksp)
 }
 
 val BASE_URL: String by project
@@ -51,9 +53,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.datastore.preferences)
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -62,15 +61,43 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // DataStore
+    implementation(libs.androidx.datastore.preferences)
+
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.core)
+
+    // SplashScreen
+    implementation(libs.androidx.core.splashscreen)
+    // Lottie Animations
     implementation(libs.lottie)
+
+    // Retrofit & Okhttp
     implementation(libs.retrofit)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
     implementation(libs.retrofit2.kotlinx.serialization.converter)
+
+    // Serialization
     implementation(libs.kotlinx.serialization.json)
+
+    // Navigation
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+
+    // Dagger
     implementation(libs.dagger)
+
+    // Room Database
+    implementation(libs.bundles.room)
+    ksp(libs.androidx.room.compiler)
+
     kapt(libs.dagger.compiler)
+
+    // Carbon Blur
     api(libs.carbon)
+
+    //flexbox
+    implementation(libs.flexbox)
 }

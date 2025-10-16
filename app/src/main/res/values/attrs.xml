@@ -12,22 +12,33 @@
         <attr name="shadowDx" format="dimension" />
         <attr name="shadowDy" format="dimension" />
     </declare-styleable>
+
     <declare-styleable name="TextButton">
         <attr name="textButtonEnabled" format="boolean" />
     </declare-styleable>
+
     <declare-styleable name="SecondaryButton">
         <attr name="secondaryButtonEnabled" format="boolean" />
     </declare-styleable>
+
     <declare-styleable name="PrimaryButton">
         <attr name="primaryButtonEnabled" format="boolean" />
     </declare-styleable>
+
     <declare-styleable name="CustomTimeComponent">
         <attr name="progress" format="float" />
         <attr name="centerText" format="string" />
     </declare-styleable>
+
     <declare-styleable name="QuestionTextCard">
         <attr name="questionText" format="string" />
         <attr name="questionNumber" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="ResultCardView">
+        <attr name="resultText" format="string" />
+        <attr name="blurVisible" format="boolean" />
+        <attr name="starsVisible" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="StatisticsCustomCardView">
@@ -40,4 +51,20 @@
         <!-- SVG path resource (string resource name) -->
         <attr name="pathData" format="string|reference" />
     </declare-styleable>
+
+    <declare-styleable name="TitleCard">
+        <attr name="cardTitle" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="Dialog">
+        <attr name="dialogTitle" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="CharacterCardView">
+        <attr name="characterName" format="string" />
+        <attr name="characterImage" format="reference" />
+        <attr name="isLocked" format="boolean" />
+        <attr name="isSelected" format="boolean" />
+    </declare-styleable>
+
 </resources>

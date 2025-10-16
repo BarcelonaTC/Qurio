@@ -24,8 +24,8 @@ class QuestionTextCard @JvmOverloads constructor(
 
             typedArray.recycle()
 
-            binding.questionText.text = question
-            binding.questionNumberText.text = number
+            setQuestion(question)
+            setQuestionNumber(number)
         }
     }
 
@@ -34,6 +34,6 @@ class QuestionTextCard @JvmOverloads constructor(
     }
 
     fun setQuestionNumber(numberText: String) {
-        binding.questionNumberText.text = numberText
+        binding.questionNumberText.setTitle(numberText)
     }
 }

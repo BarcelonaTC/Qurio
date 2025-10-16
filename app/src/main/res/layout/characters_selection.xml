@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tool:background="@color/carbon_white">
+
+        <com.barcelona.qurio.presentation.custom_view.Dialog
+            android:layout_width="match_parent"
+            android:layout_height="314dp"
+            android:layout_marginHorizontal="16dp"
+            app:dialogTitle="@string/character"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/characters_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingHorizontal="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="36dp"
+                android:paddingHorizontal="12dp"
+                android:layout_gravity="bottom">
+
+                <com.barcelona.qurio.presentation.custom_view.PrimaryButton
+                    android:id="@+id/confirm_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/confirm"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp" />
+
+                <com.barcelona.qurio.presentation.custom_view.SecondaryButton
+                    android:id="@+id/cancel_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cancel"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp" />
+
+            </LinearLayout>
+        </com.barcelona.qurio.presentation.custom_view.Dialog>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -5,12 +5,23 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.barcelona.qurio.model.api.TriviaApiService
-import com.barcelona.qurio.presenter.OnBoardingPresenter
-import com.barcelona.qurio.model.repository.TriviaGameRepository
+import com.barcelona.qurio.model.local.dao.CharacterGameDao
+import com.barcelona.qurio.model.local.dao.GameSessionDao
+import com.barcelona.qurio.model.local.dao.UserStreakDao
+import com.barcelona.qurio.model.repository.CharacterRepositoryImpl
 import com.barcelona.qurio.model.repository.TriviaGameRepositoryImpl
+import com.barcelona.qurio.model.repository.TriviaGameSessionRepositoryImpl
+import com.barcelona.qurio.model.repository.UserPreferencesImpl
+import com.barcelona.qurio.model.repository.UserStreakRepositoryImpl
+import com.barcelona.qurio.presenter.OnBoardingPresenter
 import com.barcelona.qurio.presenter.StartPlayPresenter
-import com.barcelona.qurio.service.UserPreferences
-import com.barcelona.qurio.service.UserPreferencesImpl
+import com.barcelona.qurio.presenter.characterSelection.BuyCharacterPresenter
+import com.barcelona.qurio.presenter.characterSelection.CharacterSelectionPresenter
+import com.barcelona.qurio.presenter.repository.CharacterRepository
+import com.barcelona.qurio.presenter.repository.TriviaGameRepository
+import com.barcelona.qurio.presenter.repository.TriviaGameSessionRepository
+import com.barcelona.qurio.presenter.repository.UserPreferences
+import com.barcelona.qurio.presenter.repository.UserStreakRepository
 import dagger.Module
 import dagger.Provides
 
@@ -26,8 +37,16 @@ object AppModule {
     }
 
     @Provides
-    fun provideStartPlayPresenter(triviaGameRepository: TriviaGameRepository): StartPlayPresenter {
-        return StartPlayPresenter(triviaGameRepository)
+    fun provideStartPlayPresenter(
+        triviaGameRepository: TriviaGameRepository,
+        triviaGameSessionRepository: TriviaGameSessionRepository,
+        userStreakRepository: UserStreakRepository
+    ): StartPlayPresenter {
+        return StartPlayPresenter(
+            triviaGameRepository,
+            triviaGameSessionRepository,
+            userStreakRepository
+        )
     }
 
     @Provides
@@ -41,6 +60,9 @@ object AppModule {
     }
 
     @Provides
+    fun provideContext(): Context = appContext
+
+    @Provides
     fun provideUserPreferences(
         impl: UserPreferencesImpl
     ): UserPreferences = impl
@@ -48,5 +70,40 @@ object AppModule {
     @Provides
     fun provideDataStore(): DataStore<Preferences> {
         return appContext.dataStore
+    }
+
+    @Provides
+    fun provideTriviaGameSessionRepository(dao: GameSessionDao): TriviaGameSessionRepository {
+        return TriviaGameSessionRepositoryImpl(dao)
+    }
+
+    @Provides
+    fun provideUserStreakRepository(dao: UserStreakDao): UserStreakRepository {
+        return UserStreakRepositoryImpl(dao)
+    }
+
+
+    @Provides
+    fun provideCharacterRepository(
+        dao: CharacterGameDao
+    ): CharacterRepository = CharacterRepositoryImpl(dao)
+
+
+    @Provides
+    fun provideCharacterSelectionPresenter(
+        characterRepository: CharacterRepository
+    ): CharacterSelectionPresenter {
+        return CharacterSelectionPresenter(characterRepository)
+    }
+
+    @Provides
+    fun provideBuyCharacterPresenter(
+        characterRepository: CharacterRepository,
+        triviaGameSessionRepository: TriviaGameSessionRepository
+    ): BuyCharacterPresenter {
+        return BuyCharacterPresenter(
+            characterRepository,
+            triviaGameSessionRepository
+        )
     }
 }

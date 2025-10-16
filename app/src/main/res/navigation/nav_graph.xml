@@ -3,18 +3,96 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/startPlayFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/startPlayFragment"
         android:name="com.barcelona.qurio.presentation.fragment.StartPlayFragment"
         android:label="StartPlayFragment"
-        tools:layout="@layout/fragment_start_play" />
+        tools:layout="@layout/fragment_start_play">
+        <argument
+            android:name="categoryId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_startPlayFragment_to_resultPlayFragment"
+            app:destination="@id/resultPlayFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/onBoardingFragment"
         android:name="com.barcelona.qurio.presentation.fragment.OnBoardingFragment"
         android:label="OnBoardingFragment"
-        tools:layout="@layout/fragment_onboarding"
-        />
+        tools:layout="@layout/fragment_onboarding" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.barcelona.qurio.presentation.fragment.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_startPlayFragment"
+            app:destination="@id/startPlayFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.barcelona.qurio.presentation.fragment.GameFragment"
+        android:label="GameFragment"
+        tools:layout="@layout/fragment_game">
+        <action
+            android:id="@+id/action_gameFragment_to_startPlayFragment"
+            app:destination="@id/startPlayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultPlayFragment"
+        android:name="com.barcelona.qurio.presentation.fragment.ResultPlayFragment"
+        android:label="ResultPlayFragment"
+        tools:layout="@layout/fragment_result_play">
+        <argument
+            android:name="session"
+            app:argType="com.barcelona.qurio.presentation.model.TriviaGameSession" />
+        <argument
+            android:name="categoryId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_resultPlayFragment_to_startPlayFragment"
+            app:destination="@id/startPlayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/characterSelectionFragment"
+        android:name="com.barcelona.qurio.presentation.fragment.CharacterSelectionFragment"
+        android:label="CharacterSelectionFragment"
+        tools:layout="@layout/characters_selection">
+
+        <action
+            android:id="@+id/action_characterSelectionFragment_to_characterDetailFragment"
+            app:destination="@id/characterDetailFragment" />
+
+        <action
+            android:id="@+id/action_characterSelection_to_buyCharacterFragment"
+            app:destination="@id/buyCharacterFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/characterDetailFragment"
+        android:name="com.barcelona.qurio.presentation.fragment.CharacterDetailFragment"
+        android:label="CharacterDetailFragment"
+        tools:layout="@layout/character_info_dialog">
+        <argument
+            android:name="characterId"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/buyCharacterFragment"
+        android:name="com.barcelona.qurio.presentation.fragment.BuyCharacterFragment"
+        android:label="BuyCharacterFragment"
+        tools:layout="@layout/buy_character_dialog">
+        <argument
+            android:name="characterId"
+            app:argType="integer" />
+
+        <action
+            android:id="@+id/action_buyCharacterFragment_to_characterSelectionFragment"
+            app:destination="@id/characterSelectionFragment" />
+    </fragment>
 </navigation>

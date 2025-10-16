@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <import type="android.view.View" />
-
-        <variable
-            name="reward"
-            type="String" />
-
-    </data>
-
     <FrameLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="328dp"
+            android:layout_width="match_parent"
             android:layout_height="227dp"
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="133dp"
@@ -41,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="8dp"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 app:layout_constraintEnd_toEndOf="@id/reward_tv"
                 app:layout_constraintStart_toStartOf="@id/reward_tv"
                 app:layout_constraintTop_toBottomOf="@id/reward_tv">
@@ -54,12 +44,11 @@
                     android:src="@drawable/coinstack" />
 
                 <TextView
+                    android:id="@+id/coinsReward"
                     style="@style/Title.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
-                    android:textColor="@color/shade_primary"
-                    tools:text="500" />
+                    android:textColor="@color/shade_primary" />
             </LinearLayout>
 
             <LinearLayout
@@ -87,6 +76,7 @@
                     android:textColor="@color/shade_secondary" />
 
                 <TextView
+                    android:id="@+id/correctAnswersCount"
                     style="@style/Label.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -121,6 +111,7 @@
                     android:textColor="@color/shade_secondary" />
 
                 <TextView
+                    android:id="@+id/inCorrectAnswersCount"
                     style="@style/Label.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -155,6 +146,7 @@
                     android:textColor="@color/shade_secondary" />
 
                 <TextView
+                    android:id="@+id/skippedAnswersCount"
                     style="@style/Label.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -168,6 +160,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
+            android:id="@+id/blurBackground"
             android:layout_width="match_parent"
             android:layout_height="154.54dp"
             android:layout_marginHorizontal="14dp"
@@ -176,43 +169,44 @@
             android:src="@drawable/blur_background" />
 
         <FrameLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="109.76dp">
 
             <ImageView
+                android:id="@+id/ribbon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:contentDescription="@string/ribbon_image"
                 android:src="@drawable/ribbon" />
 
-            <com.barcelona.qurio.customView.OutlineTextView
+            <com.barcelona.qurio.presentation.custom_view.OutlineTextView
+                android:id="@+id/resultText"
                 style="@style/HeadLine.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top"
                 android:layout_marginTop="11.24dp"
-                android:text="@string/great_job"
-                app:outlineWidth="3dp"
-                app:outlineColor="#1980B2"
-                android:textColor="#1980B2" />
+                android:textColor="@color/on_primary"
+                app:outlineWidth="3dp" />
 
 
-            <com.barcelona.qurio.customView.OutlineTextView
+            <com.barcelona.qurio.presentation.custom_view.OutlineTextView
+                android:id="@+id/txtResult"
                 style="@style/HeadLine.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top"
                 android:layout_marginTop="8.24dp"
-                android:text="@string/great_job"
-                app:outlineColor="#1980B2"
-                app:outlineWidth="3dp"
                 android:textColor="@color/on_primary"
-                />
+                app:outlineColor="#1980B2"
+                app:outlineWidth="3dp" />
 
         </FrameLayout>
 
         <LinearLayout
+            android:id="@+id/starsContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -220,31 +214,35 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/star1"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="0dp"
                 android:contentDescription="@string/star_icon"
-                android:src="@drawable/star"
+                android:src="@drawable/golden_star"
                 android:visibility="visible" />
 
             <ImageView
+                android:id="@+id/star2"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginHorizontal="8dp"
                 android:contentDescription="@string/star_icon"
-                android:src="@drawable/star"
+                android:src="@drawable/golden_star"
                 android:visibility="visible" />
 
             <ImageView
+                android:id="@+id/star3"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="8dp"
                 android:contentDescription="@string/star_icon"
-                android:src="@drawable/star" />
+                android:src="@drawable/golden_star"
+                android:visibility="visible" />
 
         </LinearLayout>
 
 
     </FrameLayout>
-</layout>
+</merge>

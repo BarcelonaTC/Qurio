@@ -2,13 +2,19 @@ package com.barcelona.qurio.presenter
 
 import android.os.CountDownTimer
 import com.barcelona.qurio.base.BasePresenter
-import com.barcelona.qurio.model.repository.TriviaGameRepository
 import com.barcelona.qurio.presentation.model.Question
+import com.barcelona.qurio.presentation.model.TriviaGameSession
 import com.barcelona.qurio.presentation.view.StartPlayView
+import com.barcelona.qurio.presenter.repository.TriviaGameRepository
+import com.barcelona.qurio.presenter.repository.TriviaGameSessionRepository
+import com.barcelona.qurio.presenter.repository.UserStreakRepository
 import javax.inject.Inject
+import kotlin.random.Random
 
 class StartPlayPresenter @Inject constructor(
-    private val triviaGameRepository: TriviaGameRepository
+    private val triviaGameRepository: TriviaGameRepository,
+    private val gameSessionRepository: TriviaGameSessionRepository,
+    private val userStreakRepository: UserStreakRepository
 ) : BasePresenter<StartPlayView>() {
 
     private var questions: List<Question> = emptyList()
@@ -18,15 +24,21 @@ class StartPlayPresenter @Inject constructor(
     private val questionTimeMillis = 20_000L
     private var questionChecked = false
 
-    fun getQuestions() {
+    private var correctCount = 0
+    private var wrongCount = 0
+    private var totalTimeSeconds = 0L
+    private var timerStartTime = 0L
+
+    fun getTotalLives() {
         tryToCall(
-            block = {
-                triviaGameRepository.fetchQuestions(
-                    12,
-                    difficulty = "easy",
-                    type = "multiple"
-                )
-            },
+            block = { userStreakRepository.getLivesCount() },
+            onSuccess = { view?.showTotalLives(it) },
+        )
+    }
+
+    fun getQuestions(categoryId: Int) {
+        tryToCall(
+            block = { triviaGameRepository.fetchQuestions(12, "easy", "multiple", categoryId) },
             onStart = { view?.showLoading() },
             onSuccess = ::onQuestionsSuccess,
             onError = { view?.showError(it) },
@@ -35,7 +47,6 @@ class StartPlayPresenter @Inject constructor(
     }
 
     private fun onQuestionsSuccess(list: List<Question>) {
-
         questions = list
         view?.hideLoading()
         if (list.isNotEmpty()) {
@@ -57,6 +68,10 @@ class StartPlayPresenter @Inject constructor(
         view?.showQuestion(q, "Q ${currentIndex + 1}/${questions.size}")
         view?.showAnswers(currentAnswers)
         view?.resetAnswers()
+        val isLast = currentIndex == questions.size - 1
+        view?.toggleSkipButton(!isLast)
+
+        timerStartTime = System.currentTimeMillis()
         startTimer()
     }
 
@@ -83,13 +98,26 @@ class StartPlayPresenter @Inject constructor(
                 view?.showMessage("Select an answer first")
                 return
             }
+
             val question = questions[currentIndex]
             val correct = question.correctAnswer ?: ""
             view?.highlightAnswers(correct, selectedPosition)
             questionChecked = true
             countDownTimer?.cancel()
+
+            val answer = currentAnswers.getOrNull(selectedPosition)
+            if (answer == correct) correctCount++ else wrongCount++
+            totalTimeSeconds += ((System.currentTimeMillis() - timerStartTime) / 1000).toInt()
+
+            if (currentIndex == questions.size - 1) {
+                saveGameSession()
+                view?.showEndOfQuestions()
+            }
+
         } else {
-            nextQuestion()
+            if (currentIndex < questions.size - 1) {
+                nextQuestion()
+            }
         }
     }
 
@@ -99,8 +127,68 @@ class StartPlayPresenter @Inject constructor(
             currentIndex++
             showCurrentQuestion()
         } else {
+            saveGameSession()
             view?.showEndOfQuestions()
         }
+    }
+
+    private fun calculateStars(): Int {
+        if (questions.isEmpty()) return 0
+        val percentage = correctCount.toFloat() / questions.size
+        return when {
+            percentage >= 1.0f -> 3
+            percentage >= 2f / 3f -> 2
+            percentage >= 1f / 3f -> 1
+            else -> 0
+        }
+    }
+
+    private fun calculateCoins(): Int {
+        if (calculateStars() == 0) {
+            return when (correctCount) {
+                in 1..2 -> Random.nextInt(1, 3)
+                3 -> Random.nextInt(2, 5)
+                else -> 0
+            }
+        }
+
+        var earned = 0
+        repeat(correctCount) {
+            earned += Random.nextInt(5, 15)
+        }
+        return earned
+    }
+
+    private fun handleLivesAfterGame() {
+        if (calculateStars() == 0) {
+            tryToCall(
+                block = { userStreakRepository.decrementLives() },
+                onSuccess = { getTotalLives() },
+                onError = { view?.showError(it) }
+            )
+        }
+    }
+
+    private fun saveGameSession() {
+        val skipped = (questions.size - (correctCount + wrongCount))
+        val session = TriviaGameSession(
+            correctAnswers = correctCount,
+            wrongAnswers = wrongCount,
+            skippedAnswers = skipped,
+            stars = calculateStars(),
+            totalTimeSeconds = totalTimeSeconds.toInt(),
+            earnedCoins = calculateCoins()
+        )
+        tryToCall(
+            block = { gameSessionRepository.insertSession(session) },
+            onStart = {},
+            onSuccess = {
+                view?.onGameSessionSaved(session)
+                handleLivesAfterGame()
+            },
+            onError = { view?.showError(it) },
+            onEnd = {}
+        )
     }
 
     fun destroyTimer() {

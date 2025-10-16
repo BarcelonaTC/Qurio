@@ -1,4 +1,4 @@
-package com.barcelona.qurio.service
+package com.barcelona.qurio.presenter.repository
 
 import kotlinx.coroutines.flow.Flow
 

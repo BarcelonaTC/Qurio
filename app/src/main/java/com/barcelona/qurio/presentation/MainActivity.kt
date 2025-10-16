@@ -9,8 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.barcelona.qurio.QurioApp
 import com.barcelona.qurio.R
-import com.barcelona.qurio.service.UserPreferences
-import kotlinx.coroutines.delay
+import com.barcelona.qurio.presenter.repository.UserPreferences
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -33,7 +32,6 @@ class MainActivity : AppCompatActivity() {
 
         splashAnimation(splashScreen)
         lifecycleScope.launch {
-            delay(2000)
             keepSplash = false
         }
     }
@@ -44,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                 if (it) {
                     findNavController(R.id.nav_host_fragment).navigate(R.id.onBoardingFragment)
                 } else {
-                    findNavController(R.id.nav_host_fragment).navigate(R.id.startPlayFragment)
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.homeFragment)
                 }
             }
         }

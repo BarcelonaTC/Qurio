@@ -3,7 +3,7 @@ package com.barcelona.qurio.presentation.custom_view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.FrameLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.barcelona.qurio.R
 import com.barcelona.qurio.databinding.PlayButtonBinding
 
@@ -11,14 +11,16 @@ class PlayButton @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : FrameLayout(context, attrs, defStyleAttr) {
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    private val binding: PlayButtonBinding =
-        PlayButtonBinding.inflate(LayoutInflater.from(context), this)
+    private val binding: PlayButtonBinding
 
     init {
-        isClickable = true
-        isFocusable = true
+        binding = PlayButtonBinding.inflate(
+            LayoutInflater.from(context),
+            this,
+            true
+        )
 
         if (attrs != null) {
             val ta = context.obtainStyledAttributes(attrs, intArrayOf(android.R.attr.text))
