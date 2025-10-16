@@ -19,5 +19,4 @@ data class UserStreakEntity(
     val sunday: Boolean = false,
     val weekStartDate: Long = 0L,
     val totalDaysActive: Int = 0,
-    val lives: Int = 3
 )

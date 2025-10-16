@@ -2,6 +2,7 @@ package com.barcelona.qurio.presentation.view
 
 import com.barcelona.qurio.base.BaseView
 import com.barcelona.qurio.presentation.model.LastGame
+import com.barcelona.qurio.presentation.model.CharacterGame
 import com.barcelona.qurio.presentation.model.streak.StreakModel
 
 interface HomeView : BaseView {
@@ -10,4 +11,6 @@ interface HomeView : BaseView {
     fun showTotalLives(totalLives: Int)
 
     fun showLastGames(lastGames: List<LastGame>)
+    fun showTotalRewards(totalRewards: Int)
+    fun showSelectedCharacter(selectedCharacter: CharacterGame)
 }

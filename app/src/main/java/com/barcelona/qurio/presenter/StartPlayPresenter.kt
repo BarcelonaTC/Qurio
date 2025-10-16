@@ -7,21 +7,22 @@ import com.barcelona.qurio.presentation.model.TriviaGameSession
 import com.barcelona.qurio.presentation.view.StartPlayView
 import com.barcelona.qurio.presenter.repository.TriviaGameRepository
 import com.barcelona.qurio.presenter.repository.TriviaGameSessionRepository
-import com.barcelona.qurio.presenter.repository.UserStreakRepository
+import com.barcelona.qurio.presenter.repository.UserStatsRepository
 import javax.inject.Inject
+import kotlin.math.abs
 import kotlin.random.Random
 
 class StartPlayPresenter @Inject constructor(
     private val triviaGameRepository: TriviaGameRepository,
     private val gameSessionRepository: TriviaGameSessionRepository,
-    private val userStreakRepository: UserStreakRepository
+    private val userStatsRepository: UserStatsRepository
 ) : BasePresenter<StartPlayView>() {
 
     private var questions: List<Question> = emptyList()
     private var currentIndex = 0
     private var currentAnswers: List<String> = emptyList()
     private var countDownTimer: CountDownTimer? = null
-    private val questionTimeMillis = 20_000L
+    private val questionTimeMillis = 50_000L
     private var questionChecked = false
 
     private var correctCount = 0
@@ -33,7 +34,7 @@ class StartPlayPresenter @Inject constructor(
 
     fun getTotalLives() {
         tryToCall(
-            block = { userStreakRepository.getLivesCount() },
+            block = { userStatsRepository.getPreferences().lives },
             onSuccess = { view?.showTotalLives(it) },
         )
     }
@@ -146,18 +147,23 @@ class StartPlayPresenter @Inject constructor(
         }
     }
 
-    private fun calculateCoins(): Int {
+    private fun calculatePoints(): Int {
         if (calculateStars() == 0) {
             return when (correctCount) {
-                in 1..2 -> Random.nextInt(1, 3)
-                3 -> Random.nextInt(2, 5)
-                else -> 0
+                //TODO this is real logic , but commented for test
+//                in 1..2 -> Random.nextInt(5, 12)
+//                3 -> Random.nextInt(15, 30)
+//                else -> -Random.nextInt(10, 15)
+                in 1..2 -> Random.nextInt(100, 400)
+                3 -> Random.nextInt(400, 500)
+                else -> Random.nextInt(50, 100)
             }
         }
 
         var earned = 0
         repeat(correctCount) {
-            earned += Random.nextInt(5, 15)
+            //  earned += Random.nextInt(8, 20)
+            earned += Random.nextInt(500, 1000)
         }
         return earned
     }
@@ -165,7 +171,7 @@ class StartPlayPresenter @Inject constructor(
     private fun handleLivesAfterGame() {
         if (calculateStars() == 0) {
             tryToCall(
-                block = { userStreakRepository.decrementLives() },
+                block = { userStatsRepository.decreaseLives(1) },
                 onSuccess = { getTotalLives() },
                 onError = { view?.showError(it) }
             )
@@ -174,25 +180,38 @@ class StartPlayPresenter @Inject constructor(
 
     private fun saveGameSession() {
         val skipped = (questions.size - (correctCount + wrongCount))
+        val earnedPoints = calculatePoints()
         val session = TriviaGameSession(
             correctAnswers = correctCount,
             wrongAnswers = wrongCount,
             skippedAnswers = skipped,
             stars = calculateStars(),
             totalTimeSeconds = totalTimeSeconds.toInt(),
-            earnedCoins = calculateCoins(),
+            earnedCoins = earnedPoints,
             category = categoryTitle,
         )
         tryToCall(
-            block = { gameSessionRepository.insertSession(session) },
+            block = {
+                gameSessionRepository.insertSession(session)
+                updateUserPoints(earnedPoints)
+            },
             onStart = {},
             onSuccess = {
                 view?.onGameSessionSaved(session)
                 handleLivesAfterGame()
+
             },
             onError = { view?.showError(it) },
             onEnd = {}
         )
+    }
+
+    private suspend fun updateUserPoints(points: Int) {
+        if (points > 0) {
+            userStatsRepository.increasePoints(points)
+        } else {
+            userStatsRepository.decreasePoints(abs(points))
+        }
     }
 
     fun destroyTimer() {

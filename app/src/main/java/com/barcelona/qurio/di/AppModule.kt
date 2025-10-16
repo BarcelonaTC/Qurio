@@ -7,11 +7,13 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.barcelona.qurio.model.api.TriviaApiService
 import com.barcelona.qurio.model.local.dao.CharacterGameDao
 import com.barcelona.qurio.model.local.dao.GameSessionDao
+import com.barcelona.qurio.model.local.dao.UserStatsDao
 import com.barcelona.qurio.model.local.dao.UserStreakDao
 import com.barcelona.qurio.model.repository.CharacterRepositoryImpl
 import com.barcelona.qurio.model.repository.TriviaGameRepositoryImpl
 import com.barcelona.qurio.model.repository.TriviaGameSessionRepositoryImpl
 import com.barcelona.qurio.model.repository.UserPreferencesImpl
+import com.barcelona.qurio.model.repository.UserStatsRepositoryImpl
 import com.barcelona.qurio.model.repository.UserStreakRepositoryImpl
 import com.barcelona.qurio.presenter.LastGamesPresenter
 import com.barcelona.qurio.presenter.OnBoardingPresenter
@@ -22,6 +24,7 @@ import com.barcelona.qurio.presenter.repository.CharacterRepository
 import com.barcelona.qurio.presenter.repository.TriviaGameRepository
 import com.barcelona.qurio.presenter.repository.TriviaGameSessionRepository
 import com.barcelona.qurio.presenter.repository.UserPreferences
+import com.barcelona.qurio.presenter.repository.UserStatsRepository
 import com.barcelona.qurio.presenter.repository.UserStreakRepository
 import dagger.Module
 import dagger.Provides
@@ -41,12 +44,12 @@ object AppModule {
     fun provideStartPlayPresenter(
         triviaGameRepository: TriviaGameRepository,
         triviaGameSessionRepository: TriviaGameSessionRepository,
-        userStreakRepository: UserStreakRepository
+        userStatsRepository: UserStatsRepository
     ): StartPlayPresenter {
         return StartPlayPresenter(
             triviaGameRepository,
             triviaGameSessionRepository,
-            userStreakRepository
+            userStatsRepository
         )
     }
 
@@ -100,12 +103,18 @@ object AppModule {
     @Provides
     fun provideBuyCharacterPresenter(
         characterRepository: CharacterRepository,
-        triviaGameSessionRepository: TriviaGameSessionRepository
+        triviaGameSessionRepository: TriviaGameSessionRepository,
+        userStatsRepository: UserStatsRepository
     ): BuyCharacterPresenter {
         return BuyCharacterPresenter(
             characterRepository,
-            triviaGameSessionRepository
+            userStatsRepository
         )
+    }
+
+    @Provides
+    fun provideUserStatsRepository(dao: UserStatsDao): UserStatsRepository {
+        return UserStatsRepositoryImpl(dao)
     }
 
     @Provides
