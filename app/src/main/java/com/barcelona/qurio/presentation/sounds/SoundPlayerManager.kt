@@ -3,6 +3,7 @@ package com.barcelona.qurio.presentation.sounds
 import android.content.Context
 import android.media.MediaPlayer
 import android.media.SoundPool
+import android.util.Log
 import androidx.annotation.RawRes
 
 class SoundPlayerManager(private val context: Context) {
@@ -17,6 +18,7 @@ class SoundPlayerManager(private val context: Context) {
 
     private var mediaPlayer: MediaPlayer? = null
     private var pausedPosition: Int = 0
+    private var currentMusicResId: Int? = null
 
     fun loadSound(@RawRes soundRes: Int, onLoaded: (() -> Unit)? = null) {
         if (soundMap.containsKey(soundRes)) {
@@ -40,12 +42,13 @@ class SoundPlayerManager(private val context: Context) {
         }
     }
 
-    fun playMusic(@RawRes musicRes: Int, loop: Boolean = true) {
-        mediaPlayer?.stop()
-        mediaPlayer?.release()
+    fun playMusic(resId: Int) {
+        if (currentMusicResId == resId && mediaPlayer?.isPlaying == true) return
 
-        mediaPlayer = MediaPlayer.create(context, musicRes)?.apply {
-            isLooping = loop
+        stopMusic()
+        currentMusicResId = resId
+        mediaPlayer = MediaPlayer.create(context, resId).apply {
+            isLooping = true
             setVolume(musicVolume, musicVolume)
             start()
         }
@@ -76,6 +79,7 @@ class SoundPlayerManager(private val context: Context) {
     }
 
     fun setVolumeLevels(soundLevel: Int, musicLevel: Int) {
+        Log.d("Sound Level", "setVolumeLevels: $soundLevel")
         soundVolume = soundLevel.coerceIn(0, 100) / 100f
         musicVolume = musicLevel.coerceIn(0, 100) / 100f
         mediaPlayer?.setVolume(musicVolume, musicVolume)
@@ -87,4 +91,7 @@ class SoundPlayerManager(private val context: Context) {
         mediaPlayer?.release()
         mediaPlayer = null
     }
+
+    fun getCurrentMusicVolume(): Int = (musicVolume * 100).toInt()
+    fun getCurrentSoundVolume(): Int = (soundVolume * 100).toInt()
 }

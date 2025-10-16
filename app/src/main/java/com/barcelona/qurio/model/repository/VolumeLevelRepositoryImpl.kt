@@ -29,10 +29,7 @@ class VolumeLevelRepositoryImpl @Inject constructor(
                     musicVolumeLevel = musicLevel
                 )
             )
-        } else if (
-            current.soundVolumeLevel != soundLevel ||
-            current.musicVolumeLevel != musicLevel
-        ) {
+        } else {
             dao.insertOrUpdate(
                 current.copy(
                     soundVolumeLevel = soundLevel,

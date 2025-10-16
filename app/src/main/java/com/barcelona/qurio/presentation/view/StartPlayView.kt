@@ -20,4 +20,6 @@ interface StartPlayView : BaseView {
     fun toggleSkipButton(visible: Boolean)
     fun onGameSessionSaved(session: TriviaGameSession)
     fun showTotalLives(lives: Int)
+    fun getMusicVolumeLevel(volumeLevel: Int)
+    fun getSoundVolumeLevel(volumeLevel: Int)
 }

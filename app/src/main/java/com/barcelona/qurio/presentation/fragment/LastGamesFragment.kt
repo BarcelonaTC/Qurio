@@ -13,6 +13,7 @@ import com.barcelona.qurio.base.BaseFragment
 import com.barcelona.qurio.databinding.FragmentLastGamesBinding
 import com.barcelona.qurio.presentation.adapter.lastGame.LastGameAdapter
 import com.barcelona.qurio.presentation.model.LastGame
+import com.barcelona.qurio.presentation.sounds.SoundPlayerManager
 import com.barcelona.qurio.presentation.view.LastGamesView
 import com.barcelona.qurio.presenter.LastGamesPresenter
 import jakarta.inject.Inject
@@ -23,12 +24,15 @@ class LastGamesFragment : BaseFragment<FragmentLastGamesBinding>(), LastGamesVie
 
     @Inject
     lateinit var presenter: LastGamesPresenter
+    private lateinit var soundManager: SoundPlayerManager
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity().application as QurioApp).appComponent.inject(this)
         presenter.attachView(this)
+        soundManager = (requireActivity().application as QurioApp).soundPlayerManager
+
         setInteractionListeners()
         setLastGames(context)
         presenter.getLastGames()

@@ -57,5 +57,11 @@
     <string name="welcome_to_qurio">أهلاً بك في كواريو</string>
     <string name="brain_image">صورة مخ</string>
     <string name="swipe_up_to_play">أسحب لأعلى حتى تلعب!</string>
-
+    <string name="check">فحص</string>
+    <string name="skip">تخطي</string>
+    <string name="next">التالي</string>
+    <string name="science_natural">العلوم والطبيعة</string>
+    <string name="_1m_33sec">1دقيقة و33 ثانية</string>
+    <string name="_0">0</string>
+    <string name="_230">230</string>
 </resources>

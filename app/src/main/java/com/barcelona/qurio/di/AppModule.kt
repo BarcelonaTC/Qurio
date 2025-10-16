@@ -47,12 +47,14 @@ object AppModule {
     fun provideStartPlayPresenter(
         triviaGameRepository: TriviaGameRepository,
         triviaGameSessionRepository: TriviaGameSessionRepository,
-        userStatsRepository: UserStatsRepository
+        userStatsRepository: UserStatsRepository,
+        volumeLevelRepository: VolumeLevelRepository
     ): StartPlayPresenter {
         return StartPlayPresenter(
             triviaGameRepository,
             triviaGameSessionRepository,
-            userStatsRepository
+            userStatsRepository,
+            volumeLevelRepository
         )
     }
 

@@ -16,7 +16,7 @@ import jakarta.inject.Inject
 class HomePresenter @Inject constructor(
     private val userStreakRepository: UserStreakRepository,
     private val characterRepository: CharacterRepository,
-    private val volumeLevelRepository: VolumeLevelRepository
+    private val volumeLevelRepository: VolumeLevelRepository,
     private val userStatsRepository: UserStatsRepository,
     private val triviaGameSessionRepository: TriviaGameSessionRepository
 ) : BasePresenter<HomeView>() {
@@ -76,12 +76,11 @@ class HomePresenter @Inject constructor(
             block = volumeLevelRepository::getMusicVolumeLevel,
             onSuccess = { view?.showMusicVolumeLevel(it) }
         )
-
     }
 
     fun getSoundVolumeLevel() {
         tryToCall(
-            block = volumeLevelRepository::getMusicVolumeLevel,
+            block = volumeLevelRepository::getSoundVolumeLevel,
             onSuccess = { view?.showSoundVolumeLevel(it) }
         )
     }

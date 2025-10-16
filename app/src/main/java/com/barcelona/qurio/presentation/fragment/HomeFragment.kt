@@ -1,8 +1,10 @@
 package com.barcelona.qurio.presentation.fragment
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +29,7 @@ import com.barcelona.qurio.presenter.HomePresenter
 import jakarta.inject.Inject
 import java.text.NumberFormat
 import java.util.Locale
+@RequiresApi(Build.VERSION_CODES.O)
 
 class HomeFragment(
 ) : BaseFragment<FragmentHomeBinding>(), HomeView {
@@ -41,9 +44,11 @@ class HomeFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity().application as QurioApp).appComponent.inject(this)
-        soundManager = SoundPlayerManager(requireContext())
+        soundManager = (requireActivity().application as QurioApp).soundPlayerManager
 
         presenter.attachView(this)
+        presenter.getSoundVolumeLevel()
+        presenter.getMusicVolumeLevel()
         setStreak(this.context)
         setLastGames(this.context)
         setupGameCardPager()
@@ -55,31 +60,14 @@ class HomeFragment(
         presenter.getLastGames()
         presenter.getTotalRewards()
         presenter.selectedCharacter()
-        presenter.getMusicVolumeLevel()
-        presenter.getSoundVolumeLevel()
         soundManager.loadSound(R.raw.coins_sound)
-
         soundManager.loadSound(selectedMusic)
+        soundManager.playMusic(selectedMusic)
     }
 
     override fun onDestroyView() {
         presenter.detachView()
         super.onDestroyView()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        soundManager.pauseMusic()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        soundManager.resumeMusic()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        soundManager.pauseMusic()
     }
 
     override fun onDestroy() {
@@ -166,7 +154,6 @@ class HomeFragment(
                 val musicLevel = settingsDialog.musicSlider.getVolumePercentage()
                 soundManager.setVolumeLevels(newSoundLevel, musicLevel)
             }
-
             settingsDialog.musicSlider.setOnVolumeChangeListener { newMusicLevel ->
                 val soundLevel = settingsDialog.soundSlider.getVolumePercentage()
                 soundManager.setVolumeLevels(soundLevel, newMusicLevel)
@@ -175,7 +162,6 @@ class HomeFragment(
     }
 
     private fun showSettingsDialog() {
-
         binding.settingsDialog.root.alpha = 0f
         binding.settingsDialog.root.visibility = View.VISIBLE
         binding.settingsDialog.dialogRoot.visibility = View.VISIBLE
@@ -192,7 +178,6 @@ class HomeFragment(
 
     override fun showTotalPoints(totalPoints: Int) {
         soundManager.playSound(R.raw.coins_sound)
-        soundManager.playMusic(selectedMusic)
             animatePoints(
                 endValue = totalPoints,
                 onUpdate = { animatedValue ->
