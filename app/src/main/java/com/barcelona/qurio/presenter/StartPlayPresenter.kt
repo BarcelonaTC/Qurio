@@ -8,6 +8,7 @@ import com.barcelona.qurio.presentation.view.StartPlayView
 import com.barcelona.qurio.presenter.repository.TriviaGameRepository
 import com.barcelona.qurio.presenter.repository.TriviaGameSessionRepository
 import com.barcelona.qurio.presenter.repository.UserStatsRepository
+import java.net.UnknownHostException
 import javax.inject.Inject
 import kotlin.math.abs
 import kotlin.random.Random
@@ -45,7 +46,7 @@ class StartPlayPresenter @Inject constructor(
             block = { triviaGameRepository.fetchQuestions(12, "easy", "multiple", categoryId) },
             onStart = { view?.showLoading() },
             onSuccess = ::onQuestionsSuccess,
-            onError = { view?.showError(it) },
+            onError = ::handleError,
             onEnd = { view?.hideLoading() }
         )
     }
@@ -211,6 +212,12 @@ class StartPlayPresenter @Inject constructor(
             userStatsRepository.increasePoints(points)
         } else {
             userStatsRepository.decreasePoints(abs(points))
+        }
+    }
+    private fun handleError(error: Throwable){
+        when(error){
+            is UnknownHostException -> view?.showError(error)
+            else -> view?.showError(error)
         }
     }
 
