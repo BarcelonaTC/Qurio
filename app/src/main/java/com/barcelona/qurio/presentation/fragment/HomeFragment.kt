@@ -2,6 +2,7 @@ package com.barcelona.qurio.presentation.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,8 +18,8 @@ import com.barcelona.qurio.presentation.adapter.lastGame.LastGameAdapter
 import com.barcelona.qurio.presentation.adapter.streakAdapter.StreakDayAdapter
 import com.barcelona.qurio.presentation.animation.animatePoints
 import com.barcelona.qurio.presentation.animation.createGameCardTransformer
-import com.barcelona.qurio.presentation.model.LastGame
 import com.barcelona.qurio.presentation.model.CharacterGame
+import com.barcelona.qurio.presentation.model.LastGame
 import com.barcelona.qurio.presentation.model.gamecard.GameCardModel
 import com.barcelona.qurio.presentation.model.streak.StreakModel
 import com.barcelona.qurio.presentation.sounds.CoinSoundPlayer
@@ -80,19 +81,27 @@ class HomeFragment(
     }
 
     fun onPlayNowClicked(gameCard: GameCardModel) {
-        presenter.checkLivesBeforePlay(
-            onHasLives = {
-                findNavController().navigate(
-                    HomeFragmentDirections.actionHomeFragmentToStartPlayFragment(
-                        gameCard.categoryId,
-                        gameCard.title
+        val dialog = DifficultyLevelFragment()
+        dialog.show(parentFragmentManager, "DifficultyLevelDialog")
+        parentFragmentManager.setFragmentResultListener(
+            "level_game_type",
+            viewLifecycleOwner
+        ) { _, bundle ->
+            val levelType = bundle.getString("levelType")
+            presenter.checkLivesBeforePlay(
+                onHasLives = {
+                    findNavController().navigate(
+                        HomeFragmentDirections.actionHomeFragmentToStartPlayFragment(
+                            gameCard.categoryId,
+                            gameCard.title
+                        )
                     )
-                )
-            },
-            onNoLives = {
-                showNoLivesDialog()
-            }
-        )
+                },
+                onNoLives = {
+                    showNoLivesDialog()
+                }
+            )
+        }
     }
 
     private fun showNoLivesDialog() {

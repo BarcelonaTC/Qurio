@@ -25,12 +25,23 @@ class GameFragment() : BaseFragment<FragmentGameBinding>() {
     }
 
     fun onPlayNowClicked(gameCard: GameCardModel) {
-        findNavController().navigate(
-            GameFragmentDirections.actionGameFragmentToStartPlayFragment(gameCard.categoryId, gameCard.title)
-        )
+        val dialog = DifficultyLevelFragment()
+        dialog.show(parentFragmentManager, "DifficultyLevelDialog")
+        parentFragmentManager.setFragmentResultListener(
+            "level_game_type",
+            viewLifecycleOwner
+        ) { _, bundle ->
+            val levelType = bundle.getString("levelType")
+            findNavController().navigate(
+                GameFragmentDirections.actionGameFragmentToStartPlayFragment(
+                    gameCard.categoryId,
+                    gameCard.title
+                )
+            )
+        }
     }
 
-    private fun setUpClickListeners(){
+    private fun setUpClickListeners() {
         binding.appBar.back.setOnClickListener {
             findNavController().navigateUp()
         }

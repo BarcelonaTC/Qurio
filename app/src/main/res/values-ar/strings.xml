@@ -41,4 +41,5 @@
     <string name="buy">buy</string>
     <string name="x"> X</string>
     <string name="equal">=</string>
+    <string name="difficulty_level">المستوي</string>
 </resources>
