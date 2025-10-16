@@ -21,13 +21,4 @@ interface UserStreakDao {
 
     @Query("DELETE FROM user_streak")
     suspend fun deleteAll()
-
-    @Query("SELECT lives FROM user_streak WHERE id = 1")
-    suspend fun getLivesCount(): Int
-
-    @Query("UPDATE user_streak SET lives = lives + 1 WHERE id = 1")
-    suspend fun incrementLives()
-
-    @Query("UPDATE user_streak SET lives = CASE WHEN lives > 0 THEN lives - 1 ELSE 0 END WHERE id = 1")
-    suspend fun decrementLives()
 }

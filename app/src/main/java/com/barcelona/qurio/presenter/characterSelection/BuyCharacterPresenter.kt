@@ -3,19 +3,19 @@ package com.barcelona.qurio.presenter.characterSelection
 import com.barcelona.qurio.base.BasePresenter
 import com.barcelona.qurio.presentation.view.BuyCharacterView
 import com.barcelona.qurio.presenter.repository.CharacterRepository
-import com.barcelona.qurio.presenter.repository.TriviaGameSessionRepository
+import com.barcelona.qurio.presenter.repository.UserStatsRepository
 import javax.inject.Inject
 
 class BuyCharacterPresenter @Inject constructor(
     private val characterRepository: CharacterRepository,
-    private val triviaGameSessionRepository: TriviaGameSessionRepository
+    private val userStatsRepository: UserStatsRepository
 ) : BasePresenter<BuyCharacterView>() {
 
     fun loadCharacter(characterId: Int) {
         tryToCall(
             block = {
                 val character = characterRepository.getCharacterById(characterId)
-                val totalPoints = triviaGameSessionRepository.getTotalPointsOfAllSessions()
+                val totalPoints = userStatsRepository.getPreferences().points
                 character to totalPoints
             },
             onSuccess = { (character, totalPoints) ->
@@ -29,7 +29,10 @@ class BuyCharacterPresenter @Inject constructor(
         tryToCall(
             block = {
                 val character = characterRepository.getCharacterById(characterId)
+                userStatsRepository.decreasePoints(character.price)
                 characterRepository.unlockCharacter(character.id)
+                characterRepository.selectCharacter(character.id)
+                characterRepository.getCharacterById(character.id)
             },
         )
     }

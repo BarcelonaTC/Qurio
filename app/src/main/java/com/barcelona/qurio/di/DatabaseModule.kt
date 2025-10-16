@@ -8,6 +8,7 @@ import com.barcelona.qurio.model.local.CharacterDataSource
 import com.barcelona.qurio.model.local.QurioDatabase
 import com.barcelona.qurio.model.local.dao.CharacterGameDao
 import com.barcelona.qurio.model.local.dao.GameSessionDao
+import com.barcelona.qurio.model.local.dao.UserStatsDao
 import com.barcelona.qurio.model.local.dao.UserStreakDao
 import dagger.Module
 import dagger.Provides
@@ -37,9 +38,11 @@ object DatabaseModule {
                     ).build()
 
                     val dao = database.characterGameDao()
-
                     if (dao.getAllCharacters().isEmpty())
                         dao.insertCharacters(CharacterDataSource.baseCharacters)
+
+                    val userStatsDao = database.userStatsDao()
+                    userStatsDao.insertDefaultPreferences()
                 }
             }
         }).build()
@@ -61,5 +64,11 @@ object DatabaseModule {
     @Singleton
     fun provideGameSessionDao(database: QurioDatabase): CharacterGameDao {
         return database.characterGameDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserPreferencesDao(database: QurioDatabase): UserStatsDao {
+        return database.userStatsDao()
     }
 }
