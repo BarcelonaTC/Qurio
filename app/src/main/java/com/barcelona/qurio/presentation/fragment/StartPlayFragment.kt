@@ -31,7 +31,7 @@ class StartPlayFragment : BaseFragment<FragmentStartPlayBinding>(), StartPlayVie
         (requireActivity().application as QurioApp).appComponent.inject(this)
         super.onViewCreated(view, savedInstanceState)
         startPlayPresenter.attachView(this)
-        startPlayPresenter.getQuestions(args.categoryId)
+        startPlayPresenter.getQuestions(args.categoryId, args.categoryName)
         startPlayPresenter.getTotalLives()
         setupListeners()
     }
@@ -111,7 +111,7 @@ class StartPlayFragment : BaseFragment<FragmentStartPlayBinding>(), StartPlayVie
 
     override fun onGameSessionSaved(session: TriviaGameSession) {
         val action = StartPlayFragmentDirections
-            .actionStartPlayFragmentToResultPlayFragment(session, args.categoryId)
+            .actionStartPlayFragmentToResultPlayFragment(session, args.categoryId, args.categoryName)
         findNavController().navigate(action)
     }
 

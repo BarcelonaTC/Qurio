@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="lastgame"
+            type="com.barcelona.qurio.presentation.model.LastGame" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="132dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/last_game_card_background"
+            style="@style/LastGameStyle"
+            android:layout_width="match_parent"
+            android:layout_height="108dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.barcelona.qurio.presentation.custom_view.TitleCard
+            android:id="@+id/game_date"
+            style="@style/Label.Medium"
+            android:layout_width="145dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="-12dp"
+            app:cardTitle="@{lastgame.date}"
+            app:layout_constraintEnd_toEndOf="@id/last_game_card_background"
+            app:layout_constraintStart_toStartOf="@id/last_game_card_background"
+            app:layout_constraintTop_toTopOf="@id/last_game_card_background" />
+
+        <TextView
+            android:id="@+id/game_category"
+            style="@style/Body.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{lastgame.category}"
+            android:textAlignment="center"
+            android:textColor="@color/on_primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/game_date" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_marginTop="8dp"
+            android:divider="@drawable/divider"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:showDividers="middle"
+            android:weightSum="3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/game_category">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="@string/coin_stack_icon"
+                    android:src="@drawable/ic_coin_stack" />
+
+                <TextView
+                    style="@style/Label.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text='@{String.valueOf(lastgame.coins)}'
+                    android:textColor='@{lastgame.coins &lt; 0 ? @color/red : @color/shade_primary}' />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="1dp"
+                    android:contentDescription="@string/star_icon"
+                    android:src="@drawable/ic_star" />
+
+                <TextView
+                    style="@style/Label.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@{lastgame.stars}"
+                    android:textColor="@color/shade_primary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_clock" />
+
+                <TextView
+                    style="@style/Label.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@{lastgame.durationInSeconds}"
+                    android:textColor="@color/shade_primary" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

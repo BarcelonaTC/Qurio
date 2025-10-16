@@ -55,7 +55,7 @@ val gameCards = listOf(
     ),
     GameCardModel(
         image = R.drawable.sport,
-        title = "Sport",
+        title = "Sport & Leisure",
         borderColor = R.color.primary,
         bottomGradient = R.drawable.sport_food_drink_arts_gamecard_gradient,
         categoryId = 21

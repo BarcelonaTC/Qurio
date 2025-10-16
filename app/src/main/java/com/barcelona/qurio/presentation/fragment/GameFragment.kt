@@ -26,7 +26,7 @@ class GameFragment() : BaseFragment<FragmentGameBinding>() {
 
     fun onPlayNowClicked(gameCard: GameCardModel) {
         findNavController().navigate(
-            GameFragmentDirections.actionGameFragmentToStartPlayFragment(gameCard.categoryId)
+            GameFragmentDirections.actionGameFragmentToStartPlayFragment(gameCard.categoryId, gameCard.title)
         )
     }
 

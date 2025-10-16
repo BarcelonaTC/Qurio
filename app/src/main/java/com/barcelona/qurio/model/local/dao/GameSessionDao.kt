@@ -10,7 +10,7 @@ interface GameSessionDao {
     @Insert
     suspend fun insertSession(session: TriviaGameSessionEntity)
 
-    @Query("SELECT * FROM game_session ORDER BY date ASC")
+    @Query("SELECT * FROM game_session ORDER BY date DESC")
     suspend fun getAllSessions(): List<TriviaGameSessionEntity>
 
     @Query("SELECT SUM(earnedCoins) FROM game_session")

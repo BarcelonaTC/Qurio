@@ -13,6 +13,9 @@
         <argument
             android:name="categoryId"
             app:argType="integer" />
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
         <action
             android:id="@+id/action_startPlayFragment_to_resultPlayFragment"
             app:destination="@id/resultPlayFragment" />
@@ -53,6 +56,9 @@
         <argument
             android:name="categoryId"
             app:argType="integer" />
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
         <action
             android:id="@+id/action_resultPlayFragment_to_startPlayFragment"
             app:destination="@id/startPlayFragment" />
@@ -95,4 +101,9 @@
             android:id="@+id/action_buyCharacterFragment_to_characterSelectionFragment"
             app:destination="@id/characterSelectionFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/lastGamesFragment"
+        android:name="com.barcelona.qurio.presentation.fragment.LastGamesFragment"
+        android:label="LastGamesFragment"
+        tools:layout="@layout/fragment_last_games" />
 </navigation>

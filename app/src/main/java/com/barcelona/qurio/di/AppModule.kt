@@ -13,6 +13,7 @@ import com.barcelona.qurio.model.repository.TriviaGameRepositoryImpl
 import com.barcelona.qurio.model.repository.TriviaGameSessionRepositoryImpl
 import com.barcelona.qurio.model.repository.UserPreferencesImpl
 import com.barcelona.qurio.model.repository.UserStreakRepositoryImpl
+import com.barcelona.qurio.presenter.LastGamesPresenter
 import com.barcelona.qurio.presenter.OnBoardingPresenter
 import com.barcelona.qurio.presenter.StartPlayPresenter
 import com.barcelona.qurio.presenter.characterSelection.BuyCharacterPresenter
@@ -105,5 +106,12 @@ object AppModule {
             characterRepository,
             triviaGameSessionRepository
         )
+    }
+
+    @Provides
+    fun provideLastGamesPresenter(
+        triviaGameSessionRepository: TriviaGameSessionRepository
+    ): LastGamesPresenter {
+        return LastGamesPresenter(triviaGameSessionRepository)
     }
 }

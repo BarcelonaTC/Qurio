@@ -29,6 +29,8 @@ class StartPlayPresenter @Inject constructor(
     private var totalTimeSeconds = 0L
     private var timerStartTime = 0L
 
+    private var categoryTitle = ""
+
     fun getTotalLives() {
         tryToCall(
             block = { userStreakRepository.getLivesCount() },
@@ -36,7 +38,8 @@ class StartPlayPresenter @Inject constructor(
         )
     }
 
-    fun getQuestions(categoryId: Int) {
+    fun getQuestions(categoryId: Int, categoryName: String) {
+        categoryTitle = categoryName
         tryToCall(
             block = { triviaGameRepository.fetchQuestions(12, "easy", "multiple", categoryId) },
             onStart = { view?.showLoading() },
@@ -177,7 +180,8 @@ class StartPlayPresenter @Inject constructor(
             skippedAnswers = skipped,
             stars = calculateStars(),
             totalTimeSeconds = totalTimeSeconds.toInt(),
-            earnedCoins = calculateCoins()
+            earnedCoins = calculateCoins(),
+            category = categoryTitle,
         )
         tryToCall(
             block = { gameSessionRepository.insertSession(session) },
