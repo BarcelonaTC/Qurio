@@ -4,6 +4,7 @@ import com.barcelona.qurio.model.api.TriviaApiService
 import com.barcelona.qurio.model.dto.toDomain
 import com.barcelona.qurio.presentation.model.Question
 import com.barcelona.qurio.presenter.repository.TriviaGameRepository
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class TriviaGameRepositoryImpl @Inject constructor(
@@ -24,8 +25,10 @@ class TriviaGameRepositoryImpl @Inject constructor(
             ).results
                 ?.mapNotNull { it?.toDomain() }
                 .orEmpty()
+        } catch (_: UnknownHostException) {
+            throw UnknownHostException("No internet connection")
         } catch (e: Exception) {
-            emptyList()
+            throw e
         }
     }
 }

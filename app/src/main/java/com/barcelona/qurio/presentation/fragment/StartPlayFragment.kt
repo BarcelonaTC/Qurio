@@ -2,24 +2,27 @@ package com.barcelona.qurio.presentation.fragment
 
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.barcelona.qurio.QurioApp
 import com.barcelona.qurio.R
 import com.barcelona.qurio.base.BaseFragment
 import com.barcelona.qurio.databinding.FragmentStartPlayBinding
+import com.barcelona.qurio.databinding.NoInternetScreenBinding
 import com.barcelona.qurio.presentation.adapter.QuestionAdapter
 import com.barcelona.qurio.presentation.model.Question
 import com.barcelona.qurio.presentation.model.TriviaGameSession
 import com.barcelona.qurio.presentation.view.StartPlayView
 import com.barcelona.qurio.presenter.StartPlayPresenter
 import javax.inject.Inject
-
 class StartPlayFragment : BaseFragment<FragmentStartPlayBinding>(), StartPlayView {
 
     override val layoutIdFragment: Int get() = R.layout.fragment_start_play
+    private lateinit var errorBinding: NoInternetScreenBinding
 
     @Inject
     lateinit var startPlayPresenter: StartPlayPresenter
@@ -31,6 +34,7 @@ class StartPlayFragment : BaseFragment<FragmentStartPlayBinding>(), StartPlayVie
         (requireActivity().application as QurioApp).appComponent.inject(this)
         super.onViewCreated(view, savedInstanceState)
         startPlayPresenter.attachView(this)
+        errorBinding = NoInternetScreenBinding.bind(binding.errorLayout)
         startPlayPresenter.getQuestions(args.categoryId, args.categoryName)
         startPlayPresenter.getTotalLives()
         setupListeners()
@@ -46,6 +50,9 @@ class StartPlayFragment : BaseFragment<FragmentStartPlayBinding>(), StartPlayVie
         }
         binding.back.setOnClickListener {
             findNavController().navigateUp()
+        }
+        errorBinding.retryButton.setOnClickListener {
+            startPlayPresenter.getQuestions(args.categoryId, args.categoryName)
         }
     }
 
@@ -132,13 +139,13 @@ class StartPlayFragment : BaseFragment<FragmentStartPlayBinding>(), StartPlayVie
     override fun hideLoading() {
         binding.gameLayout.visibility = View.VISIBLE
         binding.loadingLayout.visibility = View.GONE
-        binding.errorLayout.visibility = View.GONE
     }
 
     override fun showError(error: Throwable) {
-        binding.errorLayout.visibility = View.VISIBLE
+
         binding.gameLayout.visibility = View.GONE
         binding.loadingLayout.visibility = View.GONE
+        binding.errorLayout.visibility = View.VISIBLE
     }
 
     override fun toggleSkipButton(visible: Boolean) {
