@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class UserStatsEntity (
     @PrimaryKey
     val id: Int = 1,
-    val points:Int = 1000,
+    val points: Int = 100000,
     val lives:Int = 10,
     val rewards:Int = 0
 )

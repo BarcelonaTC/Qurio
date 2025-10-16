@@ -2,7 +2,9 @@ package com.barcelona.qurio.presentation.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +24,10 @@ import com.barcelona.qurio.presentation.model.streak.StreakModel
 import com.barcelona.qurio.presentation.sounds.CoinSoundPlayer
 import com.barcelona.qurio.presentation.view.HomeView
 import com.barcelona.qurio.presenter.HomePresenter
+import com.barcelona.qurio.presenter.characterSelection.CharacterSelectionPresenter
 import jakarta.inject.Inject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -32,6 +37,10 @@ class HomeFragment(
 
     @Inject
     lateinit var presenter: HomePresenter
+
+    @Inject
+    lateinit var presenterP2: CharacterSelectionPresenter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity().application as QurioApp).appComponent.inject(this)
@@ -45,6 +54,19 @@ class HomeFragment(
         presenter.getTotalLives()
         presenter.getTotalRewards()
         presenter.selectedCharacter()
+        parentFragmentManager.setFragmentResultListener(
+            "purchase_success",
+            viewLifecycleOwner
+        ) { _, bundle ->
+            if (bundle.getBoolean("refresh_home", false)) {
+                Log.d("testdas", "onViewCreated: $bundle")
+                lifecycleScope.launch(Dispatchers.Main) {
+                    presenter.getTotalPoints()
+                    presenterP2.getSelectedCharacter()
+                    presenterP2.loadCharacters()
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

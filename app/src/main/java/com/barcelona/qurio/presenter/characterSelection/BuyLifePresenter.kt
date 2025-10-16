@@ -3,11 +3,11 @@ package com.barcelona.qurio.presenter.characterSelection
 import com.barcelona.qurio.base.BasePresenter
 import com.barcelona.qurio.presentation.view.BuyLifeView
 import com.barcelona.qurio.presenter.repository.TriviaGameSessionRepository
-import com.barcelona.qurio.presenter.repository.UserStreakRepository
+import com.barcelona.qurio.presenter.repository.UserStatsRepository
 import javax.inject.Inject
 
 class BuyLifePresenter @Inject constructor(
-    private val userStreakRepository: UserStreakRepository,
+    private val userStatsRepository: UserStatsRepository,
     private val triviaGameSessionRepository: TriviaGameSessionRepository
 ) : BasePresenter<BuyLifeView>() {
     fun buyButtonEnable() {
@@ -24,7 +24,7 @@ class BuyLifePresenter @Inject constructor(
     fun onBuyClick() {
         tryToCall(
             block = {
-                userStreakRepository.incrementLives()
+                userStatsRepository.increaseLives(1)
             }
         )
     }
