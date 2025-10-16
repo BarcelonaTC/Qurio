@@ -1,15 +1,15 @@
 package com.barcelona.qurio.model.repository
 
-import com.barcelona.qurio.model.local.dao.UserPreferencesDao
+import com.barcelona.qurio.model.local.dao.UserStatsDao
 import com.barcelona.qurio.model.local.mapper.toModel
-import com.barcelona.qurio.presentation.model.UserPreferences
-import com.barcelona.qurio.presenter.repository.UserPreferencesRepository
+import com.barcelona.qurio.presentation.model.UserStats
+import com.barcelona.qurio.presenter.repository.UserStatsRepository
 import javax.inject.Inject
 
-class UserPreferencesRepositoryImpl @Inject constructor(
-    private val dao: UserPreferencesDao
-) : UserPreferencesRepository {
-    override suspend fun getPreferences(): UserPreferences {
+class UserStatsRepositoryImpl @Inject constructor(
+    private val dao: UserStatsDao
+) : UserStatsRepository {
+    override suspend fun getPreferences(): UserStats {
         return dao.getPreferences()?.toModel() ?: throw Exception("No preferences found")
     }
 

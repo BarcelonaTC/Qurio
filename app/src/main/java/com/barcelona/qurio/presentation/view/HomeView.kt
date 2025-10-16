@@ -8,5 +8,6 @@ interface HomeView : BaseView {
     fun showStreak(streak: StreakModel)
     fun showTotalPoints(totalPoints: Int)
     fun showTotalLives(totalLives: Int)
+    fun showTotalRewards(totalRewards: Int)
     fun showSelectedCharacter(selectedCharacter: CharacterGame)
 }

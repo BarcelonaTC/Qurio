@@ -1,6 +1,6 @@
 package com.barcelona.qurio.presentation.model
 
-data class UserPreferences(
+data class UserStats(
     val points: Int,
     val lives: Int,
     val rewards: Int
