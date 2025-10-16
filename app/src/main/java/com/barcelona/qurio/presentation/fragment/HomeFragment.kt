@@ -77,6 +77,7 @@ class HomeFragment(
 
         (binding.recyclerView.getChildAt(0) as RecyclerView).overScrollMode =
             RecyclerView.OVER_SCROLL_NEVER
+        binding.recyclerView.setCurrentItem(3, false)
     }
 
     fun onPlayNowClicked(gameCard: GameCardModel) {
