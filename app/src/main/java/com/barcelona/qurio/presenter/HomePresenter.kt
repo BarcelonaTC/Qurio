@@ -1,8 +1,13 @@
 package com.barcelona.qurio.presenter
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.barcelona.qurio.base.BasePresenter
+import com.barcelona.qurio.presentation.model.TriviaGameSession
 import com.barcelona.qurio.presentation.view.HomeView
+import com.barcelona.qurio.presenter.mapper.toLastGameModel
 import com.barcelona.qurio.presenter.repository.CharacterRepository
+import com.barcelona.qurio.presenter.repository.TriviaGameSessionRepository
 import com.barcelona.qurio.presenter.repository.UserStatsRepository
 import com.barcelona.qurio.presenter.repository.UserStreakRepository
 import jakarta.inject.Inject
@@ -10,7 +15,8 @@ import jakarta.inject.Inject
 class HomePresenter @Inject constructor(
     private val userStreakRepository: UserStreakRepository,
     private val characterRepository: CharacterRepository,
-    private val userStatsRepository: UserStatsRepository
+    private val userStatsRepository: UserStatsRepository,
+    private val triviaGameSessionRepository: TriviaGameSessionRepository
 ) : BasePresenter<HomeView>() {
 
     fun getStreak() {
@@ -64,6 +70,14 @@ class HomePresenter @Inject constructor(
             onSuccess = {
                 view?.showSelectedCharacter(it)
             },
+        )
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getLastGames() {
+        tryToCall(
+            block = { triviaGameSessionRepository.getAllSessions() },
+            onSuccess = { view?.showLastGames(it.map(TriviaGameSession::toLastGameModel)) },
         )
     }
 }

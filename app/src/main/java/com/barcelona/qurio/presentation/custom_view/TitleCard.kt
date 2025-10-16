@@ -1,7 +1,12 @@
 package com.barcelona.qurio.presentation.custom_view
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Matrix
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.Gravity
 import android.widget.LinearLayout
@@ -15,7 +20,8 @@ class TitleCard @JvmOverloads constructor(
     defStyle: Int = 0
 ) : LinearLayout(context, attrs, defStyle) {
 
-    private val pathData = "M11.5055 33.2028L8.47336 21.6255C7.52986 18.0231 8.05377 14.1935 9.93015 10.9769C12.4503 6.65659 17.0755 4 22.0772 4H136.263C141.097 4 145.61 6.41571 148.292 10.4375C150.644 13.9663 151.329 18.3502 150.163 22.4281L146.673 34.6457C146.234 36.1825 145.36 37.5599 144.157 38.6123C142.76 39.8353 140.992 40.5543 139.138 40.6541L77 44L20.5894 40.6536C18.8912 40.5529 17.2468 40.0207 15.8116 39.1074C13.6829 37.7527 12.1448 35.6437 11.5055 33.2028Z"
+    private val pathData =
+        "M11.5055 33.2028L8.47336 21.6255C7.52986 18.0231 8.05377 14.1935 9.93015 10.9769C12.4503 6.65659 17.0755 4 22.0772 4H136.263C141.097 4 145.61 6.41571 148.292 10.4375C150.644 13.9663 151.329 18.3502 150.163 22.4281L146.673 34.6457C146.234 36.1825 145.36 37.5599 144.157 38.6123C142.76 39.8353 140.992 40.5543 139.138 40.6541L77 44L20.5894 40.6536C18.8912 40.5529 17.2468 40.0207 15.8116 39.1074C13.6829 37.7527 12.1448 35.6437 11.5055 33.2028Z"
     private val basePath = PathParser.createPathFromPathData(pathData)
     private val highlightPath = Path()
     private val mainPath = Path()
@@ -65,6 +71,13 @@ class TitleCard @JvmOverloads constructor(
     fun setTitle(title: String) {
         titleTextView.text = title
     }
+
+    var cardTitle: String?
+        get() = titleTextView.text.toString()
+        set(value) {
+            titleTextView.text = value
+        }
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         val w = width.toFloat()
