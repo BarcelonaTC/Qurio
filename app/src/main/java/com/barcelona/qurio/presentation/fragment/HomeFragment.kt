@@ -17,6 +17,7 @@ import com.barcelona.qurio.presentation.adapter.gamecardAdapter.GameCardsAdapter
 import com.barcelona.qurio.presentation.adapter.streakAdapter.StreakDayAdapter
 import com.barcelona.qurio.presentation.animation.animatePoints
 import com.barcelona.qurio.presentation.animation.createGameCardTransformer
+import com.barcelona.qurio.presentation.model.CharacterGame
 import com.barcelona.qurio.presentation.model.gamecard.GameCardModel
 import com.barcelona.qurio.presentation.model.streak.StreakModel
 import com.barcelona.qurio.presentation.sounds.CoinSoundPlayer
@@ -43,6 +44,8 @@ class HomeFragment(
         presenter.getStreak()
         presenter.getTotalPoints()
         presenter.getTotalLives()
+        presenter.getTotalRewards()
+        presenter.selectedCharacter()
         presenter.getMusicVolumeLevel()
         presenter.getSoundVolumeLevel()
     }
@@ -170,6 +173,15 @@ class HomeFragment(
 
     override fun showTotalLives(totalLives: Int) {
         binding.statisticsComponent.livesCard.livesAmount.text = totalLives.toString()
+    }
+
+    override fun showTotalRewards(totalRewards: Int) {
+        binding.statisticsComponent.awardsCard.awardsAmount.text = totalRewards.toString()
+    }
+
+    override fun showSelectedCharacter(selectedCharacter: CharacterGame) {
+        binding.appBar.profile.setImageResource(selectedCharacter.imageRes)
+        binding.appBar.name.text = selectedCharacter.name
     }
 
     override fun setMusicVolumeLevel(volumeLevel: Int) {
