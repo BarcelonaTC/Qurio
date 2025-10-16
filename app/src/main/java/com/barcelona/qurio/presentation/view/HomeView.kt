@@ -5,6 +5,8 @@ import com.barcelona.qurio.presentation.model.streak.StreakModel
 
 interface HomeView : BaseView{
     fun showStreak(streak: StreakModel)
-
     fun showTotalPoints(totalPoints: Int)
+    fun setMusicVolumeLevel(volumeLevel: Int)
+    fun setSoundVolumeLevel(volumeLevel: Int)
+
 }

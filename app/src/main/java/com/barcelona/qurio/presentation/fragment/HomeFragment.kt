@@ -2,6 +2,7 @@ package com.barcelona.qurio.presentation.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,11 +15,11 @@ import com.barcelona.qurio.databinding.FragmentHomeBinding
 import com.barcelona.qurio.model.dto.gameCards
 import com.barcelona.qurio.presentation.adapter.gamecardAdapter.GameCardsAdapter
 import com.barcelona.qurio.presentation.adapter.streakAdapter.StreakDayAdapter
-import com.barcelona.qurio.presentation.sounds.CoinSoundPlayer
 import com.barcelona.qurio.presentation.animation.animatePoints
 import com.barcelona.qurio.presentation.animation.createGameCardTransformer
 import com.barcelona.qurio.presentation.model.gamecard.GameCardModel
 import com.barcelona.qurio.presentation.model.streak.StreakModel
+import com.barcelona.qurio.presentation.sounds.CoinSoundPlayer
 import com.barcelona.qurio.presentation.view.HomeView
 import com.barcelona.qurio.presenter.HomePresenter
 import jakarta.inject.Inject
@@ -41,7 +42,8 @@ class HomeFragment(
         presenter.updateStreak()
         presenter.getStreak()
         presenter.getTotalPoints()
-
+        presenter.getMusicVolumeLevel()
+        presenter.getSoundVolumeLevel()
     }
 
     override fun onDestroyView() {
@@ -84,6 +86,42 @@ class HomeFragment(
             }
             seeAllLastGames.setOnClickListener {
             }
+            appBar.settingsIcon.setOnClickListener {
+                showSettingsDialog()
+            }
+            appBar.profile.setOnClickListener {
+
+            }
+        }
+    }
+
+    private fun showSettingsDialog() {
+
+        binding.settingsDialog.root.alpha = 0f
+        binding.settingsDialog.root.visibility = View.VISIBLE
+        binding.settingsDialog.dialogRoot.visibility = View.VISIBLE
+
+        binding.settingsDialog.root.animate()
+            .alpha(1f)
+            .setDuration(500)
+            .start()
+        binding.settingsDialog.dialogRoot.animate()
+            .alpha(1f)
+            .setDuration(500)
+            .start()
+
+        binding.settingsDialog.dialogRoot.setOnDismissListener {
+            binding.settingsDialog.root.animate()
+                .alpha(0f)
+                .setDuration(500)
+                .withEndAction { binding.settingsDialog.root.visibility = View.GONE }
+                .start()
+
+        }
+        binding.settingsDialog.discardButton.setOnClickListener {
+            binding.settingsDialog.dialogRoot.setOnDismissListener {
+                binding.settingsDialog.root.visibility = View.GONE
+            }
         }
     }
 
@@ -109,5 +147,13 @@ class HomeFragment(
             )
             soundPlayer.play()
         }
+    }
+
+    override fun setMusicVolumeLevel(volumeLevel: Int) {
+        binding.settingsDialog.musicSlider.setVolumePercentage(volumeLevel)
+    }
+
+    override fun setSoundVolumeLevel(volumeLevel: Int) {
+        binding.settingsDialog.soundSlider.setVolumePercentage(volumeLevel)
     }
 }
