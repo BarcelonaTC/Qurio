@@ -10,6 +10,7 @@ import com.barcelona.qurio.model.local.dao.CharacterGameDao
 import com.barcelona.qurio.model.local.dao.GameSessionDao
 import com.barcelona.qurio.model.local.dao.UserStatsDao
 import com.barcelona.qurio.model.local.dao.UserStreakDao
+import com.barcelona.qurio.model.local.dao.VolumeLevelDao
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.CoroutineScope
@@ -70,5 +71,11 @@ object DatabaseModule {
     @Singleton
     fun provideUserPreferencesDao(database: QurioDatabase): UserStatsDao {
         return database.userStatsDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideVolumeLevelDao(database: QurioDatabase): VolumeLevelDao {
+        return database.volumeLevelDao()
     }
 }

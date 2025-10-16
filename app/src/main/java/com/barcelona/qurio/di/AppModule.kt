@@ -10,11 +10,13 @@ import com.barcelona.qurio.model.local.dao.GameSessionDao
 import com.barcelona.qurio.model.local.dao.UserStatsDao
 import com.barcelona.qurio.model.local.dao.UserStreakDao
 import com.barcelona.qurio.model.repository.CharacterRepositoryImpl
+import com.barcelona.qurio.model.local.dao.VolumeLevelDao
 import com.barcelona.qurio.model.repository.TriviaGameRepositoryImpl
 import com.barcelona.qurio.model.repository.TriviaGameSessionRepositoryImpl
 import com.barcelona.qurio.model.repository.UserPreferencesImpl
 import com.barcelona.qurio.model.repository.UserStatsRepositoryImpl
 import com.barcelona.qurio.model.repository.UserStreakRepositoryImpl
+import com.barcelona.qurio.model.repository.VolumeLevelRepositoryImpl
 import com.barcelona.qurio.presenter.LastGamesPresenter
 import com.barcelona.qurio.presenter.OnBoardingPresenter
 import com.barcelona.qurio.presenter.StartPlayPresenter
@@ -26,6 +28,7 @@ import com.barcelona.qurio.presenter.repository.TriviaGameSessionRepository
 import com.barcelona.qurio.presenter.repository.UserPreferences
 import com.barcelona.qurio.presenter.repository.UserStatsRepository
 import com.barcelona.qurio.presenter.repository.UserStreakRepository
+import com.barcelona.qurio.presenter.repository.VolumeLevelRepository
 import dagger.Module
 import dagger.Provides
 
@@ -44,12 +47,14 @@ object AppModule {
     fun provideStartPlayPresenter(
         triviaGameRepository: TriviaGameRepository,
         triviaGameSessionRepository: TriviaGameSessionRepository,
-        userStatsRepository: UserStatsRepository
+        userStatsRepository: UserStatsRepository,
+        volumeLevelRepository: VolumeLevelRepository
     ): StartPlayPresenter {
         return StartPlayPresenter(
             triviaGameRepository,
             triviaGameSessionRepository,
-            userStatsRepository
+            userStatsRepository,
+            volumeLevelRepository
         )
     }
 
@@ -103,7 +108,6 @@ object AppModule {
     @Provides
     fun provideBuyCharacterPresenter(
         characterRepository: CharacterRepository,
-        triviaGameSessionRepository: TriviaGameSessionRepository,
         userStatsRepository: UserStatsRepository
     ): BuyCharacterPresenter {
         return BuyCharacterPresenter(
@@ -122,5 +126,10 @@ object AppModule {
         triviaGameSessionRepository: TriviaGameSessionRepository
     ): LastGamesPresenter {
         return LastGamesPresenter(triviaGameSessionRepository)
+    }
+
+    @Provides
+    fun provideVolumeLevelRepository(dao: VolumeLevelDao): VolumeLevelRepository {
+        return VolumeLevelRepositoryImpl(dao)
     }
 }

@@ -61,4 +61,14 @@ class MainActivity : AppCompatActivity() {
                 .start()
         }
     }
+
+    override fun onPause() {
+        super.onPause()
+        (application as QurioApp).soundPlayerManager.pauseMusic()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (application as QurioApp).soundPlayerManager.resumeMusic()
+    }
 }

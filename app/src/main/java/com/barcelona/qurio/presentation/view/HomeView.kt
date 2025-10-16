@@ -11,6 +11,9 @@ interface HomeView : BaseView {
     fun showTotalLives(totalLives: Int)
 
     fun showLastGames(lastGames: List<LastGame>)
+    fun showMusicVolumeLevel(volumeLevel: Int)
+    fun showSoundVolumeLevel(volumeLevel: Int)
     fun showTotalRewards(totalRewards: Int)
+    fun saveVolumeLevels(soundLevel: Int, musicLevel: Int)
     fun showSelectedCharacter(selectedCharacter: CharacterGame)
 }

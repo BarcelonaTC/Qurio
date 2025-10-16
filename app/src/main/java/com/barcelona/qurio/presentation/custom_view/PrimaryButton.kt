@@ -36,18 +36,13 @@ class PrimaryButton @JvmOverloads constructor(
         if (attrs != null) {
             val typedArray = context.obtainStyledAttributes(attrs, R.styleable.PrimaryButton)
             try {
-                isCustomEnabled =
-                    typedArray.getBoolean(R.styleable.PrimaryButton_primaryButtonEnabled, true)
+                isCustomEnabled = typedArray.getBoolean(
+                    R.styleable.PrimaryButton_primaryButtonEnabled,
+                    true
+                )
 
-                val textAttr =
-                    context.obtainStyledAttributes(attrs, intArrayOf(android.R.attr.text))
-                val textResId = textAttr.getResourceId(0, 0)
-                val textValue = if (textResId != 0) {
-                    context.getString(textResId)
-                } else {
-                    textAttr.getString(0) ?: context.getString(R.string.submit)
-                }
-                textAttr.recycle()
+                val textValue = typedArray.getString(R.styleable.PrimaryButton_primaryText)
+                    ?: context.getString(R.string.submit)
 
                 binding.textViewLabel.text = textValue
                 setButtonEnabled(isCustomEnabled)

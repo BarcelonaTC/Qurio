@@ -12,7 +12,6 @@ interface UserStreakDao {
     @Query("SELECT * FROM user_streak WHERE id = 1")
     suspend fun getStreak(): UserStreakEntity?
 
-
     @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
     suspend fun insertStreak(streak: UserStreakEntity)
 
