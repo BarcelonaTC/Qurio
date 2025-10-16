@@ -103,6 +103,10 @@ class HomeFragment(
                 val dialog = CharacterSelectionFragment()
                 dialog.show(parentFragmentManager, "CharacterSelectionDialog")
             }
+            binding.statisticsComponent.livesCard.addLive.setOnClickListener {
+                val dialog = BuyLifeFragment()
+                dialog.show(parentFragmentManager, "BuyLifeFragment")
+            }
         }
     }
 

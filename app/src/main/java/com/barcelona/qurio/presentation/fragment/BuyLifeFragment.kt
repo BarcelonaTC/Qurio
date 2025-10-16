@@ -25,7 +25,16 @@ class BuyLifeFragment : BaseDialogFragment<BuyLifeLayoutBinding>(), BuyLifeView 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.buyButtonEnable()
+
+        binding.buttonBuy.setOnClickListener {
+            onBuyClick()
+        }
+
+        binding.buttonCancel.setOnClickListener {
+            onCancelClick()
+        }
     }
+
 
     override fun onBuyClick() {
         if (binding.buttonBuy.isEnabled) {
