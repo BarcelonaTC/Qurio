@@ -3,6 +3,7 @@ package com.barcelona.qurio.presentation.fragment
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.findNavController
@@ -96,19 +97,27 @@ class HomeFragment(
     }
 
     fun onPlayNowClicked(gameCard: GameCardModel) {
-        presenter.checkLivesBeforePlay(
-            onHasLives = {
-                findNavController().navigate(
-                    HomeFragmentDirections.actionHomeFragmentToStartPlayFragment(
-                        gameCard.categoryId,
-                        gameCard.title
+        val dialog = DifficultyLevelFragment()
+        dialog.show(parentFragmentManager, "DifficultyLevelDialog")
+        parentFragmentManager.setFragmentResultListener(
+            "level_game_type",
+            viewLifecycleOwner
+        ) { _, bundle ->
+            val levelType = bundle.getString("levelType")
+            presenter.checkLivesBeforePlay(
+                onHasLives = {
+                    findNavController().navigate(
+                        HomeFragmentDirections.actionHomeFragmentToStartPlayFragment(
+                            gameCard.categoryId,
+                            gameCard.title
+                        )
                     )
-                )
-            },
-            onNoLives = {
-                showNoLivesDialog()
-            }
-        )
+                },
+                onNoLives = {
+                    showNoLivesDialog()
+                }
+            )
+        }
     }
 
     private fun showNoLivesDialog() {
