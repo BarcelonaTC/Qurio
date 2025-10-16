@@ -140,14 +140,14 @@
                         android:id="@+id/checkButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Check" />
+                        app:primaryText="@string/check" />
 
                     <com.barcelona.qurio.presentation.custom_view.SecondaryButton
                         android:id="@+id/skipButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Skip" />
+                        app:secondaryText="@string/skip" />
                 </LinearLayout>
 
                 <com.barcelona.qurio.presentation.custom_view.ScoreIndicatorView

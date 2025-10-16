@@ -1,6 +1,8 @@
 package com.barcelona.qurio.presenter
 
+import android.os.Build
 import android.os.CountDownTimer
+import androidx.annotation.RequiresApi
 import com.barcelona.qurio.base.BasePresenter
 import com.barcelona.qurio.presentation.model.Question
 import com.barcelona.qurio.presentation.model.TriviaGameSession
@@ -8,6 +10,7 @@ import com.barcelona.qurio.presentation.view.StartPlayView
 import com.barcelona.qurio.presenter.repository.TriviaGameRepository
 import com.barcelona.qurio.presenter.repository.TriviaGameSessionRepository
 import com.barcelona.qurio.presenter.repository.UserStatsRepository
+import com.barcelona.qurio.presenter.repository.VolumeLevelRepository
 import java.net.UnknownHostException
 import javax.inject.Inject
 import kotlin.math.abs
@@ -16,7 +19,8 @@ import kotlin.random.Random
 class StartPlayPresenter @Inject constructor(
     private val triviaGameRepository: TriviaGameRepository,
     private val gameSessionRepository: TriviaGameSessionRepository,
-    private val userStatsRepository: UserStatsRepository
+    private val userStatsRepository: UserStatsRepository,
+    private val volumeLevelRepository: VolumeLevelRepository
 ) : BasePresenter<StartPlayView>() {
 
     private var questions: List<Question> = emptyList()
@@ -48,6 +52,20 @@ class StartPlayPresenter @Inject constructor(
             onSuccess = ::onQuestionsSuccess,
             onError = ::handleError,
             onEnd = { view?.hideLoading() }
+        )
+    }
+
+    fun getMusicVolumeLevel() {
+        tryToCall(
+            block = volumeLevelRepository::getMusicVolumeLevel,
+            onSuccess = {view?.getMusicVolumeLevel(it)}
+        )
+    }
+
+    fun getSoundVolumeLevel() {
+        tryToCall(
+            block = volumeLevelRepository::getSoundVolumeLevel,
+            onSuccess = {view?.getSoundVolumeLevel(it)}
         )
     }
 
@@ -89,6 +107,7 @@ class StartPlayPresenter @Inject constructor(
                 view?.updateTimer(secondsLeft, progress)
             }
 
+            @RequiresApi(Build.VERSION_CODES.O)
             override fun onFinish() {
                 view?.updateTimer(0, 0f)
                 view?.onTimerFinished()
@@ -97,6 +116,7 @@ class StartPlayPresenter @Inject constructor(
         }.start()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun onCheckButtonClicked(selectedPosition: Int?) {
         if (!questionChecked) {
             if (selectedPosition == null) {
@@ -126,6 +146,7 @@ class StartPlayPresenter @Inject constructor(
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun nextQuestion() {
         countDownTimer?.cancel()
         if (currentIndex < questions.size - 1) {
@@ -179,6 +200,7 @@ class StartPlayPresenter @Inject constructor(
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun saveGameSession() {
         val skipped = (questions.size - (correctCount + wrongCount))
         val earnedPoints = calculatePoints()

@@ -10,27 +10,27 @@ import com.barcelona.qurio.presenter.repository.CharacterRepository
 import com.barcelona.qurio.presenter.repository.TriviaGameSessionRepository
 import com.barcelona.qurio.presenter.repository.UserStatsRepository
 import com.barcelona.qurio.presenter.repository.UserStreakRepository
+import com.barcelona.qurio.presenter.repository.VolumeLevelRepository
 import jakarta.inject.Inject
 
 class HomePresenter @Inject constructor(
     private val userStreakRepository: UserStreakRepository,
     private val characterRepository: CharacterRepository,
+    private val volumeLevelRepository: VolumeLevelRepository,
     private val userStatsRepository: UserStatsRepository,
     private val triviaGameSessionRepository: TriviaGameSessionRepository
 ) : BasePresenter<HomeView>() {
 
     fun getStreak() {
         tryToCall(
-            block = { userStreakRepository.getStreakInfo() },
+            block = userStreakRepository::getStreakInfo,
             onSuccess = { view?.showStreak(it) },
         )
     }
 
     fun updateStreak() {
         tryToCall(
-            block = {
-                userStreakRepository.updateStreak()
-            },
+            block = userStreakRepository::updateStreak,
         )
     }
 
@@ -66,10 +66,30 @@ class HomePresenter @Inject constructor(
 
     fun selectedCharacter() {
         tryToCall(
-            block = { characterRepository.getSelectedCharacter() },
-            onSuccess = {
-                view?.showSelectedCharacter(it)
-            },
+            block = characterRepository::getSelectedCharacter,
+            onSuccess = { view?.showSelectedCharacter(it) }
+        )
+    }
+
+    fun getMusicVolumeLevel() {
+        tryToCall(
+            block = volumeLevelRepository::getMusicVolumeLevel,
+            onSuccess = { view?.showMusicVolumeLevel(it) }
+        )
+    }
+
+    fun getSoundVolumeLevel() {
+        tryToCall(
+            block = volumeLevelRepository::getSoundVolumeLevel,
+            onSuccess = { view?.showSoundVolumeLevel(it) }
+        )
+    }
+
+    fun saveVolumeLevels(soundLevel: Int, musicLevel: Int) {
+        tryToCall(
+            block = {
+                volumeLevelRepository.saveVolumeLevels(soundLevel, musicLevel)
+            }
         )
     }
 

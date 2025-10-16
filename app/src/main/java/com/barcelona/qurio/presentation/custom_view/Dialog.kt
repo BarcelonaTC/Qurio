@@ -39,7 +39,10 @@ class Dialog @JvmOverloads constructor(
         val blueParams = LayoutParams(70.dp, 70.dp, Gravity.END or Gravity.TOP).apply {
             topMargin = 10.dp
         }
-        blueBox.setBackgroundColor(context.getColor(R.color.primary))
+        blueBox.apply{
+            setBackgroundColor(context.getColor(R.color.primary))
+            setOnClickListener { dismiss() }
+        }
         addView(blueBox, blueParams)
 
         val iconParams = LayoutParams(15.dp, 15.dp, Gravity.END or Gravity.TOP).apply {
@@ -98,12 +101,11 @@ class Dialog @JvmOverloads constructor(
         onDismissListener?.invoke()
         animate()
             .alpha(0f)
-            .setDuration(200)
-            .withEndAction { (parent as? FrameLayout)?.removeView(this) }
+            .setDuration(500)
+            .withEndAction { this.visibility = View.GONE }
             .start()
     }
 
-    // 🟦 Custom background shape
     inner class DialogShapeView(context: Context) : View(context) {
         private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = "#0B0F14".toColorInt()
