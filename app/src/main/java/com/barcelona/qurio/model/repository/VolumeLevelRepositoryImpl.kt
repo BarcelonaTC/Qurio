@@ -19,33 +19,26 @@ class VolumeLevelRepositoryImpl @Inject constructor(
         dao.getVolumeLevels()?.musicVolumeLevel ?: DEFAULT_MUSIC_VOLUME
     }
 
-    override suspend fun saveSoundVolumeLevel(soundLevel: Int) = withContext(Dispatchers.IO) {
+    override suspend fun saveVolumeLevels(soundLevel: Int, musicLevel: Int) = withContext(Dispatchers.IO) {
         val current = dao.getVolumeLevels()
 
         if (current == null) {
             dao.insertOrUpdate(
                 VolumeEntity(
                     soundVolumeLevel = soundLevel,
-                    musicVolumeLevel = DEFAULT_MUSIC_VOLUME
-                )
-            )
-        } else if (current.soundVolumeLevel != soundLevel) {
-            dao.insertOrUpdate(current.copy(soundVolumeLevel = soundLevel))
-        }
-    }
-
-    override suspend fun saveMusicVolumeLevel(musicLevel: Int) = withContext(Dispatchers.IO) {
-        val current = dao.getVolumeLevels()
-
-        if (current == null) {
-            dao.insertOrUpdate(
-                VolumeEntity(
-                    soundVolumeLevel = DEFAULT_SOUND_VOLUME,
                     musicVolumeLevel = musicLevel
                 )
             )
-        } else if (current.musicVolumeLevel != musicLevel) {
-            dao.insertOrUpdate(current.copy(musicVolumeLevel = musicLevel))
+        } else if (
+            current.soundVolumeLevel != soundLevel ||
+            current.musicVolumeLevel != musicLevel
+        ) {
+            dao.insertOrUpdate(
+                current.copy(
+                    soundVolumeLevel = soundLevel,
+                    musicVolumeLevel = musicLevel
+                )
+            )
         }
     }
 

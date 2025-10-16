@@ -56,15 +56,21 @@ class VolumeSlider @JvmOverloads constructor(
     private val barHeight = 16.dp
     private val thumbSize = 36.dp
 
-    var onVolumeChange: ((Float) -> Unit)? = null
+    private var onVolumeChangeListener: ((Int) -> Unit)? = null
 
+    fun setOnVolumeChangeListener(listener: (Int) -> Unit) {
+        onVolumeChangeListener = listener
+    }
+    fun getVolumePercentage(): Int {
+        return (progress * 100).toInt()
+    }
     private val plusIcon = AppCompatResources.getDrawable(context, R.drawable.ic_add)
     private val minusIcon = AppCompatResources.getDrawable(context, R.drawable.ic_remove)
 
     fun setVolumePercentage(percentage: Int) {
         val clamped = percentage.coerceIn(0, 100)
         progress = clamped / 100f
-        onVolumeChange?.invoke(progress)
+        onVolumeChangeListener?.invoke(getVolumePercentage())
         invalidate()
     }
 
@@ -210,7 +216,7 @@ class VolumeSlider @JvmOverloads constructor(
                 val mappedProgress = ((rawProgress - 0.05f) / 0.9f).coerceIn(0f, 1f)
 
                 progress = mappedProgress
-                onVolumeChange?.invoke(progress)
+                onVolumeChangeListener?.invoke(getVolumePercentage())
                 invalidate()
                 return true
             }

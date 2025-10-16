@@ -11,23 +11,20 @@ import jakarta.inject.Inject
 class HomePresenter @Inject constructor(
     private val userStreakRepository: UserStreakRepository,
     private val characterRepository: CharacterRepository,
-    private val userStatsRepository: UserStatsRepository
-    private val triviaGameSessionRepository: TriviaGameSessionRepository,
+    private val userStatsRepository: UserStatsRepository,
     private val volumeLevelRepository: VolumeLevelRepository
 ) : BasePresenter<HomeView>() {
 
     fun getStreak() {
         tryToCall(
-            block = { userStreakRepository.getStreakInfo() },
+            block = userStreakRepository::getStreakInfo,
             onSuccess = { view?.showStreak(it) },
         )
     }
 
     fun updateStreak() {
         tryToCall(
-            block = {
-                userStreakRepository.updateStreak()
-            },
+            block = userStreakRepository::updateStreak,
         )
     }
 
@@ -63,25 +60,31 @@ class HomePresenter @Inject constructor(
 
     fun selectedCharacter() {
         tryToCall(
-            block = { characterRepository.getSelectedCharacter() },
-            onSuccess = {
-                view?.showSelectedCharacter(it)
-            },
+            block = characterRepository::getSelectedCharacter,
+            onSuccess = { view?.showSelectedCharacter(it) }
         )
     }
 
     fun getMusicVolumeLevel() {
         tryToCall(
-            block = { volumeLevelRepository.getMusicVolumeLevel() },
-            onSuccess = { view?.setMusicVolumeLevel(it) }
+            block = volumeLevelRepository::getMusicVolumeLevel,
+            onSuccess = { view?.showMusicVolumeLevel(it) }
         )
 
     }
 
     fun getSoundVolumeLevel() {
         tryToCall(
-            block = { volumeLevelRepository.getMusicVolumeLevel() },
-            onSuccess = { view?.setSoundVolumeLevel(it) }
+            block = volumeLevelRepository::getMusicVolumeLevel,
+            onSuccess = { view?.showSoundVolumeLevel(it) }
+        )
+    }
+
+    fun saveVolumeLevels(soundLevel: Int, musicLevel: Int) {
+        tryToCall(
+            block = {
+                volumeLevelRepository.saveVolumeLevels(soundLevel, musicLevel)
+            }
         )
     }
 }

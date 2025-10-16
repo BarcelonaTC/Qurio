@@ -2,7 +2,6 @@ package com.barcelona.qurio.presentation.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,7 +19,7 @@ import com.barcelona.qurio.presentation.animation.createGameCardTransformer
 import com.barcelona.qurio.presentation.model.CharacterGame
 import com.barcelona.qurio.presentation.model.gamecard.GameCardModel
 import com.barcelona.qurio.presentation.model.streak.StreakModel
-import com.barcelona.qurio.presentation.sounds.CoinSoundPlayer
+import com.barcelona.qurio.presentation.sounds.SoundPlayerManager
 import com.barcelona.qurio.presentation.view.HomeView
 import com.barcelona.qurio.presenter.HomePresenter
 import jakarta.inject.Inject
@@ -33,9 +32,15 @@ class HomeFragment(
 
     @Inject
     lateinit var presenter: HomePresenter
+    private lateinit var soundManager: SoundPlayerManager
+    val musicFiles = listOf(R.raw.app_theme_1, R.raw.app_theme_2)
+    val selectedMusic = musicFiles.random()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity().application as QurioApp).appComponent.inject(this)
+        soundManager = SoundPlayerManager(requireContext())
+
         presenter.attachView(this)
         setStreak(this.context)
         setupGameCardPager()
@@ -48,6 +53,9 @@ class HomeFragment(
         presenter.selectedCharacter()
         presenter.getMusicVolumeLevel()
         presenter.getSoundVolumeLevel()
+        soundManager.loadSound(R.raw.coins_sound)
+
+        soundManager.loadSound(selectedMusic)
     }
 
     override fun onDestroyView() {
@@ -55,8 +63,24 @@ class HomeFragment(
         super.onDestroyView()
     }
 
+    override fun onPause() {
+        super.onPause()
+        soundManager.pauseMusic()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        soundManager.resumeMusic()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        soundManager.pauseMusic()
+    }
+
     override fun onDestroy() {
         presenter.destroyPresenter()
+        soundManager.release()
         super.onDestroy()
     }
 
@@ -104,7 +128,7 @@ class HomeFragment(
                 findNavController().navigate(R.id.gameFragment)
             }
             seeAllLastGames.setOnClickListener {}
-            binding.appBar.profile.setOnClickListener {
+            appBar.profile.setOnClickListener {
                 val dialog = CharacterSelectionFragment()
                 dialog.show(parentFragmentManager, "CharacterSelectionDialog")
             }
@@ -113,6 +137,27 @@ class HomeFragment(
             }
             appBar.profile.setOnClickListener {
 
+            }
+            settingsDialog.discardButton.setOnClickListener {
+                dismissDialog(settingsDialog.root)
+            }
+            settingsDialog.saveChangesButton.setOnClickListener {
+                val soundLevel = binding.settingsDialog.soundSlider.getVolumePercentage()
+                val musicLevel = binding.settingsDialog.musicSlider.getVolumePercentage()
+                saveVolumeLevels(soundLevel, musicLevel)
+                dismissDialog(binding.settingsDialog.root)
+            }
+            settingsDialog.dialogRoot.setOnDismissListener {
+                dismissDialog(settingsDialog.root)
+            }
+            settingsDialog.soundSlider.setOnVolumeChangeListener { newSoundLevel ->
+                val musicLevel = settingsDialog.musicSlider.getVolumePercentage()
+                soundManager.setVolumeLevels(newSoundLevel, musicLevel)
+            }
+
+            settingsDialog.musicSlider.setOnVolumeChangeListener { newMusicLevel ->
+                val soundLevel = settingsDialog.soundSlider.getVolumePercentage()
+                soundManager.setVolumeLevels(soundLevel, newMusicLevel)
             }
         }
     }
@@ -123,28 +168,8 @@ class HomeFragment(
         binding.settingsDialog.root.visibility = View.VISIBLE
         binding.settingsDialog.dialogRoot.visibility = View.VISIBLE
 
-        binding.settingsDialog.root.animate()
-            .alpha(1f)
-            .setDuration(500)
-            .start()
-        binding.settingsDialog.dialogRoot.animate()
-            .alpha(1f)
-            .setDuration(500)
-            .start()
-
-        binding.settingsDialog.dialogRoot.setOnDismissListener {
-            binding.settingsDialog.root.animate()
-                .alpha(0f)
-                .setDuration(500)
-                .withEndAction { binding.settingsDialog.root.visibility = View.GONE }
-                .start()
-
-        }
-        binding.settingsDialog.discardButton.setOnClickListener {
-            binding.settingsDialog.dialogRoot.setOnDismissListener {
-                binding.settingsDialog.root.visibility = View.GONE
-            }
-        }
+        showDialog(binding.settingsDialog.root)
+        showDialog(binding.settingsDialog.dialogRoot)
     }
 
     override fun showStreak(streak: StreakModel) {
@@ -154,21 +179,16 @@ class HomeFragment(
     }
 
     override fun showTotalPoints(totalPoints: Int) {
-        val soundPlayer = CoinSoundPlayer(context)
-        soundPlayer.loadSound(R.raw.coins_sound) {
-            animatePoints(
-                endValue = totalPoints,
-                onUpdate = { animatedValue ->
-                    val formattedValue =
-                        NumberFormat.getNumberInstance(Locale.US).format(animatedValue)
-                    binding.statisticsComponent.pointsCard.pointsAmount.text = formattedValue
-                },
-                onEnd = {
-                    soundPlayer.release()
-                }
-            )
-            soundPlayer.play()
-        }
+        soundManager.playSound(R.raw.coins_sound)
+        soundManager.playMusic(selectedMusic)
+
+        animatePoints(
+            endValue = totalPoints,
+            onUpdate = { animatedValue ->
+                val formattedValue = NumberFormat.getNumberInstance(Locale.US).format(animatedValue)
+                binding.statisticsComponent.pointsCard.pointsAmount.text = formattedValue
+            },
+        )
     }
 
     override fun showTotalLives(totalLives: Int) {
@@ -184,11 +204,38 @@ class HomeFragment(
         binding.appBar.name.text = selectedCharacter.name
     }
 
-    override fun setMusicVolumeLevel(volumeLevel: Int) {
+    override fun showMusicVolumeLevel(volumeLevel: Int) {
         binding.settingsDialog.musicSlider.setVolumePercentage(volumeLevel)
+        soundManager.setVolumeLevels(
+            binding.settingsDialog.soundSlider.getVolumePercentage(),
+            volumeLevel
+        )
     }
 
-    override fun setSoundVolumeLevel(volumeLevel: Int) {
+    override fun showSoundVolumeLevel(volumeLevel: Int) {
         binding.settingsDialog.soundSlider.setVolumePercentage(volumeLevel)
+        soundManager.setVolumeLevels(
+            volumeLevel,
+            binding.settingsDialog.musicSlider.getVolumePercentage()
+        )
+    }
+
+    override fun saveVolumeLevels(soundLevel: Int, musicLevel: Int) {
+        presenter.saveVolumeLevels(soundLevel, musicLevel)
+    }
+
+    private fun dismissDialog(view: View) {
+        view.animate()
+            .alpha(0f)
+            .setDuration(500)
+            .withEndAction { view.visibility = View.GONE }
+            .start()
+    }
+
+    private fun showDialog(view: View) {
+        view.animate()
+            .alpha(1f)
+            .setDuration(500)
+            .start()
     }
 }

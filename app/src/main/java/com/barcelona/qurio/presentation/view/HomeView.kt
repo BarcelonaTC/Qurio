@@ -8,8 +8,9 @@ interface HomeView : BaseView {
     fun showStreak(streak: StreakModel)
     fun showTotalPoints(totalPoints: Int)
     fun showTotalLives(totalLives: Int)
-    fun setMusicVolumeLevel(volumeLevel: Int)
-    fun setSoundVolumeLevel(volumeLevel: Int)
+    fun showMusicVolumeLevel(volumeLevel: Int)
+    fun showSoundVolumeLevel(volumeLevel: Int)
     fun showTotalRewards(totalRewards: Int)
+    fun saveVolumeLevels(soundLevel: Int, musicLevel: Int)
     fun showSelectedCharacter(selectedCharacter: CharacterGame)
 }

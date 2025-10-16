@@ -105,12 +105,10 @@ object AppModule {
     @Provides
     fun provideBuyCharacterPresenter(
         characterRepository: CharacterRepository,
-        triviaGameSessionRepository: TriviaGameSessionRepository,
         userStatsRepository: UserStatsRepository
     ): BuyCharacterPresenter {
         return BuyCharacterPresenter(
             characterRepository,
-            triviaGameSessionRepository,
             userStatsRepository
         )
     }
