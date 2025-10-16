@@ -61,4 +61,12 @@
     <declare-styleable name="Dialog">
         <attr name="dialogTitle" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="CharacterCardView">
+        <attr name="characterName" format="string" />
+        <attr name="characterImage" format="reference" />
+        <attr name="isLocked" format="boolean" />
+        <attr name="isSelected" format="boolean" />
+    </declare-styleable>
+
 </resources>

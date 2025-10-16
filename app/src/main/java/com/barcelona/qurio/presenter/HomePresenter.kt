@@ -12,6 +12,7 @@ class HomePresenter @Inject constructor(
     private val triviaGameSessionRepository: TriviaGameSessionRepository,
     private val volumeLevelRepository: VolumeLevelRepository
 ) : BasePresenter<HomeView>() {
+
     fun getStreak() {
         tryToCall(
             block = { userStreakRepository.getStreakInfo() },
@@ -21,7 +22,8 @@ class HomePresenter @Inject constructor(
 
     fun updateStreak() {
         tryToCall(
-            block = { userStreakRepository.updateStreak() },
+            block = {
+                userStreakRepository.updateStreak() },
         )
     }
 
@@ -29,6 +31,20 @@ class HomePresenter @Inject constructor(
         tryToCall(
             block = { triviaGameSessionRepository.getTotalPointsOfAllSessions() },
             onSuccess = { view?.showTotalPoints(it) },
+        )
+    }
+    fun getTotalLives(){
+        tryToCall(
+            block = { userStreakRepository.getLivesCount() },
+            onSuccess = { view?.showTotalLives(it) },
+        )
+    }
+    fun checkLivesBeforePlay(onHasLives: () -> Unit, onNoLives: () -> Unit) {
+        tryToCall(
+            block = { userStreakRepository.getLivesCount() },
+            onSuccess = { lives ->
+                if (lives > 0) onHasLives() else onNoLives()
+            }
         )
     }
 

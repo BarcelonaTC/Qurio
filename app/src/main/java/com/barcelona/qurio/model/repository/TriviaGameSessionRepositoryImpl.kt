@@ -1,8 +1,8 @@
 package com.barcelona.qurio.model.repository
 
 import com.barcelona.qurio.model.local.dao.GameSessionDao
-import com.barcelona.qurio.model.local.toEntity
-import com.barcelona.qurio.model.local.toModel
+import com.barcelona.qurio.model.local.mapper.toEntity
+import com.barcelona.qurio.model.local.mapper.toModel
 import com.barcelona.qurio.presentation.model.TriviaGameSession
 import com.barcelona.qurio.presenter.repository.TriviaGameSessionRepository
 

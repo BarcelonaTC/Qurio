@@ -43,6 +43,14 @@
     <string name="correct_icon">correct icon</string>
     <string name="character_image">character image</string>
     <string name="last_games">Last Games</string>
+    <string name="select_character" />
+    <string name="character">Character</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="buy">Buy</string>
+    <string name="x">X</string>
+    <string name="equal">=</string>
     <string name="settings">Settings</string>
     <string name="sound">Sound</string>
     <string name="music">Music</string>

@@ -33,6 +33,14 @@
     <string name="coin_icon">فلوس</string>
     <string name="correct_icon">علامة صح</string>
     <string name="character_image">البطل</string>
+    <string name="select_character" />
+    <string name="character">Character</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="buy">buy</string>
+    <string name="x"> X</string>
+    <string name="equal">=</string>
     <string name="settings">الإعدادات</string>
     <string name="sound">الصوت</string>
     <string name="music">الموسيقى</string>

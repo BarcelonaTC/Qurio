@@ -7,11 +7,14 @@ import com.barcelona.qurio.presentation.model.TriviaGameSession
 import com.barcelona.qurio.presentation.view.StartPlayView
 import com.barcelona.qurio.presenter.repository.TriviaGameRepository
 import com.barcelona.qurio.presenter.repository.TriviaGameSessionRepository
+import com.barcelona.qurio.presenter.repository.UserStreakRepository
 import javax.inject.Inject
+import kotlin.random.Random
 
 class StartPlayPresenter @Inject constructor(
     private val triviaGameRepository: TriviaGameRepository,
-    private val gameSessionRepository: TriviaGameSessionRepository
+    private val gameSessionRepository: TriviaGameSessionRepository,
+    private val userStreakRepository: UserStreakRepository
 ) : BasePresenter<StartPlayView>() {
 
     private var questions: List<Question> = emptyList()
@@ -25,6 +28,13 @@ class StartPlayPresenter @Inject constructor(
     private var wrongCount = 0
     private var totalTimeSeconds = 0L
     private var timerStartTime = 0L
+
+    fun getTotalLives() {
+        tryToCall(
+            block = { userStreakRepository.getLivesCount() },
+            onSuccess = { view?.showTotalLives(it) },
+        )
+    }
 
     fun getQuestions(categoryId: Int) {
         tryToCall(
@@ -123,15 +133,41 @@ class StartPlayPresenter @Inject constructor(
     }
 
     private fun calculateStars(): Int {
+        if (questions.isEmpty()) return 0
+        val percentage = correctCount.toFloat() / questions.size
         return when {
-            correctCount == questions.size -> 3
-            correctCount >= questions.size / 2 -> 2
-            correctCount > 0 -> 1
+            percentage >= 1.0f -> 3
+            percentage >= 2f / 3f -> 2
+            percentage >= 1f / 3f -> 1
             else -> 0
         }
     }
 
-    private fun calculateCoins(): Int = correctCount * 10
+    private fun calculateCoins(): Int {
+        if (calculateStars() == 0) {
+            return when (correctCount) {
+                in 1..2 -> Random.nextInt(1, 3)
+                3 -> Random.nextInt(2, 5)
+                else -> 0
+            }
+        }
+
+        var earned = 0
+        repeat(correctCount) {
+            earned += Random.nextInt(5, 15)
+        }
+        return earned
+    }
+
+    private fun handleLivesAfterGame() {
+        if (calculateStars() == 0) {
+            tryToCall(
+                block = { userStreakRepository.decrementLives() },
+                onSuccess = { getTotalLives() },
+                onError = { view?.showError(it) }
+            )
+        }
+    }
 
     private fun saveGameSession() {
         val skipped = (questions.size - (correctCount + wrongCount))
@@ -146,7 +182,10 @@ class StartPlayPresenter @Inject constructor(
         tryToCall(
             block = { gameSessionRepository.insertSession(session) },
             onStart = {},
-            onSuccess = { view?.onGameSessionSaved(session) },
+            onSuccess = {
+                view?.onGameSessionSaved(session)
+                handleLivesAfterGame()
+            },
             onError = { view?.showError(it) },
             onEnd = {}
         )
