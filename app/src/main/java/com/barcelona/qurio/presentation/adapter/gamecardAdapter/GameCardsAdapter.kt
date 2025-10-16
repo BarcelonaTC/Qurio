@@ -76,7 +76,6 @@ class GameCardsAdapter(
                 height = context.resources.getDimensionPixelSize(R.dimen.play_game_height)
                 width = context.resources.getDimensionPixelSize(R.dimen.play_game_width)
             }
-
             binding.textTitle.setTextAppearance(R.style.Title_Small)
         }
     }

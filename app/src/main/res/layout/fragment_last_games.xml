@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+        <LinearLayout
+            android:id="@+id/game_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/surface"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical"
+            tools:context=".presentation.fragment.LastGamesFragment">
+
+            <include
+                android:id="@+id/app_bar"
+                layout="@layout/last_games_top_bar" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/lastGamesRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="14dp"
+                android:layout_marginHorizontal="16dp"
+                app:layout_constraintTop_toBottomOf="@id/last_games_section"
+                tools:listitem="@layout/item_last_game"
+                tools:orientation="vertical" />
+        </LinearLayout>
+</layout>

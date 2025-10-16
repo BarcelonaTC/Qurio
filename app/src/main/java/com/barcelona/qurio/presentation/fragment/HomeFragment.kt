@@ -13,10 +13,12 @@ import com.barcelona.qurio.base.BaseFragment
 import com.barcelona.qurio.databinding.FragmentHomeBinding
 import com.barcelona.qurio.model.dto.gameCards
 import com.barcelona.qurio.presentation.adapter.gamecardAdapter.GameCardsAdapter
+import com.barcelona.qurio.presentation.adapter.lastGame.LastGameAdapter
 import com.barcelona.qurio.presentation.adapter.streakAdapter.StreakDayAdapter
 import com.barcelona.qurio.presentation.animation.animatePoints
 import com.barcelona.qurio.presentation.animation.createGameCardTransformer
 import com.barcelona.qurio.presentation.model.CharacterGame
+import com.barcelona.qurio.presentation.model.LastGame
 import com.barcelona.qurio.presentation.model.gamecard.GameCardModel
 import com.barcelona.qurio.presentation.model.streak.StreakModel
 import com.barcelona.qurio.presentation.sounds.SoundPlayerManager
@@ -43,12 +45,14 @@ class HomeFragment(
 
         presenter.attachView(this)
         setStreak(this.context)
+        setLastGames(this.context)
         setupGameCardPager()
         setInteractionListener()
         presenter.updateStreak()
         presenter.getStreak()
         presenter.getTotalPoints()
         presenter.getTotalLives()
+        presenter.getLastGames()
         presenter.getTotalRewards()
         presenter.selectedCharacter()
         presenter.getMusicVolumeLevel()
@@ -89,6 +93,7 @@ class HomeFragment(
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
+
     private fun setupGameCardPager() {
         val adapter = GameCardsAdapter(gameCards, onPlayClick = ::onPlayNowClicked, true)
         binding.recyclerView.adapter = adapter
@@ -99,13 +104,17 @@ class HomeFragment(
 
         (binding.recyclerView.getChildAt(0) as RecyclerView).overScrollMode =
             RecyclerView.OVER_SCROLL_NEVER
+        binding.recyclerView.setCurrentItem(3, false)
     }
 
     fun onPlayNowClicked(gameCard: GameCardModel) {
         presenter.checkLivesBeforePlay(
             onHasLives = {
                 findNavController().navigate(
-                    HomeFragmentDirections.actionHomeFragmentToStartPlayFragment(gameCard.categoryId)
+                    HomeFragmentDirections.actionHomeFragmentToStartPlayFragment(
+                        gameCard.categoryId,
+                        gameCard.title
+                    )
                 )
             },
             onNoLives = {
@@ -127,7 +136,10 @@ class HomeFragment(
             seeAllGames.setOnClickListener {
                 findNavController().navigate(R.id.gameFragment)
             }
-            seeAllLastGames.setOnClickListener {}
+            seeAllLastGames.setOnClickListener {
+                findNavController().navigate(R.id.lastGamesFragment)
+            }
+
             appBar.profile.setOnClickListener {
                 val dialog = CharacterSelectionFragment()
                 dialog.show(parentFragmentManager, "CharacterSelectionDialog")
@@ -181,18 +193,38 @@ class HomeFragment(
     override fun showTotalPoints(totalPoints: Int) {
         soundManager.playSound(R.raw.coins_sound)
         soundManager.playMusic(selectedMusic)
-
-        animatePoints(
-            endValue = totalPoints,
-            onUpdate = { animatedValue ->
-                val formattedValue = NumberFormat.getNumberInstance(Locale.US).format(animatedValue)
-                binding.statisticsComponent.pointsCard.pointsAmount.text = formattedValue
-            },
-        )
+            animatePoints(
+                endValue = totalPoints,
+                onUpdate = { animatedValue ->
+                    val formattedValue = NumberFormat.getNumberInstance(Locale.US).format(animatedValue)
+                    binding.statisticsComponent.pointsCard.pointsAmount.text = formattedValue
+                },
+            )
+        if (totalPoints >= 10000) {
+            binding.crown.visibility = View.VISIBLE
+        }
     }
 
     override fun showTotalLives(totalLives: Int) {
         binding.statisticsComponent.livesCard.livesAmount.text = totalLives.toString()
+    }
+
+    private fun setLastGames(context: Context?) {
+        binding.lastGamesRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+        }
+    }
+
+    override fun showLastGames(lastGames: List<LastGame>) {
+        if (lastGames.isEmpty()) {
+            binding.lastGamesRecyclerView.visibility = View.GONE
+            binding.lastGamesSection.visibility = View.GONE
+        } else {
+            binding.lastGamesRecyclerView.apply {
+                adapter = LastGameAdapter(lastGames.take(5))
+                isNestedScrollingEnabled = false
+            }
+        }
     }
 
     override fun showTotalRewards(totalRewards: Int) {
