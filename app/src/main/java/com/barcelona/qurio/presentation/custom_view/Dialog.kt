@@ -101,8 +101,8 @@ class Dialog @JvmOverloads constructor(
         onDismissListener?.invoke()
         animate()
             .alpha(0f)
-            .setDuration(200)
-            .withEndAction { (parent as? FrameLayout)?.removeView(this) }
+            .setDuration(500)
+            .withEndAction { this.visibility = View.GONE }
             .start()
     }
 

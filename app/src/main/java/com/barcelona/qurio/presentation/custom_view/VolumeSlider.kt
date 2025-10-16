@@ -16,6 +16,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.PathParser
 import androidx.core.graphics.toColorInt
 import com.barcelona.qurio.R
+import androidx.core.graphics.withClip
 
 class VolumeSlider @JvmOverloads constructor(
     context: Context,
@@ -127,10 +128,9 @@ class VolumeSlider @JvmOverloads constructor(
             Shader.TileMode.CLAMP
         )
 
-        canvas.save()
-        canvas.clipRect(clipRect)
-        canvas.drawPath(path, barFillPaint)
-        canvas.restore()
+        canvas.withClip(clipRect) {
+            drawPath(path, barFillPaint)
+        }
     }
 
     private fun drawBarBorder(canvas: Canvas, barRect: RectF) {
@@ -256,18 +256,13 @@ class VolumeSlider @JvmOverloads constructor(
 
         val measuredHeight = when (heightMode) {
             MeasureSpec.EXACTLY -> heightSize
-            MeasureSpec.AT_MOST -> minOf(48.dp.toInt(), heightSize)
-            MeasureSpec.UNSPECIFIED -> 48.dp.toInt()
+            MeasureSpec.AT_MOST -> minOf(56.dp.toInt(), heightSize)
+            MeasureSpec.UNSPECIFIED -> 56.dp.toInt()
             else -> heightSize
         }
 
         setMeasuredDimension(measuredWidth, measuredHeight)
     }
-
-    private val Float.dp: Float
-        get() = TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP, this, resources.displayMetrics
-        )
 
     private val Int.dp: Float
         get() = TypedValue.applyDimension(

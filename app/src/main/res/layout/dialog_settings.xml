@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_settings_dialog"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,6 +15,7 @@
         android:visibility="visible" />
 
     <com.barcelona.qurio.presentation.custom_view.Dialog
+        android:id="@+id/dialog_root"
         android:layout_width="match_parent"
         android:layout_height="310dp"
         android:layout_gravity="center"
