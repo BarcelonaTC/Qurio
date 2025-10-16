@@ -45,4 +45,6 @@
     <string name="buy">buy</string>
     <string name="x"> X</string>
     <string name="equal">=</string>
+    <string name="_1">1</string>
+    <string name="_200_x">200 X</string>
 </resources>
