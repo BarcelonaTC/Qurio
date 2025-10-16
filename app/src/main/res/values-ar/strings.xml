@@ -64,4 +64,6 @@
     <string name="_1m_33sec">1دقيقة و33 ثانية</string>
     <string name="_0">0</string>
     <string name="_230">230</string>
+    <string name="play_again">ألعب مرة أخرى</string>
+    <string name="back_to_home">العودة إلى الرئيسية</string>
 </resources>

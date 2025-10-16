@@ -63,4 +63,6 @@
     <string name="check">Check</string>
     <string name="skip">Skip</string>
     <string name="next">Next</string>
+    <string name="play_again">Play again</string>
+    <string name="back_to_home">Back to home</string>
 </resources>
