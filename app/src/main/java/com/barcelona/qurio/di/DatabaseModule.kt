@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.barcelona.qurio.model.local.QurioDatabase
 import com.barcelona.qurio.model.local.dao.GameSessionDao
 import com.barcelona.qurio.model.local.dao.UserStreakDao
+import com.barcelona.qurio.model.local.dao.VolumeLevelDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -32,5 +33,11 @@ object DatabaseModule {
     @Singleton
     fun provideUserStreakDao(database: QurioDatabase): UserStreakDao {
         return database.userStreakDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideVolumeLevelDao(database: QurioDatabase): VolumeLevelDao {
+        return database.volumeLevelDao()
     }
 }

@@ -7,16 +7,19 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.barcelona.qurio.model.api.TriviaApiService
 import com.barcelona.qurio.model.local.dao.GameSessionDao
 import com.barcelona.qurio.model.local.dao.UserStreakDao
+import com.barcelona.qurio.model.local.dao.VolumeLevelDao
 import com.barcelona.qurio.model.repository.TriviaGameRepositoryImpl
 import com.barcelona.qurio.model.repository.TriviaGameSessionRepositoryImpl
 import com.barcelona.qurio.model.repository.UserPreferencesImpl
 import com.barcelona.qurio.model.repository.UserStreakRepositoryImpl
+import com.barcelona.qurio.model.repository.VolumeLevelRepositoryImpl
 import com.barcelona.qurio.presenter.OnBoardingPresenter
 import com.barcelona.qurio.presenter.StartPlayPresenter
 import com.barcelona.qurio.presenter.repository.TriviaGameRepository
 import com.barcelona.qurio.presenter.repository.TriviaGameSessionRepository
 import com.barcelona.qurio.presenter.repository.UserPreferences
 import com.barcelona.qurio.presenter.repository.UserStreakRepository
+import com.barcelona.qurio.presenter.repository.VolumeLevelRepository
 import dagger.Module
 import dagger.Provides
 
@@ -72,4 +75,8 @@ object AppModule {
         return UserStreakRepositoryImpl(dao)
     }
 
+    @Provides
+    fun provideVolumeLevelRepository(dao: VolumeLevelDao): VolumeLevelRepository {
+        return VolumeLevelRepositoryImpl(dao)
+    }
 }
