@@ -2,6 +2,7 @@ package com.barcelona.qurio.presentation.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import com.barcelona.qurio.QurioApp
 import com.barcelona.qurio.R
 import com.barcelona.qurio.base.BaseFragment
@@ -72,7 +73,7 @@ class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding>(), OnBoarding
         }
 
         if (pager.currentItem == lastIndex) {
-            presenter.setFirstLaunch()
+            onSwipeUp()
         }
     }
 
@@ -83,5 +84,7 @@ class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding>(), OnBoarding
 
     override fun onSwipeUp() {
         presenter.setFirstLaunch()
+        val navController = findNavController()
+        navController.popBackStack(R.id.homeFragment, true)
     }
 }

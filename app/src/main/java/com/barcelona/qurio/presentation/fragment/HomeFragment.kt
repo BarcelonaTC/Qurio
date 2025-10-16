@@ -17,8 +17,8 @@ import com.barcelona.qurio.presentation.adapter.lastGame.LastGameAdapter
 import com.barcelona.qurio.presentation.adapter.streakAdapter.StreakDayAdapter
 import com.barcelona.qurio.presentation.animation.animatePoints
 import com.barcelona.qurio.presentation.animation.createGameCardTransformer
-import com.barcelona.qurio.presentation.model.LastGame
 import com.barcelona.qurio.presentation.model.CharacterGame
+import com.barcelona.qurio.presentation.model.LastGame
 import com.barcelona.qurio.presentation.model.gamecard.GameCardModel
 import com.barcelona.qurio.presentation.model.streak.StreakModel
 import com.barcelona.qurio.presentation.sounds.CoinSoundPlayer
@@ -77,6 +77,7 @@ class HomeFragment(
 
         (binding.recyclerView.getChildAt(0) as RecyclerView).overScrollMode =
             RecyclerView.OVER_SCROLL_NEVER
+        binding.recyclerView.setCurrentItem(3, false)
     }
 
     fun onPlayNowClicked(gameCard: GameCardModel) {
@@ -125,6 +126,7 @@ class HomeFragment(
     }
 
     override fun showTotalPoints(totalPoints: Int) {
+
         val soundPlayer = CoinSoundPlayer(context)
         soundPlayer.loadSound(R.raw.coins_sound) {
             animatePoints(
@@ -139,6 +141,9 @@ class HomeFragment(
                 }
             )
             soundPlayer.play()
+        }
+        if (totalPoints >= 10000) {
+            binding.crown.visibility = View.VISIBLE
         }
     }
 
