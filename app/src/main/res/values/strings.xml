@@ -65,5 +65,12 @@
     <string name="next">Next</string>
     <string name="play_again">Play again</string>
     <string name="back_to_home">Back to home</string>
+    <string name="achievment_image" translatable="false">achievment_image</string>
+    <string name="achievements" translatable="false">Achievements</string>
+    <string name="click_on_achievement_to_view_details" translatable="false">*Click on achievement to view details</string>
+    <string name="collector" translatable="false">Collector\n</string>
+    <string name="share_with_friends">Share with friends</string>
+    <string name="achievement_image">achievement image\n</string>
     <string name="difficulty_level">Difficulty level</string>
+    <string name="achievement">achievement</string>
 </resources>
