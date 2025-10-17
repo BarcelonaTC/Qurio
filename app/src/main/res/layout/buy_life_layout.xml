@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/blur_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B3000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="visible" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_buy_life"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="ContentDescription">
+
+        <com.barcelona.qurio.presentation.custom_view.Dialog
+            android:id="@+id/dialog_root"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:layout_marginHorizontal="16dp"
+            app:dialogTitle="@string/buy_life"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/price_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@id/dialog_root"
+            app:layout_constraintEnd_toEndOf="@id/dialog_root"
+            app:layout_constraintStart_toStartOf="@id/dialog_root"
+            app:layout_constraintTop_toTopOf="@id/dialog_root">
+
+            <TextView
+                android:id="@+id/text_life_count"
+                style="@style/HeadLine.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="@string/_1"
+                android:textColor="@color/on_primary" />
+
+            <ImageView
+                android:id="@+id/icon_life"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="19dp"
+                android:src="@drawable/statstics_heart" />
+
+            <TextView
+                android:id="@+id/text_equals"
+                style="@style/HeadLine.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="19dp"
+                android:text="="
+                android:textColor="@color/on_primary"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/text_price"
+                style="@style/HeadLine.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="@string/_200_x"
+                android:textColor="@color/on_primary" />
+
+            <ImageView
+                android:id="@+id/icon_coins"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_coin_stack" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_action_buttons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:elevation="1dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/dialog_root"
+            app:layout_constraintEnd_toEndOf="@id/dialog_root"
+            app:layout_constraintStart_toStartOf="@id/dialog_root"
+            app:layout_constraintTop_toBottomOf="@id/price_container">
+
+            <com.barcelona.qurio.presentation.custom_view.PrimaryButton
+                android:id="@+id/button_buy"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:text="@string/buy" />
+
+            <com.barcelona.qurio.presentation.custom_view.SecondaryButton
+                android:id="@+id/button_cancel"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                app:secondaryText="@string/cancel" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

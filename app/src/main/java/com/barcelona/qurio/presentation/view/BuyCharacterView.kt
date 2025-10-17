@@ -9,4 +9,5 @@ interface BuyCharacterView : BaseView {
     fun showMessage(message: String)
     fun setBuyButtonEnabled(enable: Boolean)
     fun onCancelClick()
+    fun onCharacterBought(characterId: Int)
 }

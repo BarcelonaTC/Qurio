@@ -42,6 +42,7 @@
     <string name="coin_icon">coin icon</string>
     <string name="correct_icon">correct icon</string>
     <string name="character_image">character image</string>
+    <string name="buy_life">Buy life</string>
     <string name="last_games">Last Games</string>
     <string name="select_character" />
     <string name="character">Character</string>
@@ -72,5 +73,7 @@
     <string name="share_with_friends" translatable="false">Share with friends</string>
     <string name="achievement_image" translatable="false">achievement image\n</string>
     <string name="difficulty_level">Difficulty level</string>
+    <string name="_1">1</string>
+    <string name="_200_x">200 X</string>
     <string name="achievement" translatable="false">achievement</string>
 </resources>

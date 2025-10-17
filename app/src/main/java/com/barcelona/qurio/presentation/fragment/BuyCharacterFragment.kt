@@ -59,15 +59,16 @@ class BuyCharacterFragment : BaseDialogFragment<BuyCharacterDialogBinding>(), Bu
     override fun onBuyClick(characterId: Int) {
         if (binding.buyConfirmButton.isEnabled) {
             presenter.buyCharacter(characterId)
-
-            parentFragmentManager.setFragmentResult("character_bought", Bundle().apply {
-                putInt("characterId", characterId)
-            })
-
-            dismiss()
         }
     }
 
+    override fun onCharacterBought(characterId: Int) {
+        parentFragmentManager.setFragmentResult(
+            "character_bought",
+            Bundle().apply { putInt("characterId", characterId) }
+        )
+        dismiss()
+    }
 
     override fun showMessage(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()

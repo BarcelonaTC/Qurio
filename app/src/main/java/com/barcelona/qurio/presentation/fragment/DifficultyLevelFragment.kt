@@ -42,7 +42,7 @@ class DifficultyLevelFragment : BaseDialogFragment<DifficultyLevelDialogBinding>
     override fun onConfirmClick(levelType: LevelType) {
         if (binding.confirmButton.isEnabled) {
             parentFragmentManager.setFragmentResult("level_game_type", Bundle().apply {
-                putString("levelType", levelType.name)
+                putString("levelType", levelType.name.lowercase())
             })
 
             dismiss()

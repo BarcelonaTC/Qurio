@@ -34,6 +34,9 @@ class BuyCharacterPresenter @Inject constructor(
                 characterRepository.selectCharacter(character.id)
                 characterRepository.getCharacterById(character.id)
             },
+            onSuccess = { updatedCharacter ->
+                view?.onCharacterBought(updatedCharacter.id)
+            },
         )
     }
 }

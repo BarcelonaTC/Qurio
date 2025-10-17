@@ -17,6 +17,8 @@ interface HomeView : BaseView {
     fun showTotalRewards(totalRewards: Int)
     fun saveVolumeLevels(soundLevel: Int, musicLevel: Int)
     fun showSelectedCharacter(selectedCharacter: CharacterGame)
+    fun onBuyLifeClick()
+    fun setBuyLifeButtonEnabled(enable: Boolean)
 
     fun showAchievements(achievements: List<Achievement>)
     fun showCurrentAchievement(achievement: Achievement)

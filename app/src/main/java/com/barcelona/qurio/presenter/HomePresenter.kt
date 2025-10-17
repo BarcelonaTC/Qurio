@@ -100,4 +100,30 @@ class HomePresenter @Inject constructor(
             onSuccess = { view?.showLastGames(it.map(TriviaGameSession::toLastGameModel)) },
         )
     }
+
+    fun buyButtonEnable() {
+        tryToCall(
+            block = { userStatsRepository.getPreferences().points },
+            onSuccess = { totalPoints ->
+                view?.setBuyLifeButtonEnabled(totalPoints >= 200)
+            }
+        )
+    }
+
+    fun onBuyClick() {
+        tryToCall(
+            block = {
+                val totalPoints = userStatsRepository.getPreferences().points
+                if (totalPoints >= 200) {
+                    userStatsRepository.decreasePoints(200)
+                    userStatsRepository.increaseLives(1)
+                    true
+                } else false
+            },
+            onSuccess = {
+                getTotalPoints()
+                getTotalLives()
+            }
+        )
+    }
 }
