@@ -7,6 +7,7 @@ import com.barcelona.qurio.base.BasePresenter
 import com.barcelona.qurio.presentation.model.Question
 import com.barcelona.qurio.presentation.model.TriviaGameSession
 import com.barcelona.qurio.presentation.view.StartPlayView
+import com.barcelona.qurio.presenter.repository.AchievementRepository
 import com.barcelona.qurio.presenter.repository.TriviaGameRepository
 import com.barcelona.qurio.presenter.repository.TriviaGameSessionRepository
 import com.barcelona.qurio.presenter.repository.UserStatsRepository
@@ -15,12 +16,15 @@ import java.net.UnknownHostException
 import javax.inject.Inject
 import kotlin.math.abs
 import kotlin.random.Random
+import kotlin.time.Duration.Companion.seconds
 
+@RequiresApi(Build.VERSION_CODES.O)
 class StartPlayPresenter @Inject constructor(
     private val triviaGameRepository: TriviaGameRepository,
     private val gameSessionRepository: TriviaGameSessionRepository,
     private val userStatsRepository: UserStatsRepository,
-    private val volumeLevelRepository: VolumeLevelRepository
+    private val volumeLevelRepository: VolumeLevelRepository,
+    private val achievementRepository: AchievementRepository,
 ) : BasePresenter<StartPlayView>() {
 
     private var questions: List<Question> = emptyList()
@@ -36,6 +40,9 @@ class StartPlayPresenter @Inject constructor(
     private var timerStartTime = 0L
 
     private var categoryTitle = ""
+
+    private var currentStreakAnswers = 0
+    private var maxStreakAnswer = 0
 
     fun getTotalLives() {
         tryToCall(
@@ -58,14 +65,14 @@ class StartPlayPresenter @Inject constructor(
     fun getMusicVolumeLevel() {
         tryToCall(
             block = volumeLevelRepository::getMusicVolumeLevel,
-            onSuccess = {view?.getMusicVolumeLevel(it)}
+            onSuccess = { view?.getMusicVolumeLevel(it) }
         )
     }
 
     fun getSoundVolumeLevel() {
         tryToCall(
             block = volumeLevelRepository::getSoundVolumeLevel,
-            onSuccess = {view?.getSoundVolumeLevel(it)}
+            onSuccess = { view?.getSoundVolumeLevel(it) }
         )
     }
 
@@ -84,8 +91,8 @@ class StartPlayPresenter @Inject constructor(
         questionChecked = false
         val q = questions[currentIndex]
         currentAnswers = mutableListOf<String>().apply {
-            q.correctAnswer?.let { add(it) }
-            q.incorrectAnswers?.let { addAll(it.filterNotNull()) }
+            add(q.correctAnswer)
+            addAll(q.incorrectAnswers)
             shuffle()
         }
         view?.showQuestion(q, "Q ${currentIndex + 1}/${questions.size}")
@@ -116,7 +123,6 @@ class StartPlayPresenter @Inject constructor(
         }.start()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun onCheckButtonClicked(selectedPosition: Int?) {
         if (!questionChecked) {
             if (selectedPosition == null) {
@@ -125,13 +131,23 @@ class StartPlayPresenter @Inject constructor(
             }
 
             val question = questions[currentIndex]
-            val correct = question.correctAnswer ?: ""
+            val correct = question.correctAnswer
             view?.highlightAnswers(correct, selectedPosition)
             questionChecked = true
             countDownTimer?.cancel()
 
             val answer = currentAnswers.getOrNull(selectedPosition)
-            if (answer == correct) correctCount++ else wrongCount++
+            if (answer == correct) {
+                currentStreakAnswers++
+                if (currentStreakAnswers > maxStreakAnswer) {
+                    maxStreakAnswer = currentStreakAnswers
+                }
+                correctCount++
+            } else {
+                currentStreakAnswers = 0
+                wrongCount++
+            }
+
             totalTimeSeconds += ((System.currentTimeMillis() - timerStartTime) / 1000).toInt()
 
             if (currentIndex == questions.size - 1) {
@@ -146,7 +162,6 @@ class StartPlayPresenter @Inject constructor(
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun nextQuestion() {
         countDownTimer?.cancel()
         if (currentIndex < questions.size - 1) {
@@ -200,7 +215,6 @@ class StartPlayPresenter @Inject constructor(
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun saveGameSession() {
         val skipped = (questions.size - (correctCount + wrongCount))
         val earnedPoints = calculatePoints()
@@ -212,11 +226,13 @@ class StartPlayPresenter @Inject constructor(
             totalTimeSeconds = totalTimeSeconds.toInt(),
             earnedCoins = earnedPoints,
             category = categoryTitle,
+            streakAnswers = maxStreakAnswer
         )
         tryToCall(
             block = {
                 gameSessionRepository.insertSession(session)
                 updateUserPoints(earnedPoints)
+                calculatedAchievementsOfUser()
             },
             onStart = {},
             onSuccess = {
@@ -236,6 +252,112 @@ class StartPlayPresenter @Inject constructor(
             userStatsRepository.decreasePoints(abs(points))
         }
     }
+
+
+    private suspend fun calculatedAchievementsOfUser() {
+        val gamesSession = gameSessionRepository.getAllSessions()
+        val userState = userStatsRepository.getPreferences()
+
+        // 1 First Spark
+        val allAnsweredQuestionsOfGame = gamesSession.map { it.correctAnswers }
+        val firstSparkIsLocked = achievementRepository.getAchievementById(id = 1).isLocked
+        if (allAnsweredQuestionsOfGame.any { it >= 1 } && firstSparkIsLocked) {
+            achievementRepository.setAchievementLocking(achievementId = 1, isLocked = false)
+            updateAchievements()
+        }
+
+
+        // 2 Quick Thinker
+        val currentStreak = gamesSession.last().streakAnswers
+        val quickThinkerIsLocked = achievementRepository.getAchievementById(id = 2).isLocked
+        if (currentStreak >= 5 && quickThinkerIsLocked) {
+            achievementRepository.setAchievementLocking(achievementId = 2, isLocked = false)
+            updateAchievements()
+        }
+
+        // 3 Knowledge Seeker
+        val isTotalAnsweredQuestionsMoreThanOrEqualTwenty =
+            gamesSession.map { it.correctAnswers }.any { it >= 20 }
+        val knowledgeSeekerIsLocked = achievementRepository.getAchievementById(id = 3).isLocked
+        if (isTotalAnsweredQuestionsMoreThanOrEqualTwenty && knowledgeSeekerIsLocked) {
+            achievementRepository.setAchievementLocking(achievementId = 3, isLocked = false)
+            updateAchievements()
+        }
+
+        // 4 - Explorer
+        val playedCategories = gamesSession.map { it.category }.toSet()
+        val explorerIsLocked = achievementRepository.getAchievementById(id = 4).isLocked
+        if (playedCategories.size >= 4 && explorerIsLocked) {
+            achievementRepository.setAchievementLocking(achievementId = 4, isLocked = false)
+            updateAchievements()
+        }
+
+        // 5 Trivia Wanderer
+        val isCompletePrefectGame = gamesSession.any { it.correctAnswers == 12 }
+        val triviaWandererIsLocked = achievementRepository.getAchievementById(id = 5).isLocked
+        if (isCompletePrefectGame && triviaWandererIsLocked) {
+            achievementRepository.setAchievementLocking(achievementId = 5, isLocked = false)
+            updateAchievements()
+        }
+
+        // 6 Lightning Brain
+        val game = gamesSession.last()
+        val correctInTimeCount = game.correctAnswers
+        val totalTimeTaken = game.totalTimeSeconds.seconds
+        val lightningBrainIsLocked = achievementRepository.getAchievementById(id = 6).isLocked
+        if (correctInTimeCount >= 5 && totalTimeTaken <= 30.seconds && lightningBrainIsLocked) {
+            achievementRepository.setAchievementLocking(achievementId = 6, isLocked = false)
+            updateAchievements()
+        }
+
+        // 7 Never Give Up
+        val retriedQuizSuccessCount = gamesSession.map { it.category }.let { categoryList ->
+            categoryList.size - categoryList.toSet().size
+        }
+        val neverGiveUpIsLocked = achievementRepository.getAchievementById(id = 7).isLocked
+        if (retriedQuizSuccessCount >= 1 && neverGiveUpIsLocked) {
+            achievementRepository.setAchievementLocking(achievementId = 7, isLocked = false)
+            updateAchievements()
+        }
+
+        // 8 - Untouchable
+        val gamesStreak = gamesSession.map { it.streakAnswers }
+        val untouchableIsLocked = achievementRepository.getAchievementById(id = 8).isLocked
+        if (gamesStreak.any { it == 10 } && untouchableIsLocked) {
+            achievementRepository.setAchievementLocking(achievementId = 8, isLocked = false)
+            updateAchievements()
+        }
+
+        // 9 Brainstorm Hero
+        val totalCorrectAnswers = gamesSession.sumOf { it.correctAnswers }
+        val brainstormHeroIsLocked = achievementRepository.getAchievementById(id = 9).isLocked
+        if (totalCorrectAnswers >= 100 && brainstormHeroIsLocked) {
+            achievementRepository.setAchievementLocking(achievementId = 9, isLocked = false)
+            updateAchievements()
+        }
+
+        // 10 Quiz Champion
+        val totalPoints = userState.points
+        val quizChampionIsLocked = achievementRepository.getAchievementById(id = 10).isLocked
+        if (totalPoints >= 2000 && quizChampionIsLocked) {
+            achievementRepository.setAchievementLocking(achievementId = 10, isLocked = false)
+            updateAchievements()
+        }
+
+        // 11 Legend of Trivia
+        val isAchievementsUnlockedCompleted = achievementRepository.getAllAchievements().size == 10
+        if (isAchievementsUnlockedCompleted) {
+            achievementRepository.setAchievementLocking(achievementId = 11, isLocked = false)
+            updateAchievements()
+        }
+
+    }
+
+    private suspend fun updateAchievements() {
+        val unlockedAchievementCount = achievementRepository.getAllAchievements().filter { it.isLocked.not() }.size
+        userStatsRepository.updateRewards(unlockedAchievementCount)
+    }
+
     private fun handleError(error: Throwable){
         when(error){
             is UnknownHostException -> view?.showError(error)

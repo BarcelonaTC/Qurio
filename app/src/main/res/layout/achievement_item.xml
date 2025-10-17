@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/achievment_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="80dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="5dp"
+    tools:ignore="UseCompoundDrawables"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    >
+
+    <ImageView
+        android:id="@+id/achievment_image"
+        android:visibility="visible"
+        android:layout_width="56dp"
+        android:layout_height="63dp"
+        android:contentDescription="@string/achievment_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/achievement_1"
+        />
+
+    <TextView
+        android:id="@+id/achievment_title"
+        style="@style/Label.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/shade_primary"
+        tools:text="Quiz Rookie"
+        android:maxLines="2"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/achievment_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

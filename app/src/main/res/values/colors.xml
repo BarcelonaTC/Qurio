@@ -49,5 +49,6 @@
     <color name="statics_card_color">#0B0F14</color>
     <color name="statics_card_stroke_color">#0AFFFFFF</color>
     <color name="light_gray">#80494949</color>
+    <color name="achievement_empty_card_color">#041821</color>
 
 </resources>

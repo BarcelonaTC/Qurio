@@ -14,5 +14,6 @@ data class TriviaGameSessionEntity(
     val totalTimeSeconds: Int,
     val category: String,
     val earnedCoins: Int=0,
+    val streakAnswers: Int,
     val date: Long = System.currentTimeMillis()
 )

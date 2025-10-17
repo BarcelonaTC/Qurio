@@ -7,6 +7,7 @@ import java.time.LocalDate
 @RequiresApi(Build.VERSION_CODES.O)
 data class TriviaGameSession(
     val correctAnswers: Int,
+    val streakAnswers: Int,
     val wrongAnswers: Int,
     val skippedAnswers: Int,
     val stars: Int,

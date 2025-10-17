@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/achievement_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <View
+        android:id="@+id/blur_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#CC000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="visible" />
+
+    <com.barcelona.qurio.presentation.custom_view.Dialog
+        android:id="@+id/dialog_container"
+        android:layout_width="match_parent"
+        android:layout_height="470dp"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="16dp"
+        app:dialogTitle="@string/achievements"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/achievements_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layout_gravity="center_horizontal"
+            android:paddingHorizontal="12dp"
+            tools:itemCount="3"
+            tools:listitem="@layout/achievement_item" />
+
+        <TextView
+            style="@style/Body.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="100dp"
+            android:text="@string/click_on_achievement_to_view_details"
+            android:textColor="@color/shade_secondary" />
+
+        <com.barcelona.qurio.presentation.custom_view.SecondaryButton
+            android:id="@+id/ok_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginBottom="36dp"
+            app:secondaryText="@string/ok" />
+
+    </com.barcelona.qurio.presentation.custom_view.Dialog>
+
+</FrameLayout>

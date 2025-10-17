@@ -174,5 +174,15 @@
             android:id="@+id/layout_buy_life_dialog"
             layout="@layout/buy_life_layout"
             android:visibility="gone" />
+
+        <include
+            android:id="@+id/achievement_dialog"
+            layout="@layout/achievements_dialog"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/achievement_info_dialog"
+            layout="@layout/achievement_info_dialog"
+            android:visibility="gone" />
     </FrameLayout>
 </layout>
