@@ -221,7 +221,7 @@ class HomeFragment(
             layoutBuyLifeDialog.dialogRoot.setOnDismissListener {
                 dismissDialog(layoutBuyLifeDialog.root)
             }
-            statisticsComponent.awardsCard.root.setOnClickListener {
+            statisticsComponent.awardsCard.viewAwards.setOnClickListener {
                 showAchievementDialog()
             }
             achievementDialog.okButton.setOnClickListener {

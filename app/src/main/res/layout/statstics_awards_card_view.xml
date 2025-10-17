@@ -20,6 +20,7 @@
         app:strokeWidth="1dp" />
 
     <ImageView
+        android:id="@+id/view_awards"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:layout_marginStart="8dp"
