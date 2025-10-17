@@ -17,7 +17,7 @@
             android:name="categoryName"
             app:argType="string" />
         <argument
-            android:name="difficulty_level"
+            android:name="difficultyLevel"
             app:argType="string" />
         <action
             android:id="@+id/action_startPlayFragment_to_resultPlayFragment"
@@ -56,18 +56,6 @@
         <argument
             android:name="session"
             app:argType="com.barcelona.qurio.presentation.model.TriviaGameSession" />
-        <argument
-            android:name="categoryId"
-            app:argType="integer" />
-        <argument
-            android:name="categoryName"
-            app:argType="string" />
-        <argument
-            android:name="difficulty_level"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_resultPlayFragment_to_startPlayFragment"
-            app:destination="@id/startPlayFragment" />
     </fragment>
     <fragment
         android:id="@+id/characterSelectionFragment"

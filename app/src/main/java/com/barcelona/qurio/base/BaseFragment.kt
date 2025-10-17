@@ -24,8 +24,8 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
         return _binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding.unbind()
     }
 

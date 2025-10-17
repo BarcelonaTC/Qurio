@@ -54,8 +54,6 @@ class HomeFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity().application as QurioApp).appComponent.inject(this)
-        soundManager = (requireActivity().application as QurioApp).soundPlayerManager
         presenter.attachView(this)
         achievementsPresenter.attachView(this)
         presenter.getSoundVolumeLevel()
@@ -96,6 +94,11 @@ class HomeFragment(
         setupAchievementRecyclerView()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as QurioApp).appComponent.inject(this)
+        soundManager = (requireActivity().application as QurioApp).soundPlayerManager
+    }
 
     override fun onDestroyView() {
         presenter.detachView()
@@ -148,7 +151,7 @@ class HomeFragment(
                     )
                 },
                 onNoLives = {
-                    showNoLivesDialog()
+                    showBuyLifeDialog()
                 }
             )
         }
@@ -162,14 +165,6 @@ class HomeFragment(
             }
         }
         dialog.show(parentFragmentManager, "BuyCharacterDialog")
-    }
-
-    private fun showNoLivesDialog() {
-        android.app.AlertDialog.Builder(requireContext())
-            .setTitle("لا يوجد محاولات متبقية")
-            .setMessage("انتظر حتى تتجدد الأرواح أو اشتر المزيد.")
-            .setPositiveButton("حسنًا", null)
-            .show()
     }
 
     private fun setInteractionListener() {
@@ -278,7 +273,6 @@ class HomeFragment(
     }
 
     override fun showTotalPoints(totalPoints: Int) {
-        soundManager.playSound(R.raw.coins_sound)
         animatePoints(
             endValue = totalPoints,
             onUpdate = { animatedValue ->
@@ -286,6 +280,7 @@ class HomeFragment(
                 binding.statisticsComponent.pointsCard.pointsAmount.text = formattedValue
             },
         )
+        soundManager.playSound(R.raw.coins_sound)
         if (totalPoints >= 10000) {
             binding.crown.visibility = View.VISIBLE
         }
@@ -351,7 +346,7 @@ class HomeFragment(
     }
 
     private fun setupAchievementRecyclerView() {
-        achievementAdapter = AchievementAdapter(emptyList()){ achievementId ->
+        achievementAdapter = AchievementAdapter(emptyList()) { achievementId ->
             onAchievementClick(achievementId)
         }
         binding.achievementDialog.achievementsRecyclerView.apply {
@@ -376,18 +371,18 @@ class HomeFragment(
 
     override fun showCurrentAchievement(achievement: Achievement) {
 
-        if (achievement.isLocked){
-            binding.achievementInfoDialog.okButton.visibility  = View.VISIBLE
+        if (achievement.isLocked) {
+            binding.achievementInfoDialog.okButton.visibility = View.VISIBLE
             binding.achievementInfoDialog.buttonContainer.visibility = View.GONE
-        }else {
-            binding.achievementInfoDialog.okButton.visibility  = View.GONE
+        } else {
+            binding.achievementInfoDialog.okButton.visibility = View.GONE
             binding.achievementInfoDialog.buttonContainer.visibility = View.VISIBLE
         }
 
         val imageRes = if (achievement.isLocked) achievement.lockedImage
         else achievement.imageRes
 
-        with(binding.achievementInfoDialog){
+        with(binding.achievementInfoDialog) {
             achievementTitle.text = achievement.title
             achievementDescription.text = achievement.description
             achievementImage.setImageResource(imageRes)
