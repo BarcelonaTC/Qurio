@@ -1,10 +1,12 @@
 package com.barcelona.qurio.presentation.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,8 +38,8 @@ import com.google.android.flexbox.JustifyContent
 import jakarta.inject.Inject
 import java.text.NumberFormat
 import java.util.Locale
-@RequiresApi(Build.VERSION_CODES.O)
 
+@RequiresApi(Build.VERSION_CODES.O)
 class HomeFragment(
 ) : BaseFragment<FragmentHomeBinding>(), HomeView {
     override val layoutIdFragment: Int = R.layout.fragment_home
@@ -56,11 +58,8 @@ class HomeFragment(
         super.onViewCreated(view, savedInstanceState)
         (requireActivity().application as QurioApp).appComponent.inject(this)
         soundManager = (requireActivity().application as QurioApp).soundPlayerManager
-
         presenter.attachView(this)
         achievementsPresenter.attachView(this)
-        achievementsPresenter.calculateAchievements()
-        achievementsPresenter.updateAchievements()
         presenter.getSoundVolumeLevel()
         presenter.getMusicVolumeLevel()
         setStreak(this.context)
@@ -186,25 +185,25 @@ class HomeFragment(
                 soundManager.setVolumeLevels(soundLevel, newMusicLevel)
             }
             statisticsComponent.awardsCard.root.setOnClickListener {
-                achievementDialog.root.visibility = View.VISIBLE
+                showAchievementDialog()
             }
             achievementDialog.okButton.setOnClickListener {
-                achievementDialog.root.visibility = View.GONE
+                dismissDialog(achievementDialog.root)
             }
             achievementDialog.dialogContainer.setOnDismissListener {
-                achievementDialog.root.visibility = View.GONE
+                dismissDialog(achievementDialog.root)
             }
             achievementInfoDialog.cancelButton.setOnClickListener {
-                achievementInfoDialog.root.visibility = View.GONE
+                dismissDialog(achievementInfoDialog.root)
             }
             achievementInfoDialog.shareWithFriendsButton.setOnClickListener {
-                achievementInfoDialog.root.visibility = View.GONE
+                dismissDialog(achievementInfoDialog.root)
             }
             achievementInfoDialog.okButton.setOnClickListener {
-                achievementInfoDialog.root.visibility = View.GONE
+                dismissDialog(achievementInfoDialog.root)
             }
             achievementInfoDialog.dialogContainer.setOnDismissListener {
-                achievementInfoDialog.root.visibility = View.GONE
+                dismissDialog(achievementInfoDialog.root)
             }
         }
     }
@@ -216,6 +215,14 @@ class HomeFragment(
 
         showDialog(binding.settingsDialog.root)
         showDialog(binding.settingsDialog.dialogRoot)
+    }
+
+    private fun showAchievementDialog() {
+        binding.achievementDialog.root.alpha = 0f
+        binding.achievementDialog.root.visibility = View.VISIBLE
+
+        showDialog(binding.achievementDialog.root)
+        showDialog(binding.achievementDialog.dialogContainer)
     }
 
     override fun showStreak(streak: StreakModel) {
@@ -289,21 +296,6 @@ class HomeFragment(
         presenter.saveVolumeLevels(soundLevel, musicLevel)
     }
 
-    private fun dismissDialog(view: View) {
-        view.animate()
-            .alpha(0f)
-            .setDuration(500)
-            .withEndAction { view.visibility = View.GONE }
-            .start()
-    }
-
-    private fun showDialog(view: View) {
-        view.animate()
-            .alpha(1f)
-            .setDuration(500)
-            .start()
-    }
-
     private fun setupAchievementRecyclerView() {
         achievementAdapter = AchievementAdapter(emptyList()){ achievementId ->
             onAchievementClick(achievementId)
@@ -320,8 +312,8 @@ class HomeFragment(
 
     private fun onAchievementClick(achievementId: Int) {
         achievementsPresenter.getAchievement(achievementId)
-        binding.achievementDialog.root.visibility = View.GONE
-        binding.achievementInfoDialog.root.visibility = View.VISIBLE
+        showAchievementInfoDialog()
+        dismissDialog(binding.achievementDialog.root)
     }
 
     override fun showAchievements(achievements: List<Achievement>) {
@@ -346,5 +338,30 @@ class HomeFragment(
             achievementDescription.text = achievement.description
             achievementImage.setImageResource(imageRes)
         }
+    }
+
+    private fun showAchievementInfoDialog() {
+        binding.achievementInfoDialog.root.alpha = 0f
+        binding.achievementInfoDialog.root.visibility = View.VISIBLE
+
+        showDialog(binding.achievementInfoDialog.root)
+        showDialog(binding.achievementInfoDialog.dialogContainer)
+    }
+
+
+    private fun dismissDialog(view: View) {
+        view.animate()
+            .alpha(0f)
+            .setDuration(500)
+            .withEndAction { view.visibility = View.GONE }
+            .start()
+    }
+
+    private fun showDialog(view: View) {
+        view.animate()
+            .withStartAction { view.visibility = View.VISIBLE }
+            .alpha(1f)
+            .setDuration(500)
+            .start()
     }
 }
