@@ -69,8 +69,8 @@
     <string name="achievements" translatable="false">Achievements</string>
     <string name="click_on_achievement_to_view_details" translatable="false">*Click on achievement to view details</string>
     <string name="collector" translatable="false">Collector\n</string>
-    <string name="share_with_friends">Share with friends</string>
-    <string name="achievement_image">achievement image\n</string>
+    <string name="share_with_friends" translatable="false">Share with friends</string>
+    <string name="achievement_image" translatable="false">achievement image\n</string>
     <string name="difficulty_level">Difficulty level</string>
-    <string name="achievement">achievement</string>
+    <string name="achievement" translatable="false">achievement</string>
 </resources>
