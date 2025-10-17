@@ -99,7 +99,6 @@ class HomeFragment(
         (requireActivity().application as QurioApp).appComponent.inject(this)
         soundManager = (requireActivity().application as QurioApp).soundPlayerManager
     }
-
     override fun onDestroyView() {
         presenter.detachView()
         achievementsPresenter.detachView()
@@ -273,6 +272,7 @@ class HomeFragment(
     }
 
     override fun showTotalPoints(totalPoints: Int) {
+        soundManager.playSound(R.raw.coins_sound)
         animatePoints(
             endValue = totalPoints,
             onUpdate = { animatedValue ->
@@ -280,7 +280,6 @@ class HomeFragment(
                 binding.statisticsComponent.pointsCard.pointsAmount.text = formattedValue
             },
         )
-        soundManager.playSound(R.raw.coins_sound)
         if (totalPoints >= 10000) {
             binding.crown.visibility = View.VISIBLE
         }
@@ -346,7 +345,7 @@ class HomeFragment(
     }
 
     private fun setupAchievementRecyclerView() {
-        achievementAdapter = AchievementAdapter(emptyList()) { achievementId ->
+        achievementAdapter = AchievementAdapter(emptyList()){ achievementId ->
             onAchievementClick(achievementId)
         }
         binding.achievementDialog.achievementsRecyclerView.apply {
@@ -371,18 +370,18 @@ class HomeFragment(
 
     override fun showCurrentAchievement(achievement: Achievement) {
 
-        if (achievement.isLocked) {
-            binding.achievementInfoDialog.okButton.visibility = View.VISIBLE
+        if (achievement.isLocked){
+            binding.achievementInfoDialog.okButton.visibility  = View.VISIBLE
             binding.achievementInfoDialog.buttonContainer.visibility = View.GONE
-        } else {
-            binding.achievementInfoDialog.okButton.visibility = View.GONE
+        }else {
+            binding.achievementInfoDialog.okButton.visibility  = View.GONE
             binding.achievementInfoDialog.buttonContainer.visibility = View.VISIBLE
         }
 
         val imageRes = if (achievement.isLocked) achievement.lockedImage
         else achievement.imageRes
 
-        with(binding.achievementInfoDialog) {
+        with(binding.achievementInfoDialog){
             achievementTitle.text = achievement.title
             achievementDescription.text = achievement.description
             achievementImage.setImageResource(imageRes)
