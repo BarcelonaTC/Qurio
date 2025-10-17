@@ -169,5 +169,10 @@
             android:id="@+id/settings_dialog"
             layout="@layout/dialog_settings"
             android:visibility="gone" />
+
+        <include
+            android:id="@+id/layout_buy_life_dialog"
+            layout="@layout/buy_life_layout"
+            android:visibility="gone" />
     </FrameLayout>
 </layout>

@@ -2,7 +2,6 @@ package com.barcelona.qurio.presentation.custom_view
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
@@ -57,9 +56,7 @@ class CharacterCardView @JvmOverloads constructor(
     }
 
     fun setCharacterName(name: String) {
-        Log.d("test", "setCharacterName: $name")
         characterName.text = name
-        Log.d("test", "setCharacterNameAfter: ${characterName.text}")
     }
 
     fun setCharacterImage(image: Int) {

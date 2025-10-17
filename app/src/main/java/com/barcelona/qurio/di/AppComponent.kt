@@ -3,7 +3,6 @@ package com.barcelona.qurio.di
 
 import com.barcelona.qurio.presentation.MainActivity
 import com.barcelona.qurio.presentation.fragment.BuyCharacterFragment
-import com.barcelona.qurio.presentation.fragment.BuyLifeFragment
 import com.barcelona.qurio.presentation.fragment.CharacterDetailFragment
 import com.barcelona.qurio.presentation.fragment.CharacterSelectionFragment
 import com.barcelona.qurio.presentation.fragment.HomeFragment
