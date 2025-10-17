@@ -40,7 +40,8 @@ class GameFragment() : BaseFragment<FragmentGameBinding>() {
             findNavController().navigate(
                 GameFragmentDirections.actionGameFragmentToStartPlayFragment(
                     gameCard.categoryId,
-                    gameCard.title
+                    gameCard.title,
+                    difficultyLevel = levelType ?: "easy"
                 )
             )
         }
