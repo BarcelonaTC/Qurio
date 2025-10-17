@@ -5,8 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.barcelona.qurio.model.local.entity.AchievementEntity
-import com.barcelona.qurio.model.local.entity.CharacterGameEntity
-import com.barcelona.qurio.presentation.model.Achievement
 
 @Dao
 interface AchievementDao {
