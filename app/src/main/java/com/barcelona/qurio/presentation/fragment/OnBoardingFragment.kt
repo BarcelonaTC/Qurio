@@ -85,6 +85,6 @@ class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding>(), OnBoarding
     override fun onSwipeUp() {
         presenter.setFirstLaunch()
         val navController = findNavController()
-        navController.popBackStack(R.id.homeFragment, true)
+        navController.popBackStack(R.id.homeFragment, false)
     }
 }

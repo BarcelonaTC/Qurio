@@ -17,7 +17,7 @@
         android:orientation="horizontal"
         android:paddingVertical="8dp"
         android:paddingStart="16dp"
-        android:paddingEnd="28dp">
+        android:paddingEnd="16dp">
 
         <FrameLayout
             android:layout_width="wrap_content"

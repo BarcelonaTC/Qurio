@@ -29,13 +29,7 @@ class ResultPlayFragment : BaseFragment<FragmentResultPlayBinding>() {
             findNavController().navigate(R.id.homeFragment)
         }
         binding.btnPlayAgain.setOnClickListener {
-            findNavController().navigate(
-                ResultPlayFragmentDirections.actionResultPlayFragmentToStartPlayFragment(
-                    args.categoryId,
-                    args.categoryName,
-                    args.difficultyLevel
-                )
-            )
+            findNavController().popBackStack(R.id.startPlayFragment, inclusive = false)
         }
         val result = args.session
         val session = args.session

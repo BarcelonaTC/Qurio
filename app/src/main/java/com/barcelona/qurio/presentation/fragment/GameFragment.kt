@@ -1,5 +1,6 @@
 package com.barcelona.qurio.presentation.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.findNavController
@@ -21,14 +22,16 @@ class GameFragment() : BaseFragment<FragmentGameBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        soundManager = (requireActivity().application as QurioApp).soundPlayerManager
-
         val recyclerView = binding.recyclerView
         val adapter = GameCardsAdapter(gameCards, onPlayClick = ::onPlayNowClicked)
         recyclerView.adapter = adapter
         setUpClickListeners()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        soundManager = (requireActivity().application as QurioApp).soundPlayerManager
+    }
     fun onPlayNowClicked(gameCard: GameCardModel) {
         val dialog = DifficultyLevelFragment()
         dialog.show(parentFragmentManager, "DifficultyLevelDialog")

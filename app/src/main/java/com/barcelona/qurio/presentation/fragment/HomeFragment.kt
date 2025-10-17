@@ -54,8 +54,6 @@ class HomeFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity().application as QurioApp).appComponent.inject(this)
-        soundManager = (requireActivity().application as QurioApp).soundPlayerManager
         presenter.attachView(this)
         achievementsPresenter.attachView(this)
         presenter.getSoundVolumeLevel()
@@ -96,7 +94,11 @@ class HomeFragment(
         setupAchievementRecyclerView()
     }
 
-
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as QurioApp).appComponent.inject(this)
+        soundManager = (requireActivity().application as QurioApp).soundPlayerManager
+    }
     override fun onDestroyView() {
         presenter.detachView()
         achievementsPresenter.detachView()
@@ -148,7 +150,7 @@ class HomeFragment(
                     )
                 },
                 onNoLives = {
-                    showNoLivesDialog()
+                    showBuyLifeDialog()
                 }
             )
         }
@@ -162,14 +164,6 @@ class HomeFragment(
             }
         }
         dialog.show(parentFragmentManager, "BuyCharacterDialog")
-    }
-
-    private fun showNoLivesDialog() {
-        android.app.AlertDialog.Builder(requireContext())
-            .setTitle("لا يوجد محاولات متبقية")
-            .setMessage("انتظر حتى تتجدد الأرواح أو اشتر المزيد.")
-            .setPositiveButton("حسنًا", null)
-            .show()
     }
 
     private fun setInteractionListener() {
@@ -221,7 +215,7 @@ class HomeFragment(
             layoutBuyLifeDialog.dialogRoot.setOnDismissListener {
                 dismissDialog(layoutBuyLifeDialog.root)
             }
-            statisticsComponent.awardsCard.root.setOnClickListener {
+            statisticsComponent.awardsCard.viewAwards.setOnClickListener {
                 showAchievementDialog()
             }
             achievementDialog.okButton.setOnClickListener {

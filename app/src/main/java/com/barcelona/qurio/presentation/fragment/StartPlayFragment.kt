@@ -85,10 +85,6 @@ class StartPlayFragment : BaseFragment<FragmentStartPlayBinding>(), StartPlayVie
         soundManager.resumeMusic()
     }
 
-    override fun onStop() {
-        super.onStop()
-    }
-
     override fun onPause() {
         super.onPause()
         soundManager.stopMusic()
@@ -166,9 +162,6 @@ class StartPlayFragment : BaseFragment<FragmentStartPlayBinding>(), StartPlayVie
         val action = StartPlayFragmentDirections
             .actionStartPlayFragmentToResultPlayFragment(
                 session,
-                args.categoryId,
-                args.categoryName,
-                args.difficultyLevel
             )
         findNavController().navigate(action)
     }
