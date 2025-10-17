@@ -1,6 +1,8 @@
 package com.barcelona.qurio.di
 
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -47,18 +49,21 @@ object AppModule {
         appContext = context.applicationContext
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @Provides
     fun provideStartPlayPresenter(
         triviaGameRepository: TriviaGameRepository,
         triviaGameSessionRepository: TriviaGameSessionRepository,
         userStatsRepository: UserStatsRepository,
         volumeLevelRepository: VolumeLevelRepository,
+        achievementRepository: AchievementRepository,
     ): StartPlayPresenter {
         return StartPlayPresenter(
             triviaGameRepository,
             triviaGameSessionRepository,
             userStatsRepository,
-            volumeLevelRepository
+            volumeLevelRepository,
+            achievementRepository
         )
     }
 
@@ -149,13 +154,9 @@ object AppModule {
     @Provides
     fun provideAchievementPresenter(
         achievementRepository: AchievementRepository,
-        triviaGameSessionRepository: TriviaGameSessionRepository,
-        userStatsRepository: UserStatsRepository
     ): AchievementsPresenter {
         return AchievementsPresenter(
             achievementRepository,
-            triviaGameSessionRepository,
-            userStatsRepository
         )
     }
 
