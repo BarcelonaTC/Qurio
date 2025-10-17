@@ -1,5 +1,7 @@
 package com.barcelona.qurio.model.repository
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.barcelona.qurio.model.local.dao.GameSessionDao
 import com.barcelona.qurio.model.local.mapper.toEntity
 import com.barcelona.qurio.model.local.mapper.toModel
@@ -11,6 +13,7 @@ class TriviaGameSessionRepositoryImpl (private val gameSessionDao: GameSessionDa
         gameSessionDao.insertSession(session.toEntity())
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun getAllSessions(): List<TriviaGameSession> {
         return gameSessionDao.getAllSessions().map { it.toModel() }
     }
