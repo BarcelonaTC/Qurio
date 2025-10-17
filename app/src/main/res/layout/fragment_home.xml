@@ -169,5 +169,15 @@
             android:id="@+id/settings_dialog"
             layout="@layout/dialog_settings"
             android:visibility="gone" />
+
+        <include
+            android:id="@+id/achievement_dialog"
+            layout="@layout/achievements_dialog"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/achievement_info_dialog"
+            layout="@layout/achievement_info_dialog"
+            android:visibility="gone" />
     </FrameLayout>
 </layout>
