@@ -10,15 +10,25 @@
             type="com.barcelona.qurio.presentation.model.Achievement" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:id="@+id/achievement_dialog"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/blur_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#CC000000"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="visible" />
 
         <com.barcelona.qurio.presentation.custom_view.Dialog
             android:id="@+id/dialog_container"
             android:layout_width="match_parent"
             android:layout_height="400dp"
+            android:layout_gravity="center"
             android:layout_marginHorizontal="16dp"
             app:dialogTitle="@string/achievement"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -130,5 +140,5 @@
 
         </com.barcelona.qurio.presentation.custom_view.Dialog>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 </layout>
