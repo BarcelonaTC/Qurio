@@ -58,12 +58,14 @@ class HomeFragment(
         presenter.getStreak()
         presenter.getTotalPoints()
         presenter.getTotalLives()
+        presenter.buyButtonEnable()
         presenter.getLastGames()
         presenter.getTotalRewards()
         presenter.selectedCharacter()
         soundManager.loadSound(R.raw.coins_sound)
         soundManager.loadSound(selectedMusic)
         soundManager.playMusic(selectedMusic)
+        presenter.attachView(this)
         parentFragmentManager.setFragmentResultListener(
             "buy_character",
             viewLifecycleOwner
@@ -191,7 +193,29 @@ class HomeFragment(
                 val soundLevel = settingsDialog.soundSlider.getVolumePercentage()
                 soundManager.setVolumeLevels(soundLevel, newMusicLevel)
             }
+            layoutBuyLifeDialog.buttonCancel.setOnClickListener {
+                dismissDialog(layoutBuyLifeDialog.root)
+            }
+            statisticsComponent.livesCard.addLive.setOnClickListener {
+                showBuyLifeDialog()
+            }
+            layoutBuyLifeDialog.buttonBuy.setOnClickListener {
+                presenter.onBuyClick()
+                dismissDialog(layoutBuyLifeDialog.root)
+            }
+            layoutBuyLifeDialog.dialogRoot.setOnDismissListener {
+                dismissDialog(layoutBuyLifeDialog.root)
+            }
         }
+    }
+
+    private fun showBuyLifeDialog() {
+        binding.layoutBuyLifeDialog.root.alpha = 0f
+        binding.layoutBuyLifeDialog.root.visibility = View.VISIBLE
+        binding.layoutBuyLifeDialog.dialogRoot.visibility = View.VISIBLE
+
+        showDialog(binding.layoutBuyLifeDialog.root)
+        showDialog(binding.layoutBuyLifeDialog.dialogRoot)
     }
 
     private fun showSettingsDialog() {
@@ -211,13 +235,13 @@ class HomeFragment(
 
     override fun showTotalPoints(totalPoints: Int) {
         soundManager.playSound(R.raw.coins_sound)
-            animatePoints(
-                endValue = totalPoints,
-                onUpdate = { animatedValue ->
-                    val formattedValue = NumberFormat.getNumberInstance(Locale.US).format(animatedValue)
-                    binding.statisticsComponent.pointsCard.pointsAmount.text = formattedValue
-                },
-            )
+        animatePoints(
+            endValue = totalPoints,
+            onUpdate = { animatedValue ->
+                val formattedValue = NumberFormat.getNumberInstance(Locale.US).format(animatedValue)
+                binding.statisticsComponent.pointsCard.pointsAmount.text = formattedValue
+            },
+        )
         if (totalPoints >= 10000) {
             binding.crown.visibility = View.VISIBLE
         }
@@ -254,6 +278,14 @@ class HomeFragment(
         binding.appBar.name.text = selectedCharacter.name
     }
 
+    override fun onBuyLifeClick() {
+        presenter.onBuyClick()
+    }
+
+    override fun setBuyLifeButtonEnabled(enable: Boolean) {
+        binding.layoutBuyLifeDialog.buttonBuy.setButtonEnabled(enable)
+    }
+
     override fun showMusicVolumeLevel(volumeLevel: Int) {
         binding.settingsDialog.musicSlider.setVolumePercentage(volumeLevel)
         soundManager.setVolumeLevels(
@@ -277,7 +309,7 @@ class HomeFragment(
     private fun dismissDialog(view: View) {
         view.animate()
             .alpha(0f)
-            .setDuration(500)
+            .setDuration(200)
             .withEndAction { view.visibility = View.GONE }
             .start()
     }
@@ -285,7 +317,7 @@ class HomeFragment(
     private fun showDialog(view: View) {
         view.animate()
             .alpha(1f)
-            .setDuration(500)
+            .setDuration(200)
             .start()
     }
 }

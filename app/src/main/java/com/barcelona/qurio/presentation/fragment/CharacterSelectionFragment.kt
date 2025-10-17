@@ -47,6 +47,11 @@ class CharacterSelectionFragment : BaseDialogFragment<CharactersSelectionBinding
         binding.cancelButton.setOnClickListener {
             onCancelClick()
         }
+
+        parentFragmentManager.setFragmentResult(
+            "purchase_success",
+            Bundle().apply { putBoolean("refresh_home", true) }
+        )
     }
 
     private fun setupRecyclerView() {
