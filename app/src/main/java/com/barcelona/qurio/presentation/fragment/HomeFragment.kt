@@ -1,10 +1,10 @@
 package com.barcelona.qurio.presentation.fragment
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.lifecycle.lifecycleScope
+import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,21 +15,22 @@ import com.barcelona.qurio.base.BaseFragment
 import com.barcelona.qurio.databinding.FragmentHomeBinding
 import com.barcelona.qurio.model.dto.gameCards
 import com.barcelona.qurio.presentation.adapter.gamecardAdapter.GameCardsAdapter
+import com.barcelona.qurio.presentation.adapter.lastGame.LastGameAdapter
 import com.barcelona.qurio.presentation.adapter.streakAdapter.StreakDayAdapter
 import com.barcelona.qurio.presentation.animation.animatePoints
 import com.barcelona.qurio.presentation.animation.createGameCardTransformer
 import com.barcelona.qurio.presentation.model.CharacterGame
+import com.barcelona.qurio.presentation.model.LastGame
 import com.barcelona.qurio.presentation.model.gamecard.GameCardModel
 import com.barcelona.qurio.presentation.model.streak.StreakModel
-import com.barcelona.qurio.presentation.sounds.CoinSoundPlayer
+import com.barcelona.qurio.presentation.sounds.SoundPlayerManager
 import com.barcelona.qurio.presentation.view.HomeView
 import com.barcelona.qurio.presenter.HomePresenter
-import com.barcelona.qurio.presenter.characterSelection.CharacterSelectionPresenter
 import jakarta.inject.Inject
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.Locale
+
+@RequiresApi(Build.VERSION_CODES.O)
 
 class HomeFragment(
 ) : BaseFragment<FragmentHomeBinding>(), HomeView {
@@ -37,35 +38,47 @@ class HomeFragment(
 
     @Inject
     lateinit var presenter: HomePresenter
-
-    @Inject
-    lateinit var presenterP2: CharacterSelectionPresenter
+    private lateinit var soundManager: SoundPlayerManager
+    val musicFiles = listOf(R.raw.app_theme_1, R.raw.app_theme_2)
+    val selectedMusic = musicFiles.random()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity().application as QurioApp).appComponent.inject(this)
+        soundManager = (requireActivity().application as QurioApp).soundPlayerManager
+
         presenter.attachView(this)
+        presenter.getSoundVolumeLevel()
+        presenter.getMusicVolumeLevel()
         setStreak(this.context)
+        setLastGames(this.context)
         setupGameCardPager()
         setInteractionListener()
         presenter.updateStreak()
         presenter.getStreak()
         presenter.getTotalPoints()
         presenter.getTotalLives()
+        presenter.getLastGames()
         presenter.getTotalRewards()
         presenter.selectedCharacter()
+        soundManager.loadSound(R.raw.coins_sound)
+        soundManager.loadSound(selectedMusic)
+        soundManager.playMusic(selectedMusic)
         parentFragmentManager.setFragmentResultListener(
-            "purchase_success",
+            "buy_character",
             viewLifecycleOwner
         ) { _, bundle ->
-            if (bundle.getBoolean("refresh_home", false)) {
-                Log.d("testdas", "onViewCreated: $bundle")
-                lifecycleScope.launch(Dispatchers.Main) {
-                    presenter.getTotalPoints()
-                    presenterP2.getSelectedCharacter()
-                    presenterP2.loadCharacters()
-                }
-            }
+            val characterId = bundle.getInt("characterId")
+            showBuyCharacterDialog(characterId)
+        }
+
+        parentFragmentManager.setFragmentResultListener(
+            "character_bought",
+            viewLifecycleOwner
+        ) { _, result ->
+            presenter.selectedCharacter()
+            presenter.getTotalPoints()
+            presenter.getTotalRewards()
         }
     }
 
@@ -76,6 +89,7 @@ class HomeFragment(
 
     override fun onDestroy() {
         presenter.destroyPresenter()
+        soundManager.release()
         super.onDestroy()
     }
 
@@ -83,6 +97,7 @@ class HomeFragment(
         binding.streakComponent.daysRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
+
 
     private fun setupGameCardPager() {
         val adapter = GameCardsAdapter(gameCards, onPlayClick = ::onPlayNowClicked, true)
@@ -94,19 +109,42 @@ class HomeFragment(
 
         (binding.recyclerView.getChildAt(0) as RecyclerView).overScrollMode =
             RecyclerView.OVER_SCROLL_NEVER
+        binding.recyclerView.setCurrentItem(3, false)
     }
 
     fun onPlayNowClicked(gameCard: GameCardModel) {
-        presenter.checkLivesBeforePlay(
-            onHasLives = {
-                findNavController().navigate(
-                    HomeFragmentDirections.actionHomeFragmentToStartPlayFragment(gameCard.categoryId)
-                )
-            },
-            onNoLives = {
-                showNoLivesDialog()
+        val dialog = DifficultyLevelFragment()
+        dialog.show(parentFragmentManager, "DifficultyLevelDialog")
+        parentFragmentManager.setFragmentResultListener(
+            "level_game_type",
+            viewLifecycleOwner
+        ) { _, bundle ->
+            val levelType = bundle.getString("levelType")
+            presenter.checkLivesBeforePlay(
+                onHasLives = {
+                    findNavController().navigate(
+                        HomeFragmentDirections.actionHomeFragmentToStartPlayFragment(
+                            gameCard.categoryId,
+                            gameCard.title,
+                            difficultyLevel = levelType ?: "easy"
+                        )
+                    )
+                },
+                onNoLives = {
+                    showNoLivesDialog()
+                }
+            )
+        }
+    }
+
+
+    private fun showBuyCharacterDialog(characterId: Int) {
+        val dialog = BuyCharacterFragment().apply {
+            arguments = Bundle().apply {
+                putInt("characterId", characterId)
             }
-        )
+        }
+        dialog.show(parentFragmentManager, "BuyCharacterDialog")
     }
 
     private fun showNoLivesDialog() {
@@ -122,16 +160,47 @@ class HomeFragment(
             seeAllGames.setOnClickListener {
                 findNavController().navigate(R.id.gameFragment)
             }
-            seeAllLastGames.setOnClickListener {}
-            binding.appBar.profile.setOnClickListener {
+            seeAllLastGames.setOnClickListener {
+                findNavController().navigate(R.id.lastGamesFragment)
+            }
+
+            appBar.profile.setOnClickListener {
                 val dialog = CharacterSelectionFragment()
                 dialog.show(parentFragmentManager, "CharacterSelectionDialog")
             }
-            binding.statisticsComponent.livesCard.addLive.setOnClickListener {
-                val dialog = BuyLifeFragment()
-                dialog.show(parentFragmentManager, "BuyLifeFragment")
+            appBar.settingsIcon.setOnClickListener {
+                showSettingsDialog()
+            }
+            settingsDialog.discardButton.setOnClickListener {
+                dismissDialog(settingsDialog.root)
+            }
+            settingsDialog.saveChangesButton.setOnClickListener {
+                val soundLevel = binding.settingsDialog.soundSlider.getVolumePercentage()
+                val musicLevel = binding.settingsDialog.musicSlider.getVolumePercentage()
+                saveVolumeLevels(soundLevel, musicLevel)
+                dismissDialog(binding.settingsDialog.root)
+            }
+            settingsDialog.dialogRoot.setOnDismissListener {
+                dismissDialog(settingsDialog.root)
+            }
+            settingsDialog.soundSlider.setOnVolumeChangeListener { newSoundLevel ->
+                val musicLevel = settingsDialog.musicSlider.getVolumePercentage()
+                soundManager.setVolumeLevels(newSoundLevel, musicLevel)
+            }
+            settingsDialog.musicSlider.setOnVolumeChangeListener { newMusicLevel ->
+                val soundLevel = settingsDialog.soundSlider.getVolumePercentage()
+                soundManager.setVolumeLevels(soundLevel, newMusicLevel)
             }
         }
+    }
+
+    private fun showSettingsDialog() {
+        binding.settingsDialog.root.alpha = 0f
+        binding.settingsDialog.root.visibility = View.VISIBLE
+        binding.settingsDialog.dialogRoot.visibility = View.VISIBLE
+
+        showDialog(binding.settingsDialog.root)
+        showDialog(binding.settingsDialog.dialogRoot)
     }
 
     override fun showStreak(streak: StreakModel) {
@@ -141,25 +210,39 @@ class HomeFragment(
     }
 
     override fun showTotalPoints(totalPoints: Int) {
-        val soundPlayer = CoinSoundPlayer(context)
-        soundPlayer.loadSound(R.raw.coins_sound) {
+        soundManager.playSound(R.raw.coins_sound)
             animatePoints(
                 endValue = totalPoints,
                 onUpdate = { animatedValue ->
-                    val formattedValue =
-                        NumberFormat.getNumberInstance(Locale.US).format(animatedValue)
+                    val formattedValue = NumberFormat.getNumberInstance(Locale.US).format(animatedValue)
                     binding.statisticsComponent.pointsCard.pointsAmount.text = formattedValue
                 },
-                onEnd = {
-                    soundPlayer.release()
-                }
             )
-            soundPlayer.play()
+        if (totalPoints >= 10000) {
+            binding.crown.visibility = View.VISIBLE
         }
     }
 
     override fun showTotalLives(totalLives: Int) {
         binding.statisticsComponent.livesCard.livesAmount.text = totalLives.toString()
+    }
+
+    private fun setLastGames(context: Context?) {
+        binding.lastGamesRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+        }
+    }
+
+    override fun showLastGames(lastGames: List<LastGame>) {
+        if (lastGames.isEmpty()) {
+            binding.lastGamesRecyclerView.visibility = View.GONE
+            binding.lastGamesSection.visibility = View.GONE
+        } else {
+            binding.lastGamesRecyclerView.apply {
+                adapter = LastGameAdapter(lastGames.take(5))
+                isNestedScrollingEnabled = false
+            }
+        }
     }
 
     override fun showTotalRewards(totalRewards: Int) {
@@ -169,5 +252,40 @@ class HomeFragment(
     override fun showSelectedCharacter(selectedCharacter: CharacterGame) {
         binding.appBar.profile.setImageResource(selectedCharacter.imageRes)
         binding.appBar.name.text = selectedCharacter.name
+    }
+
+    override fun showMusicVolumeLevel(volumeLevel: Int) {
+        binding.settingsDialog.musicSlider.setVolumePercentage(volumeLevel)
+        soundManager.setVolumeLevels(
+            binding.settingsDialog.soundSlider.getVolumePercentage(),
+            volumeLevel
+        )
+    }
+
+    override fun showSoundVolumeLevel(volumeLevel: Int) {
+        binding.settingsDialog.soundSlider.setVolumePercentage(volumeLevel)
+        soundManager.setVolumeLevels(
+            volumeLevel,
+            binding.settingsDialog.musicSlider.getVolumePercentage()
+        )
+    }
+
+    override fun saveVolumeLevels(soundLevel: Int, musicLevel: Int) {
+        presenter.saveVolumeLevels(soundLevel, musicLevel)
+    }
+
+    private fun dismissDialog(view: View) {
+        view.animate()
+            .alpha(0f)
+            .setDuration(500)
+            .withEndAction { view.visibility = View.GONE }
+            .start()
+    }
+
+    private fun showDialog(view: View) {
+        view.animate()
+            .alpha(1f)
+            .setDuration(500)
+            .start()
     }
 }

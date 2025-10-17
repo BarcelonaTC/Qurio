@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:text="@string/cancel" />
+                    app:secondaryText="@string/cancel" />
 
             </LinearLayout>
         </com.barcelona.qurio.presentation.custom_view.Dialog>

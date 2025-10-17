@@ -43,14 +43,14 @@
                 android:id="@+id/btnPlayAgain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Play again" />
+                app:primaryText="@string/play_again" />
 
             <com.barcelona.qurio.presentation.custom_view.SecondaryButton
                 android:id="@+id/btnBack"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Back to home" />
+                app:secondaryText="@string/back_to_home" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,18 +15,15 @@
         android:orientation="vertical"
         tools:context=".presentation.fragment.StartPlayFragment">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/surface"
-            android:orientation="vertical"
-            android:weightSum="3">
+            android:background="@color/surface">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/gameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:gravity="center"
                 android:visibility="visible">
 
@@ -143,14 +140,14 @@
                         android:id="@+id/checkButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Check" />
+                        app:primaryText="@string/check" />
 
                     <com.barcelona.qurio.presentation.custom_view.SecondaryButton
                         android:id="@+id/skipButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Skip" />
+                        app:secondaryText="@string/skip" />
                 </LinearLayout>
 
                 <com.barcelona.qurio.presentation.custom_view.ScoreIndicatorView
@@ -169,7 +166,6 @@
                 android:id="@+id/loadingLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:visibility="gone">
@@ -181,14 +177,15 @@
                 android:id="@+id/errorLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical"
                 android:visibility="gone">
 
-                <include layout="@layout/no_internet_screen" />
+                <include
+                    android:id="@+id/errorContent"
+                    layout="@layout/no_internet_screen"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
             </LinearLayout>
-
-        </LinearLayout>
+        </FrameLayout>
     </LinearLayout>
 </layout>

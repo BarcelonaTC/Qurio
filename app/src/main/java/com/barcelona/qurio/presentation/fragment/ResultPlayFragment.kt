@@ -31,7 +31,9 @@ class ResultPlayFragment : BaseFragment<FragmentResultPlayBinding>() {
         binding.btnPlayAgain.setOnClickListener {
             findNavController().navigate(
                 ResultPlayFragmentDirections.actionResultPlayFragmentToStartPlayFragment(
-                    args.categoryId
+                    args.categoryId,
+                    args.categoryName,
+                    args.difficultyLevel
                 )
             )
         }

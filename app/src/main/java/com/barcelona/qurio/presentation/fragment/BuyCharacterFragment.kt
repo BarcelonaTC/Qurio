@@ -9,7 +9,6 @@ import com.barcelona.qurio.base.BaseDialogFragment
 import com.barcelona.qurio.databinding.BuyCharacterDialogBinding
 import com.barcelona.qurio.presentation.model.CharacterGame
 import com.barcelona.qurio.presentation.view.BuyCharacterView
-import com.barcelona.qurio.presenter.HomePresenter
 import com.barcelona.qurio.presenter.characterSelection.BuyCharacterPresenter
 import javax.inject.Inject
 
@@ -19,9 +18,6 @@ class BuyCharacterFragment : BaseDialogFragment<BuyCharacterDialogBinding>(), Bu
 
     @Inject
     lateinit var presenter: BuyCharacterPresenter
-
-    @Inject
-    lateinit var presenterHome: HomePresenter
 
     private var characterId: Int = -1
 
@@ -63,19 +59,15 @@ class BuyCharacterFragment : BaseDialogFragment<BuyCharacterDialogBinding>(), Bu
     override fun onBuyClick(characterId: Int) {
         if (binding.buyConfirmButton.isEnabled) {
             presenter.buyCharacter(characterId)
-
-            presenterHome.getTotalPoints()
-            parentFragmentManager.setFragmentResult(
-                "purchase_success",
-                Bundle().apply { putBoolean("refresh_home", true) }
-            )
-
-            parentFragmentManager.setFragmentResult(
-                "character_bought",
-                Bundle().apply { putInt("characterId", characterId) }
-            )
-            dismiss()
         }
+    }
+
+    override fun onCharacterBought(characterId: Int) {
+        parentFragmentManager.setFragmentResult(
+            "character_bought",
+            Bundle().apply { putInt("characterId", characterId) }
+        )
+        dismiss()
     }
 
     override fun showMessage(message: String) {

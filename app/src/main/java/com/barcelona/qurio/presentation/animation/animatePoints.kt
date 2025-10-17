@@ -9,7 +9,7 @@ fun animatePoints(
     endValue: Int,
     duration: Long = 1000,
     onUpdate: (Int) -> Unit,
-    onEnd: () -> Unit
+    onEnd: () -> Unit = {}
 ) {
     ValueAnimator.ofInt(startValue, endValue).apply {
         this.duration = duration

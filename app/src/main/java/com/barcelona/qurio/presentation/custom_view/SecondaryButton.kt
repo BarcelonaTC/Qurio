@@ -30,18 +30,11 @@ class SecondaryButton @JvmOverloads constructor(
                     true
                 )
 
-                val textAttr =
-                    context.obtainStyledAttributes(attrs, intArrayOf(android.R.attr.text))
-                val textResId = textAttr.getResourceId(0, 0)
-                val textValue = if (textResId != 0) {
-                    context.getString(textResId)
-                } else {
-                    textAttr.getString(0) ?: context.getString(R.string.submit)
-                }
-                textAttr.recycle()
+                val textValue = typedArray.getString(R.styleable.SecondaryButton_secondaryText)
+                    ?: context.getString(R.string.submit)
 
-                setEnabledState(isCustomEnabled)
                 binding.textViewLabel.text = textValue
+                setEnabledState(isCustomEnabled)
             } finally {
                 typedArray.recycle()
             }

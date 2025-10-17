@@ -1,40 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <com.google.android.material.chip.ChipGroup
         android:layout_width="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp">
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/easy_chip"
             style="@style/ChipStyle"
             android:layout_width="96dp"
             android:layout_height="wrap_content"
             android:checked="false"
-            app:chipMinTouchTargetSize="0dp"
-            android:text="@string/easy" />
+            android:text="@string/easy"
+            app:chipMinTouchTargetSize="0dp" />
 
         <com.google.android.material.chip.Chip
-            style="@style/ChipStyle"
-            android:layout_width="96dp"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            app:chipMinTouchTargetSize="0dp"
-            android:text="@string/medium" />
-
-        <com.google.android.material.chip.Chip
+            android:id="@+id/medium_chip"
             style="@style/ChipStyle"
             android:layout_width="96dp"
             android:layout_height="wrap_content"
             android:checked="false"
-            app:chipMinTouchTargetSize="0dp"
-            android:text="@string/hard" />
+            android:text="@string/medium"
+            app:chipMinTouchTargetSize="0dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/hard_chip"
+            style="@style/ChipStyle"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="@string/hard"
+            app:chipMinTouchTargetSize="0dp" />
 
     </com.google.android.material.chip.ChipGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>
