@@ -37,6 +37,9 @@ class StartPlayPresenter @Inject constructor(
 
     private var categoryTitle = ""
 
+    private var currentStreakAnswers = 0
+    private var maxStreakAnswer = 0
+
     fun getTotalLives() {
         tryToCall(
             block = { userStatsRepository.getPreferences().lives },
@@ -58,14 +61,14 @@ class StartPlayPresenter @Inject constructor(
     fun getMusicVolumeLevel() {
         tryToCall(
             block = volumeLevelRepository::getMusicVolumeLevel,
-            onSuccess = {view?.getMusicVolumeLevel(it)}
+            onSuccess = { view?.getMusicVolumeLevel(it) }
         )
     }
 
     fun getSoundVolumeLevel() {
         tryToCall(
             block = volumeLevelRepository::getSoundVolumeLevel,
-            onSuccess = {view?.getSoundVolumeLevel(it)}
+            onSuccess = { view?.getSoundVolumeLevel(it) }
         )
     }
 
@@ -125,13 +128,22 @@ class StartPlayPresenter @Inject constructor(
             }
 
             val question = questions[currentIndex]
-            val correct = question.correctAnswer ?: ""
+            val correct = question.correctAnswer
             view?.highlightAnswers(correct, selectedPosition)
             questionChecked = true
             countDownTimer?.cancel()
 
             val answer = currentAnswers.getOrNull(selectedPosition)
-            if (answer == correct) correctCount++ else wrongCount++
+            if (answer == correct) {
+                currentStreakAnswers++
+                if (currentStreakAnswers > maxStreakAnswer) {
+                    maxStreakAnswer = currentStreakAnswers
+                }
+                correctCount++
+            } else {
+                wrongCount++
+            }
+
             totalTimeSeconds += ((System.currentTimeMillis() - timerStartTime) / 1000).toInt()
 
             if (currentIndex == questions.size - 1) {
@@ -212,6 +224,7 @@ class StartPlayPresenter @Inject constructor(
             totalTimeSeconds = totalTimeSeconds.toInt(),
             earnedCoins = earnedPoints,
             category = categoryTitle,
+            streakAnswers = maxStreakAnswer
         )
         tryToCall(
             block = {
