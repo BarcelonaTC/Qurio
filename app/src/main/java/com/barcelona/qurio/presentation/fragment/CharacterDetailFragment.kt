@@ -40,6 +40,9 @@ class CharacterDetailFragment : BaseDialogFragment<CharacterInfoDialogBinding>()
         binding.okButton.setOnClickListener {
             onOkClick()
         }
+        binding.dialogRoot.setOnDismissListener {
+            dismiss()
+        }
     }
 
     override fun showCharacter(character: CharacterGame) {

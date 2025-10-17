@@ -27,6 +27,7 @@
             android:layout_height="match_parent">
 
             <com.barcelona.qurio.presentation.custom_view.Dialog
+                android:id="@+id/dialog_root"
                 android:layout_width="match_parent"
                 android:layout_height="314dp"
                 android:layout_marginHorizontal="16dp"

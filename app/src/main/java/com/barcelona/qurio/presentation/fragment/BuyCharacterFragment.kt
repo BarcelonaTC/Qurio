@@ -41,6 +41,9 @@ class BuyCharacterFragment : BaseDialogFragment<BuyCharacterDialogBinding>(), Bu
         binding.buyCancelButton.setOnClickListener {
             onCancelClick()
         }
+        binding.dialogRoot.setOnDismissListener {
+            onCancelClick()
+        }
     }
 
     override fun showCharacter(character: CharacterGame) {

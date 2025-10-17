@@ -213,7 +213,7 @@ class HomeFragment(
         binding.layoutBuyLifeDialog.root.alpha = 0f
         binding.layoutBuyLifeDialog.root.visibility = View.VISIBLE
         binding.layoutBuyLifeDialog.dialogRoot.visibility = View.VISIBLE
-
+        presenter.buyButtonEnable()
         showDialog(binding.layoutBuyLifeDialog.root)
         showDialog(binding.layoutBuyLifeDialog.dialogRoot)
     }
