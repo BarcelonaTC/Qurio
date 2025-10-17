@@ -82,7 +82,7 @@ object AchievementDataSource {
             lockedImage = R.drawable.ic_achievement_10,
             title = "Quiz Champion",
             description = "You’ve proven yourself as a top-tier player. " +
-                    "How to get:\nearn 500 total points.",
+                    "How to get:\nearn 2000 total points.",
             isLocked = true
         ),
         AchievementEntity(

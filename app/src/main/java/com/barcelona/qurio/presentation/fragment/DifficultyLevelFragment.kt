@@ -21,7 +21,6 @@ class DifficultyLevelFragment : BaseDialogFragment<DifficultyLevelDialogBinding>
             onConfirmClick(levelType)
         }
 
-
         binding.cancelButton.setOnClickListener {
             onCancelClick()
         }
@@ -36,6 +35,9 @@ class DifficultyLevelFragment : BaseDialogFragment<DifficultyLevelDialogBinding>
         binding.chipLayout.hardChip.setOnClickListener {
             onHardClick()
             setConfirmButtonEnabled(true)
+        }
+        binding.dialogRoot.setOnDismissListener {
+            onCancelClick()
         }
     }
 

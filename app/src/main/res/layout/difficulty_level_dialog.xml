@@ -10,56 +10,70 @@
             type="com.barcelona.qurio.presentation.model.DifficultyLevel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tool:background="@color/carbon_white">
+        android:layout_height="match_parent">
 
-        <com.barcelona.qurio.presentation.custom_view.Dialog
-            android:layout_width="wrap_content"
-            android:layout_height="273dp"
-            android:paddingHorizontal="16dp"
-            app:dialogTitle="@string/difficulty_level"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <View
+            android:id="@+id/blur_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#B3000000"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="visible" />
 
-            <include
-                android:id="@+id/chip_layout"
-                layout="@layout/difficulty_level_button"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tool:background="@color/carbon_white">
+
+            <com.barcelona.qurio.presentation.custom_view.Dialog
+                android:id="@+id/dialog_root"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="32dp" />
+                android:layout_height="273dp"
+                android:paddingHorizontal="16dp"
+                app:dialogTitle="@string/difficulty_level"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:orientation="horizontal"
-                android:paddingHorizontal="12dp"
-                android:paddingBottom="36dp">
-
-                <com.barcelona.qurio.presentation.custom_view.PrimaryButton
-                    android:id="@+id/confirm_button"
-                    android:layout_width="0dp"
+                <include
+                    android:id="@+id/chip_layout"
+                    layout="@layout/difficulty_level_button"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    app:primaryButtonEnabled="false"
-                    android:layout_weight="1"
-                    app:primaryText="@string/confirm" />
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="32dp" />
 
-                <com.barcelona.qurio.presentation.custom_view.SecondaryButton
-                    android:id="@+id/cancel_button"
-                    android:layout_width="0dp"
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    app:secondaryText="@string/cancel" />
+                    android:layout_gravity="bottom"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="12dp"
+                    android:paddingBottom="36dp">
 
-            </LinearLayout>
-        </com.barcelona.qurio.presentation.custom_view.Dialog>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <com.barcelona.qurio.presentation.custom_view.PrimaryButton
+                        android:id="@+id/confirm_button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        app:primaryButtonEnabled="false"
+                        app:primaryText="@string/confirm" />
+
+                    <com.barcelona.qurio.presentation.custom_view.SecondaryButton
+                        android:id="@+id/cancel_button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        app:secondaryText="@string/cancel" />
+                </LinearLayout>
+            </com.barcelona.qurio.presentation.custom_view.Dialog>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 </layout>

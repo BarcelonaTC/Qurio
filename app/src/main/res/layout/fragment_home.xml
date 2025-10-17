@@ -184,5 +184,10 @@
             android:id="@+id/achievement_info_dialog"
             layout="@layout/achievement_info_dialog"
             android:visibility="gone" />
+
+        <include
+            android:id="@+id/difficulty_level_dialog"
+            layout="@layout/difficulty_level_dialog"
+            android:visibility="gone" />
     </FrameLayout>
 </layout>
