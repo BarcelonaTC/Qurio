@@ -87,8 +87,8 @@ class StartPlayPresenter @Inject constructor(
         questionChecked = false
         val q = questions[currentIndex]
         currentAnswers = mutableListOf<String>().apply {
-            q.correctAnswer?.let { add(it) }
-            q.incorrectAnswers?.let { addAll(it.filterNotNull()) }
+            add(q.correctAnswer)
+            addAll(q.incorrectAnswers)
             shuffle()
         }
         view?.showQuestion(q, "Q ${currentIndex + 1}/${questions.size}")
