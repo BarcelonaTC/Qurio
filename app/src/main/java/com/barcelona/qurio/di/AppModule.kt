@@ -5,12 +5,14 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.barcelona.qurio.model.api.TriviaApiService
+import com.barcelona.qurio.model.local.dao.AchievementDao
 import com.barcelona.qurio.model.local.dao.CharacterGameDao
 import com.barcelona.qurio.model.local.dao.GameSessionDao
 import com.barcelona.qurio.model.local.dao.UserStatsDao
 import com.barcelona.qurio.model.local.dao.UserStreakDao
-import com.barcelona.qurio.model.repository.CharacterRepositoryImpl
 import com.barcelona.qurio.model.local.dao.VolumeLevelDao
+import com.barcelona.qurio.model.repository.AchievementRepositoryImpl
+import com.barcelona.qurio.model.repository.CharacterRepositoryImpl
 import com.barcelona.qurio.model.repository.TriviaGameRepositoryImpl
 import com.barcelona.qurio.model.repository.TriviaGameSessionRepositoryImpl
 import com.barcelona.qurio.model.repository.UserPreferencesImpl
@@ -20,8 +22,10 @@ import com.barcelona.qurio.model.repository.VolumeLevelRepositoryImpl
 import com.barcelona.qurio.presenter.LastGamesPresenter
 import com.barcelona.qurio.presenter.OnBoardingPresenter
 import com.barcelona.qurio.presenter.StartPlayPresenter
+import com.barcelona.qurio.presenter.achievement.AchievementsPresenter
 import com.barcelona.qurio.presenter.characterSelection.BuyCharacterPresenter
 import com.barcelona.qurio.presenter.characterSelection.CharacterSelectionPresenter
+import com.barcelona.qurio.presenter.repository.AchievementRepository
 import com.barcelona.qurio.presenter.repository.CharacterRepository
 import com.barcelona.qurio.presenter.repository.TriviaGameRepository
 import com.barcelona.qurio.presenter.repository.TriviaGameSessionRepository
@@ -48,7 +52,7 @@ object AppModule {
         triviaGameRepository: TriviaGameRepository,
         triviaGameSessionRepository: TriviaGameSessionRepository,
         userStatsRepository: UserStatsRepository,
-        volumeLevelRepository: VolumeLevelRepository
+        volumeLevelRepository: VolumeLevelRepository,
     ): StartPlayPresenter {
         return StartPlayPresenter(
             triviaGameRepository,
@@ -132,4 +136,27 @@ object AppModule {
     fun provideVolumeLevelRepository(dao: VolumeLevelDao): VolumeLevelRepository {
         return VolumeLevelRepositoryImpl(dao)
     }
+
+    @Provides
+    fun provideAchievementRepository(
+        achievementDao: AchievementDao
+    ): AchievementRepository {
+        return AchievementRepositoryImpl(
+            achievementDao = achievementDao
+        )
+    }
+
+    @Provides
+    fun provideAchievementPresenter(
+        achievementRepository: AchievementRepository,
+        triviaGameSessionRepository: TriviaGameSessionRepository,
+        userStatsRepository: UserStatsRepository
+    ): AchievementsPresenter {
+        return AchievementsPresenter(
+            achievementRepository,
+            triviaGameSessionRepository,
+            userStatsRepository
+        )
+    }
+
 }

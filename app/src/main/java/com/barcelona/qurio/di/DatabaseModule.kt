@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.barcelona.qurio.model.local.AchievementDataSource
 import com.barcelona.qurio.model.local.CharacterDataSource
 import com.barcelona.qurio.model.local.QurioDatabase
+import com.barcelona.qurio.model.local.dao.AchievementDao
 import com.barcelona.qurio.model.local.dao.CharacterGameDao
 import com.barcelona.qurio.model.local.dao.GameSessionDao
 import com.barcelona.qurio.model.local.dao.UserStatsDao
@@ -38,9 +40,12 @@ object DatabaseModule {
                         "qurio_db"
                     ).build()
 
-                    val dao = database.characterGameDao()
-                    if (dao.getAllCharacters().isEmpty())
-                        dao.insertCharacters(CharacterDataSource.baseCharacters)
+                    val characterDao = database.characterGameDao()
+                    if (characterDao.getAllCharacters().isEmpty())
+                        characterDao.insertCharacters(CharacterDataSource.baseCharacters)
+                    val achievementDao = database.achievementDao()
+                    if (achievementDao.getAllAchievements().isEmpty())
+                        achievementDao.insertAchievements(AchievementDataSource.initialAchievements)
 
                     val userStatsDao = database.userStatsDao()
                     userStatsDao.insertDefaultPreferences()
@@ -78,4 +83,11 @@ object DatabaseModule {
     fun provideVolumeLevelDao(database: QurioDatabase): VolumeLevelDao {
         return database.volumeLevelDao()
     }
+
+    @Provides
+    @Singleton
+    fun provideAchievementDao(database: QurioDatabase): AchievementDao {
+        return database.achievementDao()
+    }
+
 }
