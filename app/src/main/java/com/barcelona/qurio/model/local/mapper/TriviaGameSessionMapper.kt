@@ -18,7 +18,8 @@ fun TriviaGameSessionEntity.toModel(): TriviaGameSession {
         totalTimeSeconds = totalTimeSeconds,
         earnedCoins = earnedCoins,
         category = category,
-        playedAt = date.toLocalDate()
+        playedAt = date.toLocalDate(),
+        streakAnswers = streakAnswers
     )
 }
 
@@ -30,7 +31,8 @@ fun TriviaGameSession.toEntity(): TriviaGameSessionEntity {
         stars = stars,
         totalTimeSeconds = totalTimeSeconds,
         earnedCoins = earnedCoins,
-        category = category
+        category = category,
+        streakAnswers = streakAnswers,
     )
 }
 
