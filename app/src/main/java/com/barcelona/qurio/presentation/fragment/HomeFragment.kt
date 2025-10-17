@@ -3,7 +3,6 @@ package com.barcelona.qurio.presentation.fragment
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.findNavController
@@ -30,6 +29,7 @@ import com.barcelona.qurio.presenter.HomePresenter
 import jakarta.inject.Inject
 import java.text.NumberFormat
 import java.util.Locale
+
 @RequiresApi(Build.VERSION_CODES.O)
 
 class HomeFragment(
@@ -64,6 +64,22 @@ class HomeFragment(
         soundManager.loadSound(R.raw.coins_sound)
         soundManager.loadSound(selectedMusic)
         soundManager.playMusic(selectedMusic)
+        parentFragmentManager.setFragmentResultListener(
+            "buy_character",
+            viewLifecycleOwner
+        ) { _, bundle ->
+            val characterId = bundle.getInt("characterId")
+            showBuyCharacterDialog(characterId)
+        }
+
+        parentFragmentManager.setFragmentResultListener(
+            "character_bought",
+            viewLifecycleOwner
+        ) { _, result ->
+            presenter.selectedCharacter()
+            presenter.getTotalPoints()
+            presenter.getTotalRewards()
+        }
     }
 
     override fun onDestroyView() {
@@ -109,7 +125,8 @@ class HomeFragment(
                     findNavController().navigate(
                         HomeFragmentDirections.actionHomeFragmentToStartPlayFragment(
                             gameCard.categoryId,
-                            gameCard.title
+                            gameCard.title,
+                            difficultyLevel = levelType ?: "easy"
                         )
                     )
                 },
@@ -118,6 +135,16 @@ class HomeFragment(
                 }
             )
         }
+    }
+
+
+    private fun showBuyCharacterDialog(characterId: Int) {
+        val dialog = BuyCharacterFragment().apply {
+            arguments = Bundle().apply {
+                putInt("characterId", characterId)
+            }
+        }
+        dialog.show(parentFragmentManager, "BuyCharacterDialog")
     }
 
     private fun showNoLivesDialog() {
@@ -143,9 +170,6 @@ class HomeFragment(
             }
             appBar.settingsIcon.setOnClickListener {
                 showSettingsDialog()
-            }
-            appBar.profile.setOnClickListener {
-
             }
             settingsDialog.discardButton.setOnClickListener {
                 dismissDialog(settingsDialog.root)

@@ -20,6 +20,7 @@ import com.barcelona.qurio.presentation.sounds.SoundPlayerManager
 import com.barcelona.qurio.presentation.view.StartPlayView
 import com.barcelona.qurio.presenter.StartPlayPresenter
 import javax.inject.Inject
+
 @RequiresApi(Build.VERSION_CODES.O)
 
 class StartPlayFragment : BaseFragment<FragmentStartPlayBinding>(), StartPlayView {
@@ -43,7 +44,7 @@ class StartPlayFragment : BaseFragment<FragmentStartPlayBinding>(), StartPlayVie
         soundManager = (requireActivity().application as QurioApp).soundPlayerManager
         startPlayPresenter.attachView(this)
         errorBinding = NoInternetScreenBinding.bind(binding.errorLayout)
-        startPlayPresenter.getQuestions(args.categoryId, args.categoryName)
+        startPlayPresenter.getQuestions(args.categoryId, args.categoryName, args.difficultyLevel)
         startPlayPresenter.getTotalLives()
         startPlayPresenter.getMusicVolumeLevel()
         startPlayPresenter.getSoundVolumeLevel()
@@ -65,7 +66,11 @@ class StartPlayFragment : BaseFragment<FragmentStartPlayBinding>(), StartPlayVie
             findNavController().navigateUp()
         }
         errorBinding.retryButton.setOnClickListener {
-            startPlayPresenter.getQuestions(args.categoryId, args.categoryName)
+            startPlayPresenter.getQuestions(
+                args.categoryId,
+                args.categoryName,
+                args.difficultyLevel
+            )
         }
     }
 
@@ -159,7 +164,12 @@ class StartPlayFragment : BaseFragment<FragmentStartPlayBinding>(), StartPlayVie
 
     override fun onGameSessionSaved(session: TriviaGameSession) {
         val action = StartPlayFragmentDirections
-            .actionStartPlayFragmentToResultPlayFragment(session, args.categoryId, args.categoryName)
+            .actionStartPlayFragmentToResultPlayFragment(
+                session,
+                args.categoryId,
+                args.categoryName,
+                args.difficultyLevel
+            )
         findNavController().navigate(action)
     }
 

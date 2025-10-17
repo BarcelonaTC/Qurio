@@ -109,7 +109,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginHorizontal="12dp"
                 android:layout_marginBottom="36dp"
-                android:text="@string/ok" />
+                app:secondaryText="@string/ok" />
 
         </com.barcelona.qurio.presentation.custom_view.Dialog>
     </androidx.constraintlayout.widget.ConstraintLayout>

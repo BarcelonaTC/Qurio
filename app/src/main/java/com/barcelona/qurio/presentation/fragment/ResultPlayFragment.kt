@@ -32,7 +32,8 @@ class ResultPlayFragment : BaseFragment<FragmentResultPlayBinding>() {
             findNavController().navigate(
                 ResultPlayFragmentDirections.actionResultPlayFragmentToStartPlayFragment(
                     args.categoryId,
-                    args.categoryName
+                    args.categoryName,
+                    args.difficultyLevel
                 )
             )
         }

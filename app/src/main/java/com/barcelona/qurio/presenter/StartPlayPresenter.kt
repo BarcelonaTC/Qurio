@@ -44,10 +44,10 @@ class StartPlayPresenter @Inject constructor(
         )
     }
 
-    fun getQuestions(categoryId: Int, categoryName: String) {
+    fun getQuestions(categoryId: Int, categoryName: String, difficulty: String) {
         categoryTitle = categoryName
         tryToCall(
-            block = { triviaGameRepository.fetchQuestions(12, "easy", "multiple", categoryId) },
+            block = { triviaGameRepository.fetchQuestions(12, difficulty, "multiple", categoryId) },
             onStart = { view?.showLoading() },
             onSuccess = ::onQuestionsSuccess,
             onError = ::handleError,
