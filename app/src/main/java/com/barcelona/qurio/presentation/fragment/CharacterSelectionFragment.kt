@@ -39,6 +39,7 @@ class CharacterSelectionFragment : BaseDialogFragment<CharactersSelectionBinding
         setTitle(false)
         presenter.attachView(this)
         setupRecyclerView()
+        binding.confirmButton.setText("Confirm")
         presenter.getSelectedCharacter()
         presenter.loadCharacters()
         binding.confirmButton.setOnClickListener {
