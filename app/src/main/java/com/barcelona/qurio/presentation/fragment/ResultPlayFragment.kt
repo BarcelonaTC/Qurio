@@ -45,5 +45,38 @@ class ResultPlayFragment : BaseFragment<FragmentResultPlayBinding>() {
             correctAnswers = session.correctAnswers,
             totalQuestions = session.correctAnswers + session.wrongAnswers + session.skippedAnswers
         )
+        evaluateGameOutcome(
+            correctAnswers = session.correctAnswers,
+            totalQuestions = session.correctAnswers + session.wrongAnswers + session.skippedAnswers,
+            handleWin = {
+                binding.share.setText("Share win with friends")
+            },
+            handleLoss = {
+                binding.share.setText("Share disappointment with friends")
+            })
+
+    }
+
+    fun evaluateGameOutcome(
+        correctAnswers: Int,
+        totalQuestions: Int,
+        handleWin: () -> Unit,
+        handleLoss: () -> Unit
+    ) {
+        if (totalQuestions == 0) return
+
+        val ratio = correctAnswers.toFloat() / totalQuestions
+        val stars = when {
+            ratio >= 1f -> 3
+            ratio >= 0.66f -> 2
+            ratio >= 0.33f -> 1
+            else -> 0
+        }
+
+        if (stars >= 1) {
+            handleWin()
+        } else {
+            handleLoss()
+        }
     }
 }
