@@ -19,6 +19,7 @@ interface UserStatsDao {
     suspend fun insertDefaultPreferences() {
         insert(UserStatsEntity())
     }
+
     @Query("UPDATE user_stats SET lives = :lives WHERE id = 1")
     suspend fun updateLives(lives: Int)
 
@@ -39,4 +40,10 @@ interface UserStatsDao {
 
     @Query("UPDATE user_stats SET points = points + :amount WHERE id = 1")
     suspend fun increasePoints(amount: Int)
+
+    @Query("UPDATE user_stats SET lastLifeLostTime = :timestamp WHERE id = 1")
+    suspend fun updateLastLifeLostTime(timestamp: Long)
+
+    @Query("SELECT lastLifeLostTime FROM user_stats WHERE id = 1")
+    suspend fun getLastLifeLostTime(): Long
 }

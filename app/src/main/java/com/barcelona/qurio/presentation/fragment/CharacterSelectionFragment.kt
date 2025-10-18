@@ -39,6 +39,7 @@ class CharacterSelectionFragment : BaseDialogFragment<CharactersSelectionBinding
         setTitle(false)
         presenter.attachView(this)
         setupRecyclerView()
+        binding.confirmButton.setText("Confirm")
         presenter.getSelectedCharacter()
         presenter.loadCharacters()
         binding.confirmButton.setOnClickListener {
@@ -92,6 +93,10 @@ class CharacterSelectionFragment : BaseDialogFragment<CharactersSelectionBinding
                     putInt("characterId", character.id)
                 }
             }
+            parentFragmentManager.setFragmentResult(
+                "character_selected",
+                Bundle().apply { putInt("characterId", currentCharacter.id) }
+            )
             dismiss()
             dialog.show(parentFragmentManager, "CharacterDetailFragment")
         }

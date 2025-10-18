@@ -11,4 +11,6 @@ interface UserStatsRepository {
     suspend fun increaseLives(amount: Int)
     suspend fun decreaseLives(amount: Int)
     suspend fun updateRewards(rewards: Int)
+    suspend fun saveLastLifeLostTime(timestamp: Long)
+    suspend fun getLastLifeLostTime(): Long
 }
