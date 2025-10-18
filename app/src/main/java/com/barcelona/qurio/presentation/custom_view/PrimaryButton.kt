@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
+import androidx.core.graphics.withClip
 import com.barcelona.qurio.R
 import com.barcelona.qurio.databinding.PrimaryButtonBinding
 
@@ -84,16 +85,15 @@ class PrimaryButton @JvmOverloads constructor(
         val path = Path()
         path.addRoundRect(rect, radius, radius, Path.Direction.CW)
 
-        canvas.save()
-        canvas.clipPath(path)
-        canvas.drawRect(
-            0f,
-            height - gradientHeight,
-            width.toFloat(),
-            height.toFloat(),
-            gradientPaint
-        )
-        canvas.restore()
+        canvas.withClip(path) {
+            drawRect(
+                0f,
+                height - gradientHeight,
+                width.toFloat(),
+                height.toFloat(),
+                gradientPaint
+            )
+        }
     }
 
     fun setButtonEnabled(enabled: Boolean) {
