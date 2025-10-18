@@ -184,29 +184,25 @@ class StartPlayPresenter @Inject constructor(
         }
     }
 
-    private fun calculatePoints(): Int {
+    private fun calculatePoints(currentPoints: Int): Int {
         if (calculateStars() == 0) {
-            return when (correctCount) {
-                //TODO this is real logic , but commented for test
-//                in 1..2 -> Random.nextInt(5, 12)
-//                3 -> Random.nextInt(15, 30)
-//                else -> -Random.nextInt(10, 15)
-                in 1..2 -> Random.nextInt(100, 400)
-                3 -> Random.nextInt(400, 500)
-                else -> Random.nextInt(50, 100)
+            val loss = when (correctCount) {
+                in 1..2 -> -Random.nextInt(5, 12)
+                3 -> -Random.nextInt(15, 30)
+                else -> -Random.nextInt(10, 15)
             }
+            return if (currentPoints + loss < 0) -currentPoints else loss
         }
-
         var earned = 0
         repeat(correctCount) {
-            //  earned += Random.nextInt(8, 20)
             earned += Random.nextInt(500, 1000)
         }
         return earned
     }
 
-    private fun handleLivesAfterGame() {
-        if (calculateStars() == 0) {
+    private fun handleLivesAfterGame(oldPoints: Int, newPoints: Int) {
+        if (calculateStars() == 0 && oldPoints > 0 && newPoints == 0) return
+        if (calculateStars() == 0 && oldPoints == 0 && newPoints == 0) {
             tryToCall(
                 block = { userStatsRepository.decreaseLives(1) },
                 onSuccess = { getTotalLives() },
@@ -217,42 +213,56 @@ class StartPlayPresenter @Inject constructor(
 
     private fun saveGameSession() {
         val skipped = (questions.size - (correctCount + wrongCount))
-        val earnedPoints = calculatePoints()
-        val session = TriviaGameSession(
+
+        tryToCall(
+            block = {
+                val currentPoints = userStatsRepository.getPreferences().points
+                val delta = calculatePoints(currentPoints)
+                val newPoints = updateUserPoints(currentPoints, delta)
+                val session = buildGameSession(skipped, delta)
+
+                persistSessionAndAchievements(session)
+
+                Triple(session, currentPoints, newPoints)
+            },
+            onSuccess = { (session, currentPoints, newPoints) ->
+                view?.onGameSessionSaved(session)
+                handleLivesAfterGame(currentPoints, newPoints)
+                getTotalLives()
+            },
+            onError = { view?.showError(it) }
+        )
+    }
+
+    private suspend fun updateUserPoints(currentPoints: Int, delta: Int): Int {
+        val newPoints = (currentPoints + delta).coerceAtLeast(0)
+
+        if (delta > 0) {
+            userStatsRepository.increasePoints(delta)
+        } else if (delta < 0) {
+            userStatsRepository.decreasePoints(abs(delta))
+        }
+
+        return newPoints
+    }
+
+    private fun buildGameSession(skipped: Int, delta: Int): TriviaGameSession {
+        return TriviaGameSession(
             correctAnswers = correctCount,
             wrongAnswers = wrongCount,
             skippedAnswers = skipped,
             stars = calculateStars(),
             totalTimeSeconds = totalTimeSeconds.toInt(),
-            earnedCoins = earnedPoints,
+            earnedCoins = delta,
             category = categoryTitle,
             streakAnswers = maxStreakAnswer
         )
-        tryToCall(
-            block = {
-                gameSessionRepository.insertSession(session)
-                updateUserPoints(earnedPoints)
-                calculatedAchievementsOfUser()
-            },
-            onStart = {},
-            onSuccess = {
-                view?.onGameSessionSaved(session)
-                handleLivesAfterGame()
-
-            },
-            onError = { view?.showError(it) },
-            onEnd = {}
-        )
     }
 
-    private suspend fun updateUserPoints(points: Int) {
-        if (points > 0) {
-            userStatsRepository.increasePoints(points)
-        } else {
-            userStatsRepository.decreasePoints(abs(points))
-        }
+    private suspend fun persistSessionAndAchievements(session: TriviaGameSession) {
+        gameSessionRepository.insertSession(session)
+        calculatedAchievementsOfUser()
     }
-
 
     private suspend fun calculatedAchievementsOfUser() {
         val gamesSession = gameSessionRepository.getAllSessions()
@@ -354,12 +364,13 @@ class StartPlayPresenter @Inject constructor(
     }
 
     private suspend fun updateAchievements() {
-        val unlockedAchievementCount = achievementRepository.getAllAchievements().filter { it.isLocked.not() }.size
+        val unlockedAchievementCount =
+            achievementRepository.getAllAchievements().filter { it.isLocked.not() }.size
         userStatsRepository.updateRewards(unlockedAchievementCount)
     }
 
-    private fun handleError(error: Throwable){
-        when(error){
+    private fun handleError(error: Throwable) {
+        when (error) {
             is UnknownHostException -> view?.showError(error)
             else -> view?.showError(error)
         }

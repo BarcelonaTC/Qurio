@@ -122,6 +122,16 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <com.barcelona.qurio.presentation.custom_view.ScoreIndicatorView
+                    android:id="@+id/scoreIndicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    app:layout_constraintBottom_toBottomOf="@+id/answersContainer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout3"
@@ -150,16 +160,7 @@
                         app:secondaryText="@string/skip" />
                 </LinearLayout>
 
-                <com.barcelona.qurio.presentation.custom_view.ScoreIndicatorView
-                    android:id="@+id/scoreIndicator"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    app:layout_constraintBottom_toBottomOf="@+id/answersContainer"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout

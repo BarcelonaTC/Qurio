@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Qurio" parent="carbon_Theme.Light.NoActionBar">
         <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">@color/surface</item>
         <item name="android:windowBackground">@color/surface</item>
     </style>
 

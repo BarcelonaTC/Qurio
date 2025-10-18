@@ -92,6 +92,10 @@ class CharacterSelectionFragment : BaseDialogFragment<CharactersSelectionBinding
                     putInt("characterId", character.id)
                 }
             }
+            parentFragmentManager.setFragmentResult(
+                "character_selected",
+                Bundle().apply { putInt("characterId", currentCharacter.id) }
+            )
             dismiss()
             dialog.show(parentFragmentManager, "CharacterDetailFragment")
         }

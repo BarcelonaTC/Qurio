@@ -51,17 +51,19 @@ class HomeFragment(
     @Inject
     lateinit var achievementsPresenter: AchievementsPresenter
     private lateinit var achievementAdapter: AchievementAdapter
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initPresenters()
+        initSound()
+        initUI()
+        initListeners()
+    }
+
+    private fun initPresenters() {
         presenter.attachView(this)
         achievementsPresenter.attachView(this)
         presenter.getSoundVolumeLevel()
         presenter.getMusicVolumeLevel()
-        setStreak(this.context)
-        setLastGames(this.context)
-        setupGameCardPager()
-        setInteractionListener()
         presenter.updateStreak()
         presenter.getStreak()
         presenter.getTotalPoints()
@@ -70,10 +72,25 @@ class HomeFragment(
         presenter.getLastGames()
         presenter.getTotalRewards()
         presenter.selectedCharacter()
+        achievementsPresenter.getAllAchievements()
+    }
+
+    private fun initSound() {
         soundManager.loadSound(R.raw.coins_sound)
         soundManager.loadSound(selectedMusic)
         soundManager.playMusic(selectedMusic)
-        presenter.attachView(this)
+    }
+
+    private fun initUI() {
+        setStreak(context)
+        setLastGames(context)
+        setupGameCardPager()
+        setupAchievementRecyclerView()
+    }
+
+    private fun initListeners() {
+        setInteractionListener()
+
         parentFragmentManager.setFragmentResultListener(
             "buy_character",
             viewLifecycleOwner
@@ -85,13 +102,18 @@ class HomeFragment(
         parentFragmentManager.setFragmentResultListener(
             "character_bought",
             viewLifecycleOwner
-        ) { _, result ->
+        ) { _, _ ->
             presenter.selectedCharacter()
             presenter.getTotalPoints()
             presenter.getTotalRewards()
         }
-        achievementsPresenter.getAllAchievements()
-        setupAchievementRecyclerView()
+
+        parentFragmentManager.setFragmentResultListener(
+            "character_selected",
+            viewLifecycleOwner
+        ) { _, _ ->
+            presenter.selectedCharacter()
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -99,6 +121,7 @@ class HomeFragment(
         (requireActivity().application as QurioApp).appComponent.inject(this)
         soundManager = (requireActivity().application as QurioApp).soundPlayerManager
     }
+
     override fun onDestroyView() {
         presenter.detachView()
         achievementsPresenter.detachView()
@@ -345,7 +368,7 @@ class HomeFragment(
     }
 
     private fun setupAchievementRecyclerView() {
-        achievementAdapter = AchievementAdapter(emptyList()){ achievementId ->
+        achievementAdapter = AchievementAdapter(emptyList()) { achievementId ->
             onAchievementClick(achievementId)
         }
         binding.achievementDialog.achievementsRecyclerView.apply {
@@ -370,18 +393,18 @@ class HomeFragment(
 
     override fun showCurrentAchievement(achievement: Achievement) {
 
-        if (achievement.isLocked){
-            binding.achievementInfoDialog.okButton.visibility  = View.VISIBLE
+        if (achievement.isLocked) {
+            binding.achievementInfoDialog.okButton.visibility = View.VISIBLE
             binding.achievementInfoDialog.buttonContainer.visibility = View.GONE
-        }else {
-            binding.achievementInfoDialog.okButton.visibility  = View.GONE
+        } else {
+            binding.achievementInfoDialog.okButton.visibility = View.GONE
             binding.achievementInfoDialog.buttonContainer.visibility = View.VISIBLE
         }
 
         val imageRes = if (achievement.isLocked) achievement.lockedImage
         else achievement.imageRes
 
-        with(binding.achievementInfoDialog){
+        with(binding.achievementInfoDialog) {
             achievementTitle.text = achievement.title
             achievementDescription.text = achievement.description
             achievementImage.setImageResource(imageRes)

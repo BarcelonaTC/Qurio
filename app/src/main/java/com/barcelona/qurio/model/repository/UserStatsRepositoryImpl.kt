@@ -26,11 +26,19 @@ class UserStatsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun decreaseLives(amount: Int) {
-      dao.decreaseLives(amount)
+        dao.decreaseLives(amount)
     }
 
     override suspend fun updateRewards(rewards: Int) {
         dao.updateRewards(rewards)
+    }
+
+    override suspend fun saveLastLifeLostTime(timestamp: Long) {
+        dao.updateLastLifeLostTime(timestamp)
+    }
+
+    override suspend fun getLastLifeLostTime(): Long {
+        return dao.getLastLifeLostTime()
     }
 
     override suspend fun increasePoints(amount: Int) {
