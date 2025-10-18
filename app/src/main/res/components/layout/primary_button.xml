@@ -11,17 +11,26 @@
             android:layout_height="match_parent"
             android:background="@drawable/primary_button_bg"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp">
 
             <TextView
                 android:id="@+id/textViewLabel"
                 style="@style/PrimaryButtonText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/submit" />
+
+            <ImageView
+                android:id="@+id/iconView"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/share_with_friends"
+                android:src="@drawable/ic_share"
+                android:visibility="gone" />
+
         </LinearLayout>
-
-
     </FrameLayout>
 </merge>

@@ -22,16 +22,18 @@ class PrimaryButton @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
-    private val binding: PrimaryButtonBinding =
-        PrimaryButtonBinding.inflate(LayoutInflater.from(context), this)
-
+    private val binding: PrimaryButtonBinding
     private var isCustomEnabled = true
     private val gradientPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var onPrimaryColor = ContextCompat.getColor(context, R.color.on_primary)
-    val startColor = ColorUtils.setAlphaComponent(onPrimaryColor, 130)
+    private val startColor = ColorUtils.setAlphaComponent(onPrimaryColor, 130)
+
     init {
         orientation = VERTICAL
         setWillNotDraw(false)
+
+        val inflater = LayoutInflater.from(context)
+        binding = PrimaryButtonBinding.inflate(inflater, this)
 
         if (attrs != null) {
             val typedArray = context.obtainStyledAttributes(attrs, R.styleable.PrimaryButton)
@@ -43,19 +45,25 @@ class PrimaryButton @JvmOverloads constructor(
 
                 val textValue = typedArray.getString(R.styleable.PrimaryButton_primaryText)
                     ?: context.getString(R.string.submit)
-
                 binding.textViewLabel.text = textValue
                 setButtonEnabled(isCustomEnabled)
+
+                val iconResId = typedArray.getResourceId(R.styleable.PrimaryButton_iconEnd, 0)
+                if (iconResId != 0) {
+                    binding.iconView.setImageResource(iconResId)
+                    binding.iconView.visibility = VISIBLE
+                } else {
+                    binding.iconView.visibility = GONE
+                }
+
             } finally {
                 typedArray.recycle()
             }
         }
     }
 
-
     override fun dispatchDraw(canvas: Canvas) {
         super.dispatchDraw(canvas)
-
         if (!isCustomEnabled) return
 
         val gradientHeight = height * 0.30f
@@ -85,7 +93,6 @@ class PrimaryButton @JvmOverloads constructor(
             height.toFloat(),
             gradientPaint
         )
-
         canvas.restore()
     }
 
