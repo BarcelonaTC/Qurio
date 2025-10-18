@@ -25,6 +25,7 @@
     <declare-styleable name="PrimaryButton">
         <attr name="primaryButtonEnabled" format="boolean" />
         <attr name="primaryText" format="string" />
+        <attr name="iconEnd" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="CustomTimeComponent">
